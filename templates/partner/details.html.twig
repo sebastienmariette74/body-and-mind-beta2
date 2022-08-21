@@ -4,85 +4,118 @@
 {% include "_flash.html.twig" %}
 {% endblock %}
 
-{% block title %}Détails du partenaire : {{ partner.name }}
-{% endblock %}
+{% block title %}Détails du partenaire : {{ partner.name }}{% endblock %}
+{% block PageTitle %}Détails du partenaire : {{ partner.name }}{% endblock %}
 
 {% block body %}
-<h1>Détails du partenaire : {{ partner.name }}
-</h1>
-{% if is_granted('ROLE_ADMIN') %}
-{# <button type="submit"><a href="#">Ajouter une structure</a></button> #}
-<button type="submit"><a href="{{ path('partners_add_structure', {slug : partner.slug}) }}">Ajouter une
-        structure</a></button>
-{% endif %}
-<br>
+{# {% if is_granted('ROLE_ADMIN') %} #}
+<a class="btn btn-success" href="{{ path('partners_add_structure', {slug : partner.slug}) }}">Ajouter une
+        structure</a>
+{# {% endif %} #}
+
 {# {% if app.user.isVerified or is_granted('ROLE_ADMIN') %} #}
-{{ partner.address }}
-<hr>
 
-{% for structure in structures %}
-<div>
-    <a href="{{ path('structures_details', {slug: structure.slug}) }}">
-        {{ structure.name}}
-        <br>
-        {{ structure.address}}
-        <br>
-    </a>
-    {% if is_granted('ROLE_ADMIN') %}
-    <a href="{{ path('structures_edit', {slug : structure.slug}) }}">Modifier</a>
-    <button type="button" class="btn btn-danger modal-trigger" data-bs-toggle="modal" data-bs-target="#staticBackdrop"
-        data-name="{{ structure.name }}" data-slug="{{ structure.slug }}" data-id="{{ structure.id }}">
-        Supprimer
-    </button>
+<div class="row justify-content-center">
 
-    {# <button class="btn rounded-1 primary btn-small modal-trigger" data-target="modal-delete"
-        data-name="{{ structure.name }}" data-slug="{{ structure.slug }}"
-        data-id="{{ structure.id }}">Supprimer</button> #}
-    {% endif %}
+    {% for structure in structures %}
+        <div class="card col-3  m-3" style="width: 18rem;">
+            {# <img src="..." class="card-img-top" alt="..."> #}
+            <div class="card-body">
+                <h5 class="card-title">
+                    <a href="{{ path('structures_details', {slug: structure.slug}) }}">
+                        {{ structure.name}}
+                    </a>
+                </h5>
+                <p class="card-text">
+                    {{ structure.address}} <br>
+                    {{ structure.zipcode}} <br>
+                    {{ structure.city}}
+                </p>
+                
+                {# {% if is_granted('ROLE_ADMIN') %} #}
+                <a class="btn btn-warning" href="{{ path('structures_edit', {slug : structure.slug}) }}">Modifier</a>
+
+                <button 
+                    type="button" 
+                    class="btn btn-danger modal-trigger" 
+                    data-bs-toggle="modal" 
+                    data-bs-target="#staticBackdrop"
+                    data-name="{{ structure.name }}" 
+                    data-slug="{{ structure.slug }}" 
+                    data-id="{{ structure.id }}"
+                >
+                    Supprimer
+                </button>
+
+                {# <button class="btn rounded-1 primary btn-small modal-trigger" data-target="modal-delete"
+                    data-name="{{ structure.name }}" data-slug="{{ structure.slug }}"
+                    data-id="{{ structure.id }}">Supprimer</button> #}
+                {# {% endif %} #}
 
 
 
-    {% if structure.isActivated %}
-    {% set checked = 'checked' %}
-    {% else %}
-    {% set checked = '' %}
-    {% endif %}
+                {% if structure.isActivated %}
+                {% set checked = 'checked' %}
+                {% else %}
+                {% set checked = '' %}
+                {% endif %}
 
-    <div class="form-check form-switch">
-        <input class="form-check-input activate-user" type="checkbox" role="switch" {{ checked }} data-role="{{ role }}"
-            data-id="{{ structure.id }}" data-slug="{{ structure.slug }}">
-    </div>
+                <div class="form-check form-switch">
+                    <input class="form-check-input activate-user" type="checkbox" role="switch" {{ checked }} data-role="{{ role }}"
+                        data-id="{{ structure.id }}" data-slug="{{ structure.slug }}">
+                </div>
 
-    {# <form class="form-material">
-        <div class="form-field form-default">
-            <label class="form-switch mt-2">
-                <input class="activate-user" type="checkbox" {{ checked }} data-role="{{ role }}"
-                    data-id="{{ structure.id }}" data-slug="{{ structure.slug }}">
-                <span class="form-slider"></span>
-            </label>
+                {# <form class="form-material">
+                    <div class="form-field form-default">
+                        <label class="form-switch mt-2">
+                            <input class="activate-user" type="checkbox" {{ checked }} data-role="{{ role }}"
+                                data-id="{{ structure.id }}" data-slug="{{ structure.slug }}">
+                            <span class="form-slider"></span>
+                        </label>
+                    </div>
+                </form> #}
+            </div>
         </div>
-    </form> #}
+    {% endfor %}
 </div>
-{% endfor %}
 <div>
     <h2>Permissions globales</h2>
     {% for module in modules %}
     <div>
         {{ module.module }}
+
         {% if module.is_activated %}
         {% set checked = 'checked' %}
         {% else %}
         {% set checked = '' %}
         {% endif %}
-        <form class="form-material">
+
+        <div class="form-check form-switch">
+            <input 
+                class="form-check-input activate-module"
+                type="checkbox" 
+                role="switch" 
+                {{ checked }} 
+                {# data-role="{{ role }}" #}
+                data-idmodule="{{ module.id_module }}" 
+                data-slug="{{ partner.slug }}"
+            >
+        </div>
+
+        {# <form class="form-material">
             <div class="form-field form-default">
                 <label class="form-switch mt-2">
-                    <input class="activate-module" type="checkbox" {{ checked }} {# data-role="{{ role }}" #}
-                        data-idmodule="{{ module.id_module }}" data-slug="{{ partner.slug }}">
+                    <input class="activate-module" 
+                    type="checkbox" 
+                    {{ checked }} 
+                    data-role="{{ role }}"
+                    data-idmodule="{{ module.id_module }}" 
+                    data-slug="{{ partner.slug }}"
+                    >
                     <span class="form-slider"></span>
                 </label>
             </div>
-        </form>
+        </form> #}
     </div>
     {% endfor %}
 

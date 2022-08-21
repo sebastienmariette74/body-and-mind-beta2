@@ -31,13 +31,13 @@ window.onload = () => {
 
     for (let button of activateUser) {
         button.addEventListener("click", (event) => {
-        if (button.dataset.role === "admin") {
+        // if (button.dataset.role === "admin") {
             let xmlhttp = new XMLHttpRequest();
             xmlhttp.open("get", `${button.dataset.slug}/active-user`);
             xmlhttp.send();
-        } else {
-            event.preventDefault();
-        }
+        // } else {
+        //     event.preventDefault();
+        // }
         });
     }
 
@@ -45,16 +45,14 @@ window.onload = () => {
 
     for (let button of activateModule) {
         button.addEventListener("click", (event) => {
-        if (button.dataset.role === "admin") {
+        // if (button.dataset.role === "admin") {
+            console.log('ok');
             let xmlhttp = new XMLHttpRequest();
-            xmlhttp.open(
-            "get",
-            `${button.dataset.slug}/${button.dataset.idmodule}/active-module`
-            );
+            xmlhttp.open("get", `${button.dataset.slug}/${button.dataset.idmodule}/active-module`);
             xmlhttp.send();
-        } else {
-            event.preventDefault();
-        }
+        // } else {
+        //     event.preventDefault();
+        // }
         });
     }
 

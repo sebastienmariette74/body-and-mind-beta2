@@ -116,18 +116,18 @@ class PartnerController extends AbstractController
             $structures = $this->userRepository->findAllStructureByPartner($userId);
             $modules = $this->userModuleRepository->findModulesByUser($userId);
             
-            // if ($this->isGranted('ROLE_ADMIN')) {
-            //     $role = "admin";
-            // } else {
-            //     $role = "";
-            // }        
+            if ($this->isGranted('ROLE_ADMIN')) {
+                $role = "admin";
+            } else {
+                $role = "";
+            }        
             
             return $this->render('partner/details.html.twig',  [
                 'current_menu' => 'partner',
                 'partner' => $partner,
                 'structures' => $structures,
                 'modules' => $modules,
-                // 'role' => $role,
+                'role' => $role,
             ]);
         // } else {
         //     return $this->render('bundles/TwigBundle/Exception/error404.html.twig');
@@ -147,10 +147,10 @@ class PartnerController extends AbstractController
         UserModuleRepository $userModuleRepository
     ): Response
     {
-        $this->denyAccessUnlessGranted('ROLE_ADMIN');
+        // $this->denyAccessUnlessGranted('ROLE_ADMIN');
 
         $structure = new User();
-        $form = $this->createForm(RegisterStructureType::class, $structure);          
+        $form = $this->createForm(RegistrationType::class, $structure);          
         $form->remove('slug');
         $form->remove('partner');
 
@@ -220,7 +220,7 @@ class PartnerController extends AbstractController
     #[Route('/{slug}/active-user', name: 'activate_user')]
     public function activateUser (User $partner): Response
     {
-        $this->denyAccessUnlessGranted('ROLE_ADMIN');
+        // $this->denyAccessUnlessGranted('ROLE_ADMIN');
 
         // dd($partner);
 

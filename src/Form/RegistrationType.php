@@ -93,13 +93,16 @@ class RegistrationType extends AbstractType
                 'class' => User::class,
                 'label' => 'Partenaire',
                 'choice_label' => function(User $user){
-                    return ' * ' . $user->getName();
+                    return $user->getName();
                 },
                 'query_builder' => function(UserRepository $userRepo){
                     $qb = $userRepo->createQueryBuilder('u');
                     return $qb->where('u.partner is null')
                     ;
                 },
+                'attr' => [
+                    'class' => 'form-select'
+                ],
             ])
         ;
     }
