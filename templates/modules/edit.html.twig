@@ -1,0 +1,16 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Modifier un module{% endblock %}
+
+{% block body %}
+<h1>Modifier le module : {{ module.name }}</h1>
+<div>
+    {{ form_start(form) }}
+        {{ form_row(form.name) }}
+        <button type="submit" class="btn">Modifier</button>
+    {{ form_end(form) }}
+</div>
+<hr>
+
+
+{% endblock %}

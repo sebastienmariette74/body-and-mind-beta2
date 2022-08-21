@@ -1,0 +1,23 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Enregistrement d'une structure pour le partenaire : {{ partner.name }}{% endblock %}
+
+{% block body %}
+<h1>Enregistrement d'une structure pour le partenaire : {{ partner.name }}</h1>
+{{ form_start(form) }}
+    {{ form_row(form.name) }}
+    {{ form_row(form.email) }}
+    {{ form_row(form.address) }}
+    {{ form_row(form.zipcode) }}
+    {{ form_row(form.city) }}
+    {{ form_row(form.isActivated) }}
+    {# {{ form_row(form.partner) }} #}
+    {{ form_row(form.plainPassword, {
+        label: 'Mot de passe'
+        }) 
+    }}
+
+    <button type="submit" class="btn">Enregistrer</button>
+{{ form_end(form) }}
+
+{% endblock %}

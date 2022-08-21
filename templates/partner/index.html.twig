@@ -1,0 +1,80 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Les partenaires{% endblock %}
+
+{% block PageTitle %}Les partenaires{% endblock %}
+
+{% block body %}
+<div>
+    {# <button class="btn btn-primary"><a href="{{ path('partners_') }}">TOUT</a></button> #}
+    <a class="btn btn-primary" href="{{ path('partners_') }}">TOUT</a>
+    <a class="btn btn-primary" href="{{ path('partners_activated') }}">ACTIVES</a>
+    <a class="btn btn-primary" href="{{ path('partners_disabled') }}">DESACTIVES</a>
+    {# <button><a href="{{ path('partners_activated') }}">ACTIVES</a></button> #}
+    {# <button><a href="{{ path('partners_disabled') }}">DESACTIVES</a></button> #}
+
+    <a class="btn btn-primary" href="{{ path('app_register_partner') }}">Ajouter un partenaire</a>
+
+    <div class="row justify-content-center">
+        {% for partner in partners %}
+            <div class="card col-3  m-3" style="width: 18rem;">
+                {# <img src="..." class="card-img-top" alt="..."> #}
+                <div class="card-body">
+                    
+                    <h5 class="card-title">
+                        <a href="{{ path('partners_details', {slug : partner.slug}) }}">{{ partner.name }}</a>
+                    </h5>
+                    {# <p class="card-text">Some quick example text to build on the card title and make up the bulk of
+                        the card's content.</p> #}
+                    <a class="btn btn-dark" href="{{ path('partners_edit', {slug : partner.slug}) }}">Modifier</a>
+
+                    <button 
+                        type="button" 
+                        class="btn btn-danger modal-trigger" 
+                        data-bs-toggle="modal" 
+                        data-bs-target="#staticBackdrop" 
+                        data-name="{{ partner.name }}" 
+                        data-slug="{{ partner.slug }}"
+                        data-id="{{ partner.id }}"
+                    >
+                        Supprimer
+                    </button>
+
+                    {% if partner.isActivated %}
+                    {% set checked = 'checked' %}
+                    {% else %}
+                    {% set checked = '' %}
+                    {% endif %}
+
+                    <div class="form-check form-switch">
+                        <input class="form-check-input activate-user" type="checkbox" role="switch" {{ checked }}
+                            data-role="{{ role }}" data-slug="{{ partner.slug }}">
+                    </div>
+
+
+                </div>
+            </div>
+
+            {# <a href="{{ path('partners_details', {slug : partner.slug}) }}">{{ partner.name }}</a> #}
+         
+        {% endfor %}
+        <!-- Modal -->
+        <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+            aria-labelledby="staticBackdropLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                    </div>
+                    <div class="modal-footer">
+                        <a class="btn btn-primary" href="">VALIDER</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+{% endblock %}

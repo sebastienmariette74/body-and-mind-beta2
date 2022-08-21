@@ -1,0 +1,33 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Modules{% endblock %}
+
+{% block PageTitle %}Liste des modules{% endblock %}
+
+{% block body %}
+<a href="{{ path('modules_add') }}" class="btn btn-primary">Ajouter un module</a>
+{% for module in modules %}
+    <div>
+        {{ module.name }} - 
+        <a href="{{ path('modules_edit', {'id' : module.id} ) }}">Modifier</a> -
+        <button class="btn rounded-1 primary btn-small modal-trigger" data-target="modal-delete" data-name="{{ module.name }}"
+            data-slug="{{ module.slug }}" data-id="{{ module.id }}">Supprimer</button>
+    </div>
+{% endfor %}
+<div class="modal shadow-1 white modal-falling" id="modal-delete" data-ax="modal">
+    {# <div class="modal-header">Header</div>
+
+    <div class="divider"></div> #}
+
+    <div class="modal-content">
+    </div>
+
+    <div class="divider"></div>
+
+    <div class="modal-footer">
+        <button class="btn red rounded-1 btn-small"><a href="">VALIDER</a></button>
+        {# <a href="" class="btn red rounded-1 btn-small">VALIDER</a> #}
+        <button data-target="modal-delete" class=" btn shadow-1 rounded-1 btn-small primary">ANNULER</button>
+    </div>
+</div>
+{% endblock %}
