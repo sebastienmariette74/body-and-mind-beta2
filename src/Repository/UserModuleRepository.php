@@ -39,6 +39,64 @@ class UserModuleRepository extends ServiceEntityRepository
         }
     }
 
+    public function findModulesByUser($id): array
+    {
+        return $this->createQueryBuilder('m')
+            ->select('u.id, mod.id as id_module, mod.name as module, mod.slug, m.is_activated')
+            // ->select('u.id, u.slug, u.name as user, mod.name as Module, mod.slugModule, m.is_activated')
+            ->innerJoin('m.user', 'u')
+            ->innerJoin('m.module', 'mod')
+            ->where('u.id = :id')   
+            ->setParameter('id', $id)
+            ->getQuery()
+            ->getResult()
+       ;
+    }
+    public function findUserModulesByUser($id): array
+    {
+        return $this->createQueryBuilder('m')
+            // ->select('u.id, mod.id as id_module, mod.name as module, mod.slug, m.is_activated')
+            // ->select('u.id, u.slug, u.name as user, mod.name as Module, mod.slugModule, m.is_activated')
+            ->innerJoin('m.user', 'u')
+            ->innerJoin('m.module', 'mod')
+            ->where('u.id = :id')   
+            ->setParameter('id', $id)
+            ->getQuery()
+            ->getResult()
+       ;
+    }
+    public function findAllModules(): array
+    {
+        return $this->createQueryBuilder('m')
+            // ->select('u.id, mod.id as id_module, mod.name as Module, mod.slugModule, m.is_activated')
+            // ->select('u.id, u.slug, u.name as user, mod.name as Module, mod.slugModule, m.is_activated')
+            ->innerJoin('m.user', 'u')
+            ->innerJoin('m.module', 'mod')
+            // ->where('u.id = 3')   
+            // ->where('mod.id = 1')   
+            // ->setParameter('id', $id)
+            ->getQuery()
+            ->getResult()
+       ;
+    }
+    public function findModule($slug, $id): ?UserModule
+    {
+        return $this->createQueryBuilder('m')
+            // ->select('u.id, u.slug as user_slug, mod.id as id_module, mod.name as Module, mod.slugModule, m.is_activated')
+            // ->select('u.id, u.slug, u.name as user, mod.name as Module, mod.slugModule, m.is_activated')
+            ->innerJoin('m.user', 'u')
+            ->innerJoin('m.module', 'mod')
+            ->where('u.slug = :slug')   
+            ->andWhere('mod.id = :id')   
+            ->setParameters([
+                'slug' => $slug,
+                'id' => $id
+                ])
+            ->getQuery()
+            ->getOneOrNullResult()
+       ;
+    }
+
 //    /**
 //     * @return UserModule[] Returns an array of UserModule objects
 //     */

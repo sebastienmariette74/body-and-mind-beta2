@@ -1,0 +1,16 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Ajouter un module{% endblock %}
+
+{% block PageTitle %}Ajouter un module{% endblock %}
+
+{% block body %}
+<div>
+    {{ form_start(form) }}
+        {{ form_row(form.name) }}
+        <button type="submit" class="btn btn-primary mt-3">Ajouter</button>
+    {{ form_end(form) }}
+</div>
+
+
+{% endblock %}

@@ -4,6 +4,7 @@ namespace App\Repository;
 
 use App\Entity\User;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use Doctrine\ORM\QueryBuilder;
 use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Component\Security\Core\Exception\UnsupportedUserException;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
@@ -56,20 +57,85 @@ class UserRepository extends ServiceEntityRepository implements PasswordUpgrader
         $this->add($user, true);
     }
 
-//    /**
-//     * @return User[] Returns an array of User objects
-//     */
-//    public function findByExampleField($value): array
-//    {
-//        return $this->createQueryBuilder('u')
-//            ->andWhere('u.exampleField = :val')
-//            ->setParameter('val', $value)
-//            ->orderBy('u.id', 'ASC')
-//            ->setMaxResults(10)
-//            ->getQuery()
-//            ->getResult()
-//        ;
-//    }
+    public function findAllActivatedPartners(): array
+    {
+        return $this->createQueryBuilder('u')
+           ->where('u.isActivated = true')   
+           ->getQuery()
+           ->getResult()
+       ;
+    }
+
+    public function findAllPartners(): array
+    {
+        return $this->createQueryBuilder('u')
+           ->where('u.partner is null ')   
+        //    ->andWhere('u.address is not null')
+           ->getQuery()
+           ->getResult()
+       ;
+    }
+    public function findAllPartnersActivated(): array
+    {
+        return $this->createQueryBuilder('u')
+           ->where('u.isActivated = true')   
+           ->andWhere('u.partner is null')
+        //    ->andWhere('u.address is not null')
+           ->getQuery()
+           ->getResult()
+       ;
+    }
+    public function findAllPartnersDisabled(): array
+    {
+        return $this->createQueryBuilder('u')
+           ->where('u.isActivated = false')  
+           ->andWhere('u.partner is null') 
+        //    ->andWhere('u.address is not null')
+           ->getQuery()
+           ->getResult()
+       ;
+    }
+
+    public function findAllStructures(): array
+    {
+        return $this->createQueryBuilder('u')
+           ->where('u.partner is not null')   
+           ->getQuery()
+           ->getResult()
+       ;
+    }
+    public function findAllStructuresActivated(): array
+    {
+        return $this->createQueryBuilder('u')
+           ->where('u.partner is not null')   
+           ->andWhere('u.isActivated = true')  
+           ->getQuery()
+           ->getResult()
+       ;
+    }
+    public function findAllStructuresDisabled(): array
+    {
+        return $this->createQueryBuilder('u')
+           ->where('u.partner is not null')   
+           ->andWhere('u.isActivated = false')  
+           ->getQuery()
+           ->getResult()
+       ;
+    }
+
+    public function findAllStructureByPartner($link): array
+    {
+        return $this->createQueryBuilder('u')
+           ->where('u.partner = :link')   
+           ->setParameter('link', $link)   
+           ->getQuery()
+           ->getResult()
+       ;
+    }
+
+
+
+
 
 //    public function findOneBySomeField($value): ?User
 //    {
