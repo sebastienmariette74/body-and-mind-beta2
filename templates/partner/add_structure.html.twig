@@ -2,8 +2,10 @@
 
 {% block title %}Enregistrement d'une structure pour le partenaire : {{ partner.name }}{% endblock %}
 
+{% block PageTitle %}Enregistrement d'une structure pour le partenaire : {{ partner.name }}{% endblock %}
+
 {% block body %}
-<h1>Enregistrement d'une structure pour le partenaire : {{ partner.name }}</h1>
+
 {{ form_start(form) }}
     {{ form_row(form.name) }}
     {{ form_row(form.email) }}
@@ -17,7 +19,7 @@
         }) 
     }}
 
-    <button type="submit" class="btn">Enregistrer</button>
+    <button type="submit" class="btn btn-primary mt-3">Enregistrer</button>
 {{ form_end(form) }}
 
 {% endblock %}

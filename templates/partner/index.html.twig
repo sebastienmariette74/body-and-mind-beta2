@@ -13,7 +13,7 @@
     {# <button><a href="{{ path('partners_activated') }}">ACTIVES</a></button> #}
     {# <button><a href="{{ path('partners_disabled') }}">DESACTIVES</a></button> #}
 
-    <a class="btn btn-primary" href="{{ path('app_register_partner') }}">Ajouter un partenaire</a>
+    <a class="btn btn-success" href="{{ path('app_register_partner') }}">Ajouter un partenaire</a>
 
     <div class="row justify-content-center">
         {% for partner in partners %}
@@ -26,7 +26,7 @@
                     </h5>
                     {# <p class="card-text">Some quick example text to build on the card title and make up the bulk of
                         the card's content.</p> #}
-                    <a class="btn btn-dark" href="{{ path('partners_edit', {slug : partner.slug}) }}">Modifier</a>
+                    <a class="btn btn-warning" href="{{ path('partners_edit', {slug : partner.slug}) }}">Modifier</a>
 
                     <button 
                         type="button" 

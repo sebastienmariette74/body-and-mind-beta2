@@ -1,33 +1,71 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Modules{% endblock %}
+{% block title %}Liste des droits{% endblock %}
 
-{% block PageTitle %}Liste des modules{% endblock %}
+{% block PageTitle %}Liste des droits{% endblock %}
 
 {% block body %}
-<a href="{{ path('modules_add') }}" class="btn btn-primary">Ajouter un module</a>
-{% for module in modules %}
-    <div>
-        {{ module.name }} - 
-        <a href="{{ path('modules_edit', {'id' : module.id} ) }}">Modifier</a> -
-        <button class="btn rounded-1 primary btn-small modal-trigger" data-target="modal-delete" data-name="{{ module.name }}"
-            data-slug="{{ module.slug }}" data-id="{{ module.id }}">Supprimer</button>
-    </div>
-{% endfor %}
-<div class="modal shadow-1 white modal-falling" id="modal-delete" data-ax="modal">
-    {# <div class="modal-header">Header</div>
+<a href="{{ path('modules_add') }}" class="btn btn-success">Ajouter un droit</a>
 
-    <div class="divider"></div> #}
+<div class="row justify-content-center">
 
+    {% for module in modules %}
+        <div class="card col-3  m-3" style="width: 18rem;">
+            {# <img src="..." class="card-img-top" alt="..."> #}
+            <div class="card-body">
+                
+                <h5 class="card-title">
+                    {{ module.name }}
+                </h5>
+                
+                <a class="btn btn-warning" href="{{ path('modules_edit', {'id' : module.id} ) }}">Modifier</a>
+                
+                <button 
+                type="button" 
+                class="btn btn-danger modal-trigger" 
+                data-bs-toggle="modal" 
+                data-bs-target="#staticBackdrop" 
+                data-name="{{ module.name }}"
+                data-slug="{{ module.slug }}" 
+                data-id="{{ module.id }}"
+                >
+                    Supprimer
+                </button>
+            </div>
+        </div>
+    {% endfor %}
+
+    {# <div class="modal shadow-1 white modal-falling" id="modal-delete" data-ax="modal">
+        <div class="modal-header">Header</div>
+
+        <div class="divider"></div>
+
+        <div class="modal-content">
+        </div>
+
+        <div class="divider"></div>
+
+        <div class="modal-footer">
+            <button class="btn red rounded-1 btn-small"><a href="">VALIDER</a></button>
+            <a href="" class="btn red rounded-1 btn-small">VALIDER</a>
+            <button data-target="modal-delete" class=" btn shadow-1 rounded-1 btn-small primary">ANNULER</button>
+        </div>
+    </div> #}
+</div>
+<!-- Modal -->
+<div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+aria-labelledby="staticBackdropLabel" aria-hidden="true">
+<div class="modal-dialog">
     <div class="modal-content">
+        <div class="modal-header">
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+        </div>
+        <div class="modal-footer">
+            <a class="btn btn-primary" href="">VALIDER</a>
+        </div>
     </div>
-
-    <div class="divider"></div>
-
-    <div class="modal-footer">
-        <button class="btn red rounded-1 btn-small"><a href="">VALIDER</a></button>
-        {# <a href="" class="btn red rounded-1 btn-small">VALIDER</a> #}
-        <button data-target="modal-delete" class=" btn shadow-1 rounded-1 btn-small primary">ANNULER</button>
-    </div>
+</div>
 </div>
 {% endblock %}
