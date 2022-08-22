@@ -12,7 +12,6 @@ use Symfony\Component\String\Slugger\SluggerInterface;
 use App\Entity\User;
 use App\Entity\UserModule;
 use App\Form\ModuleType;
-use App\Form\RegisterPartnerType;
 use App\Repository\UserModuleRepository;
 use App\Repository\UserRepository;
 use Doctrine\ORM\EntityManagerInterface;
@@ -21,7 +20,10 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 
 
 
-#[Route('/modules', name: 'modules_')]
+#[
+Route('/modules', name: 'modules_'),
+IsGranted("ROLE_ADMIN")
+]
 class ModuleController extends AbstractController
 {
 

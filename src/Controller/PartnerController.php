@@ -44,9 +44,17 @@ class PartnerController extends AbstractController
     #[Route('/', name: '')]
     public function index(): Response
     {
-        // $this->denyAccessUnlessGranted('ROLE_ADMIN');
-        // $partners = $this->userRepository->findAllPartners();
-        $partners = $this->userRepository->findAllPartners();
+        $role = "ROLE_PARTNER";
+        $this->denyAccessUnlessGranted('ROLE_ADMIN');
+        
+        $allUsers = $this->userRepository->findAllPartners();
+        // $partners = $this->userRepository->findAllPartnersByRole($role);
+        $partners =[];
+        foreach($allUsers as $user){
+            if ($user->getRoles()[0] === $role){
+                $partners[] = $user;
+            }
+        }
         // dd($partners);
 
         if ($this->isGranted('ROLE_ADMIN')) {
@@ -66,7 +74,7 @@ class PartnerController extends AbstractController
     #[Route('/actives', name: 'activated')]
     public function activated(): Response
     {
-        // $this->denyAccessUnlessGranted('ROLE_ADMIN');
+        $this->denyAccessUnlessGranted('ROLE_ADMIN');
 
         $partners = $this->userRepository->findAllPartnersActivated();
 
@@ -86,7 +94,7 @@ class PartnerController extends AbstractController
     #[Route('/desactives', name: 'disabled')]
     public function diasble(): Response
     {
-        // $this->denyAccessUnlessGranted('ROLE_ADMIN');
+        $this->denyAccessUnlessGranted('ROLE_ADMIN');
 
         $partners = $this->userRepository->findAllPartnersDisabled();
 
@@ -105,12 +113,14 @@ class PartnerController extends AbstractController
     
     
     #[Route('/{slug}', name: 'details')]
-    // public function show(User $partner, UserInterface $user): Response
-    public function show(User $partner): Response
+    public function show(User $partner, UserInterface $user): Response
     {
-        // $this->denyAccessUnlessGranted('ROLE_PARTNER');
+        $this->denyAccessUnlessGranted('ROLE_PARTNER');
         
-        // if($user->getUserIdentifier() === $partner->getEmail() || $this->isGranted('ROLE_ADMIN')){
+        if($user->getUserIdentifier() === $partner->getEmail() || $this->isGranted('ROLE_ADMIN')){
+
+            // dd($partner->getRoles()[0] === 'ROLE_ADMIN');
+
 
             $userId = $partner->getId();
             $structures = $this->userRepository->findAllStructureByPartner($userId);
@@ -129,9 +139,9 @@ class PartnerController extends AbstractController
                 'modules' => $modules,
                 'role' => $role,
             ]);
-        // } else {
-        //     return $this->render('bundles/TwigBundle/Exception/error404.html.twig');
-        // }
+        } else {
+            return $this->render('bundles/TwigBundle/Exception/error404.html.twig');
+        }
     }        
 
     #[Route('/{slug}/ajouter-une-structure', name: 'add_structure')]
@@ -147,7 +157,7 @@ class PartnerController extends AbstractController
         UserModuleRepository $userModuleRepository
     ): Response
     {
-        // $this->denyAccessUnlessGranted('ROLE_ADMIN');
+        $this->denyAccessUnlessGranted('ROLE_ADMIN');
 
         $structure = new User();
         $form = $this->createForm(RegistrationType::class, $structure);          
@@ -220,7 +230,7 @@ class PartnerController extends AbstractController
     #[Route('/{slug}/active-user', name: 'activate_user')]
     public function activateUser (User $partner): Response
     {
-        // $this->denyAccessUnlessGranted('ROLE_ADMIN');
+        $this->denyAccessUnlessGranted('ROLE_ADMIN');
 
         // dd($partner);
 
@@ -252,7 +262,7 @@ class PartnerController extends AbstractController
         SluggerInterface $slugger
     ): Response
     {
-        // $this->denyAccessUnlessGranted('ROLE_ADMIN');
+        $this->denyAccessUnlessGranted('ROLE_ADMIN');
 
         $form = $this->createForm(RegistrationType::class, $partner);
         $form->remove('plainPassword');
@@ -278,7 +288,7 @@ class PartnerController extends AbstractController
     #[Route('/{slug}/{id}', name: 'delete')]
     public function delete(User $partner)
     {
-        // $this->denyAccessUnlessGranted('ROLE_ADMIN');
+        $this->denyAccessUnlessGranted('ROLE_ADMIN');
         
         $this->em->remove($partner);
         $this->em->flush();
@@ -356,8 +366,5 @@ class PartnerController extends AbstractController
     //         return $this->redirectToRoute('structures_details', ['slug' => $user->getSlug()]);
     //     };
     // }
-    
-    
-
     
 }

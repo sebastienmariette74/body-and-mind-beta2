@@ -21,7 +21,7 @@
                 {{ structure.city}}
 
             </p>   
-            {# {% if is_granted('ROLE_ADMIN') %} #}
+            {% if is_granted('ROLE_ADMIN') %}
                 <a class="btn btn-warning" href="{{ path('structures_edit', {slug : structure.slug}) }}">Modifier</a>
 
                 <button 
@@ -36,10 +36,7 @@
                     Supprimer
                 </button>
 
-                {# <button class="btn rounded-1 primary btn-small modal-trigger" data-target="modal-delete"
-                    data-name="{{ structure.name }}" data-slug="{{ structure.slug }}"
-                    data-id="{{ structure.id }}">Supprimer</button> #}
-            {# {% endif %} #}
+            {% endif %}
 
 
             {% if structure.isActivated %}
@@ -60,10 +57,6 @@
             
         </div>
     </div>
-
-
-
-
     <div>
         <h2>Droits</h2>
         <div>
@@ -90,9 +83,10 @@
 
             {% endfor %}
         </div>
-{# {% endif %} #}
-
+        
+    </div>
 </div>
+{# {% endif %} #}
 
 <!-- Modal -->
 <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
@@ -110,6 +104,5 @@
         </div>
     </div>
 </div>
-
 
 {% endblock %}

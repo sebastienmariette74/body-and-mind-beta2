@@ -32,7 +32,7 @@ class StructureController extends AbstractController
     #[Route('/', name: '')]
     public function index(): Response
     {
-        // $this->denyAccessUnlessGranted('ROLE_ADMIN');
+        $this->denyAccessUnlessGranted('ROLE_ADMIN');
 
         $structures = $this->userRepository->findAllStructures();
         // dd($structures);
@@ -87,12 +87,12 @@ class StructureController extends AbstractController
     }
 
     #[Route('/{slug}', name: 'details')]
-    public function show(User $structure): Response    
-    // public function show(User $structure, UserInterface $user): Response    
+    // public function show(User $structure): Response    
+    public function show(User $structure, UserInterface $user): Response    
     {
 
         // if($user->getUserIdentifier() === $structure->getEmail() || $user === $structure->getPartner() || $this->isGranted('ROLE_ADMIN')){
-        // if($user->getUserIdentifier() === $structure->getEmail() || $user === $structure->getPartner() || $this->isGranted('ROLE_PARTNER')){
+        if($user->getUserIdentifier() === $structure->getEmail() || $user === $structure->getPartner() || $this->isGranted('ROLE_PARTNER')){
             $structureId = $structure->getId();
             $modules = $this->userModuleRepository->findModulesByUser($structureId);
     
@@ -107,18 +107,16 @@ class StructureController extends AbstractController
                 'modules' => $modules,
                 'role' => $role,
             ]);
-        // } else {
-        //     return $this->render('bundles/TwigBundle/Exception/error404.html.twig');
-        // }
+        } else {
+            return $this->render('bundles/TwigBundle/Exception/error404.html.twig');
+        }
         
     }
 
     #[Route('/{slug}/active-user', name: 'activate_user')]
     public function activateUser (User $partner): Response
     {
-        // $this->denyAccessUnlessGranted('ROLE_ADMIN');
-
-        // dd($partner);
+        $this->denyAccessUnlessGranted('ROLE_ADMIN');
 
         $partner->setIsActivated(($partner->isIsActivated()) ? false:true);
         $this->em->persist($partner);
@@ -173,7 +171,6 @@ class StructureController extends AbstractController
     #[Route('/{slug}/{id}', name: 'delete')]
     public function delete(User $partner)
     {
-        // dd($partner);
         $this->em->remove($partner);
         $this->em->flush();
 
