@@ -8,74 +8,54 @@
 {% block PageTitle %}Détails du partenaire : {{ partner.name }}{% endblock %}
 
 {% block body %}
-{# {% if is_granted('ROLE_ADMIN') %} #}
+{% if is_granted('ROLE_ADMIN') %}
 <a class="btn btn-success" href="{{ path('partners_add_structure', {slug : partner.slug}) }}">Ajouter une
-        structure</a>
-{# {% endif %} #}
+    structure</a>
+{% endif %}
 
 {# {% if app.user.isVerified or is_granted('ROLE_ADMIN') %} #}
 
 <div class="row justify-content-center">
 
     {% for structure in structures %}
-        <div class="card col-3  m-3" style="width: 18rem;">
-            {# <img src="..." class="card-img-top" alt="..."> #}
-            <div class="card-body">
-                <h5 class="card-title">
-                    <a href="{{ path('structures_details', {slug: structure.slug}) }}">
-                        {{ structure.name}}
-                    </a>
-                </h5>
-                <p class="card-text">
-                    {{ structure.address}} <br>
-                    {{ structure.zipcode}} <br>
-                    {{ structure.city}}
-                </p>
-                
-                {# {% if is_granted('ROLE_ADMIN') %} #}
-                <a class="btn btn-warning" href="{{ path('structures_edit', {slug : structure.slug}) }}">Modifier</a>
+    <div class="card col-3  m-3" style="width: 18rem;">
+        {# <img src="..." class="card-img-top" alt="..."> #}
+        <div class="card-body">
+            <h5 class="card-title">
+                <a href="{{ path('structures_details', {slug: structure.slug}) }}">
+                    {{ structure.name}}
+                </a>
+            </h5>
+            <p class="card-text">
+                {{ structure.address}} <br>
+                {{ structure.zipcode}} <br>
+                {{ structure.city}}
+            </p>
 
-                <button 
-                    type="button" 
-                    class="btn btn-danger modal-trigger" 
-                    data-bs-toggle="modal" 
-                    data-bs-target="#staticBackdrop"
-                    data-name="{{ structure.name }}" 
-                    data-slug="{{ structure.slug }}" 
-                    data-id="{{ structure.id }}"
-                >
-                    Supprimer
-                </button>
+            {% if is_granted('ROLE_ADMIN') %}
+            <a class="btn btn-warning" href="{{ path('structures_edit', {slug : structure.slug}) }}">Modifier</a>
 
-                {# <button class="btn rounded-1 primary btn-small modal-trigger" data-target="modal-delete"
-                    data-name="{{ structure.name }}" data-slug="{{ structure.slug }}"
-                    data-id="{{ structure.id }}">Supprimer</button> #}
-                {# {% endif %} #}
+            <button type="button" class="btn btn-danger modal-trigger" data-bs-toggle="modal"
+                data-bs-target="#staticBackdrop" data-name="{{ structure.name }}" data-slug="{{ structure.slug }}"
+                data-id="{{ structure.id }}">
+                Supprimer
+            </button>
 
+            {% endif %}
 
+            {% if structure.isActivated %}
+            {% set checked = 'checked' %}
+            {% else %}
+            {% set checked = '' %}
+            {% endif %}
 
-                {% if structure.isActivated %}
-                {% set checked = 'checked' %}
-                {% else %}
-                {% set checked = '' %}
-                {% endif %}
-
-                <div class="form-check form-switch">
-                    <input class="form-check-input activate-user" type="checkbox" role="switch" {{ checked }} data-role="{{ role }}"
-                        data-id="{{ structure.id }}" data-slug="{{ structure.slug }}">
-                </div>
-
-                {# <form class="form-material">
-                    <div class="form-field form-default">
-                        <label class="form-switch mt-2">
-                            <input class="activate-user" type="checkbox" {{ checked }} data-role="{{ role }}"
-                                data-id="{{ structure.id }}" data-slug="{{ structure.slug }}">
-                            <span class="form-slider"></span>
-                        </label>
-                    </div>
-                </form> #}
+            <div class="form-check form-switch">
+                <input class="form-check-input activate-user" type="checkbox" role="switch" {{ checked }}
+                    data-role="{{ role }}" data-id="{{ structure.id }}" data-slug="{{ structure.slug }}">
             </div>
+
         </div>
+    </div>
     {% endfor %}
 </div>
 <div>
@@ -91,54 +71,13 @@
         {% endif %}
 
         <div class="form-check form-switch">
-            <input 
-                class="form-check-input activate-module"
-                type="checkbox" 
-                role="switch" 
-                {{ checked }} 
-                {# data-role="{{ role }}" #}
-                data-idmodule="{{ module.id_module }}" 
-                data-slug="{{ partner.slug }}"
-            >
+            <input class="form-check-input activate-module" type="checkbox" role="switch" {{ checked }} {#
+                data-role="{{ role }}" #} data-idmodule="{{ module.id_module }}" data-slug="{{ partner.slug }}">
         </div>
-
-        {# <form class="form-material">
-            <div class="form-field form-default">
-                <label class="form-switch mt-2">
-                    <input class="activate-module" 
-                    type="checkbox" 
-                    {{ checked }} 
-                    data-role="{{ role }}"
-                    data-idmodule="{{ module.id_module }}" 
-                    data-slug="{{ partner.slug }}"
-                    >
-                    <span class="form-slider"></span>
-                </label>
-            </div>
-        </form> #}
     </div>
     {% endfor %}
 
 </div>
-
-
-
-{# <div class="modal shadow-1 white modal-falling" id="modal-delete" data-ax="modal">
-    <div class="modal-header">Header</div>
-
-    <div class="divider"></div>
-
-    <div class="modal-content">
-    </div>
-
-    <div class="divider"></div>
-
-    <div class="modal-footer">
-        <button class="btn red rounded-1 btn-small"><a href="">VALIDER</a></button>
-        <a href="" class="btn red rounded-1 btn-small">VALIDER</a>
-        <button data-target="modal-delete" class=" btn shadow-1 rounded-1 btn-small primary">ANNULER</button>
-    </div>
-</div> #}
 {# {% endif %} #}
 
 <!-- Modal -->
@@ -157,6 +96,5 @@
         </div>
     </div>
 </div>
-
 
 {% endblock %}

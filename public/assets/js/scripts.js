@@ -16,6 +16,7 @@ window.addEventListener("DOMContentLoaded", (event) => {
     //     document.body.classList.toggle('sb-sidenav-toggled');
     // }
     sidebarToggle.addEventListener("click", (event) => {
+        console.log('ok');
       event.preventDefault();
       document.body.classList.toggle("sb-sidenav-toggled");
       localStorage.setItem(
@@ -31,13 +32,14 @@ window.onload = () => {
 
     for (let button of activateUser) {
         button.addEventListener("click", (event) => {
-        // if (button.dataset.role === "admin") {
+        console.log(button.dataset.role);
+        if (button.dataset.role === "admin") {
             let xmlhttp = new XMLHttpRequest();
             xmlhttp.open("get", `${button.dataset.slug}/active-user`);
             xmlhttp.send();
-        // } else {
-        //     event.preventDefault();
-        // }
+        } else {
+            event.preventDefault();
+        }
         });
     }
 
@@ -45,14 +47,14 @@ window.onload = () => {
 
     for (let button of activateModule) {
         button.addEventListener("click", (event) => {
-        // if (button.dataset.role === "admin") {
+        if (button.dataset.role === "admin") {
             console.log('ok');
             let xmlhttp = new XMLHttpRequest();
             xmlhttp.open("get", `${button.dataset.slug}/${button.dataset.idmodule}/active-module`);
             xmlhttp.send();
-        // } else {
-        //     event.preventDefault();
-        // }
+        } else {
+            event.preventDefault();
+        }
         });
     }
 

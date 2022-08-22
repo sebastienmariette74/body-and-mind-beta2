@@ -69,8 +69,21 @@ class UserRepository extends ServiceEntityRepository implements PasswordUpgrader
     public function findAllPartners(): array
     {
         return $this->createQueryBuilder('u')
-           ->where('u.partner is null ')   
+        //    ->where('u.partner is null ')   
+        //    ->where('u.roles = :role ')   
         //    ->andWhere('u.address is not null')
+            // ->setParameter('role' , $role)
+           ->getQuery()
+           ->getResult()
+       ;
+    }
+    public function findAllPartnersByRole($role): array
+    {
+        return $this->createQueryBuilder('u')
+        //    ->where('u.partner is null ')   
+           ->where('u.roles = :role ')   
+        //    ->andWhere('u.address is not null')
+            ->setParameter('role' , $role)
            ->getQuery()
            ->getResult()
        ;
