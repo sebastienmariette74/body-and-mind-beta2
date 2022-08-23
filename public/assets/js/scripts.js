@@ -59,7 +59,6 @@ window.onload = () => {
     }
     
     let deleteButton = document.querySelectorAll(".modal-trigger");
-    // console.log(deleteButton);
     for (let button of deleteButton) {
         button.addEventListener("click", () => {
         console.log(button.dataset.slug);
