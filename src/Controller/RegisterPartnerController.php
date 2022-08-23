@@ -34,8 +34,8 @@ class RegisterPartnerController extends AbstractController
         // SecurityUserAuthenticator $authenticator, 
         EntityManagerInterface $entityManager, 
         SluggerInterface $slugger, 
-        // SendMailService $mail, 
-        // JWTService $jwt,
+        SendMailService $mail, 
+        JWTService $jwt,
         ModuleRepository $moduleRepository
     ): Response
     {               
@@ -95,15 +95,16 @@ class RegisterPartnerController extends AbstractController
             ];
 
             // On génère le token
-            // $token = $jwt->generate($header, $payload, $this->getParameter('app.jwtsecret'));
-            // // dd($token);
-            // $mail->send(
-            //     'noreply@bodyandmind.fr',
-            //     $partner->getEmail(),
-            //     'Activation de votre compte sur le site Body & Mind',
-            //     'register',
-            //     compact('partner', 'token')
-            // );
+            $token = $jwt->generate($header, $payload, $this->getParameter('app.jwtsecret'));
+            $mail->send(
+                'noreply@bodyandmind.fr',
+                $partner->getEmail(),
+                'Activation de votre compte sur le site Body & Mind',
+                'register',
+                compact('partner', 'token')
+            );
+
+            $this->addFlash('success', 'Email envoyé avec succès');
 
             return $this->redirectToRoute("partners_");
 
@@ -111,80 +112,80 @@ class RegisterPartnerController extends AbstractController
         return $this->renderForm('register_partner/index.html.twig', compact('form', 'modules'));        
     }
 
-    // #[Route('/verif/{token}', name: 'verify_user')]
-    // public function verifyUser($token, JWTService $jwt, UserRepository $userRepository, EntityManagerInterface $em): Response
-    // {
-    //     // dd($token);
-    //     //On vérifie si le token est valide, n'a pas expiré et n'a pas été modifié
-    //     if($jwt->isValid($token) && !$jwt->isExpired($token) && $jwt->check($token, $this->getParameter('app.jwtsecret'))){
-    //         // On récupère le payload
-    //         $payload = $jwt->getPayload($token);
+    #[Route('/verif/{token}', name: 'verify_user')]
+    public function verifyUser($token, JWTService $jwt, UserRepository $userRepository, EntityManagerInterface $em): Response
+    {
+        // dd($token);
+        //On vérifie si le token est valide, n'a pas expiré et n'a pas été modifié
+        if($jwt->isValid($token) && !$jwt->isExpired($token) && $jwt->check($token, $this->getParameter('app.jwtsecret'))){
+            // On récupère le payload
+            $payload = $jwt->getPayload($token);
 
-    //         // On récupère le user du token
-    //         $user = $userRepository->find($payload['user_id']);
+            // On récupère le user du token
+            $user = $userRepository->find($payload['user_id']);
 
-    //         //On vérifie que l'utilisateur existe et n'a pas encore activé son compte
-    //         // if($user && !$user->isVerified() && $this->isGranted('ROLE_ADMIN')){
-    //         if($user && !$user->isVerified()){
-    //             $user->setIsVerified(true);
-    //             $em->flush($user);
-    //             $this->addFlash('success', 'Utilisateur activé');
-    //             return $this->redirectToRoute("structures_details", ['slug' => $user->getSlug()]);
-    //         }
-    //     }
-    //     // if ($user->isVerified()){
-    //     //     $this->addFlash('alert', 'Le compte est déjà activé');
-    //     // } else {
-    //         // Ici un problème se  pose dans le token
-    //         $this->addFlash('danger', 'Le token est invalide ou a expiré');
-    //     // }
-    //     // return $this->redirectToRoute('app_login');
-    //     return $this->redirectToRoute("structures_details", ['slug' => $user->getSlug()]);
-    // }
+            //On vérifie que l'utilisateur existe et n'a pas encore activé son compte
+            // if($user && !$user->isVerified() && $this->isGranted('ROLE_ADMIN')){
+            if($user && !$user->isVerified()){
+                $user->setIsVerified(true);
+                $em->flush($user);
+                $this->addFlash('success', 'Utilisateur activé');
+                return $this->redirectToRoute("structures_details", ['slug' => $user->getSlug()]);
+            }
+        }
+        if ($user->isVerified()){
+            $this->addFlash('danger', 'Le compte est déjà activé');
+        } else {
+            // Ici un problème se  pose dans le token
+            $this->addFlash('danger', 'Le token est invalide ou a expiré');
+        }
+        // return $this->redirectToRoute('app_login');
+        return $this->redirectToRoute("structures_details", ['slug' => $user->getSlug()]);
+    }
 
-    // #[Route('/renvoiverif', name: 'resend_verif')]
-    // public function resendVerif(JWTService $jwt, SendMailService $mail, UserRepository $userRepository): Response
-    // {
-    //     $user = $this->getUser();
+    #[Route('/renvoiverif', name: 'resend_verif')]
+    public function resendVerif(JWTService $jwt, SendMailService $mail, UserRepository $userRepository): Response
+    {
+        $user = $this->getUser();
 
-    //     if(!$user){
-    //         $this->addFlash('danger', 'Vous devez être connecté pour accéder à cette page');
-    //         return $this->redirectToRoute('app_login');    
-    //     }
+        if(!$user){
+            $this->addFlash('danger', 'Vous devez être connecté pour accéder à cette page');
+            return $this->redirectToRoute('app_login');    
+        }
 
-    //     if($user->isVerified()){
-    //         $this->addFlash('warning', 'Cet utilisateur est déjà activé');
-    //         return $this->redirectToRoute("structures_details", ['slug' => $user->getSlug()]);    
-    //     }
+        if($user->isVerified()){
+            $this->addFlash('warning', 'Cet utilisateur est déjà activé');
+            return $this->redirectToRoute("structures_details", ['slug' => $user->getSlug()]);    
+        }
 
-    //     // On génère le JWT de l'utilisateur
-    //     // On crée le Header
-    //     $header = [
-    //         'typ' => 'JWT',
-    //         'alg' => 'HS256'
-    //     ];
+        // On génère le JWT de l'utilisateur
+        // On crée le Header
+        $header = [
+            'typ' => 'JWT',
+            'alg' => 'HS256'
+        ];
 
-    //     // On crée le Payload
-    //     $payload = [
-    //         'user_id' => $user->getId()
-    //     ];
+        // On crée le Payload
+        $payload = [
+            'user_id' => $user->getId()
+        ];
 
-    //     // On génère le token
-    //     $token = $jwt->generate($header, $payload, $this->getParameter('app.jwtsecret'));
+        // On génère le token
+        $token = $jwt->generate($header, $payload, $this->getParameter('app.jwtsecret'));
 
-    //     // On envoie un mail
-    //     $mail->send(
-    //         'no-reply@monsite.net',
-    //         $user->getEmail(),
-    //         'Activation de votre compte sur le site e-commerce',
-    //         'register',
-    //         compact('user', 'token')
-    //     );
-    //     $this->addFlash('success', 'Email de vérification envoyé');
-    //     if ($this->isGranted('ROLE_PARTNER')) {
-    //         return $this->redirectToRoute('partners_details', ['slug' => $user->getSlug()]);
-    //     } else if($this->isGranted('ROLE_STRUCTURE')) {
-    //         return $this->redirectToRoute('structures_details', ['slug' => $user->getSlug()]);
-    //     };
-    // }
+        // On envoie un mail
+        $mail->send(
+            'no-reply@monsite.net',
+            $user->getEmail(),
+            'Activation de votre compte sur le site e-commerce',
+            'register',
+            compact('user', 'token')
+        );
+        $this->addFlash('success', 'Email de vérification envoyé');
+        if ($this->isGranted('ROLE_PARTNER')) {
+            return $this->redirectToRoute('partners_details', ['slug' => $user->getSlug()]);
+        } else if($this->isGranted('ROLE_STRUCTURE')) {
+            return $this->redirectToRoute('structures_details', ['slug' => $user->getSlug()]);
+        };
+    }
 }

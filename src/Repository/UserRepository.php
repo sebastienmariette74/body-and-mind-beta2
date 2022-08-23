@@ -60,103 +60,95 @@ class UserRepository extends ServiceEntityRepository implements PasswordUpgrader
     public function findAllActivatedPartners(): array
     {
         return $this->createQueryBuilder('u')
-           ->where('u.isActivated = true')   
-           ->getQuery()
-           ->getResult()
-       ;
+            ->where('u.isActivated = true')
+            ->getQuery()
+            ->getResult();
     }
 
     public function findAllPartners(): array
     {
         return $this->createQueryBuilder('u')
-        //    ->where('u.partner is null ')   
-        //    ->where('u.roles = :role ')   
-        //    ->andWhere('u.address is not null')
-            // ->setParameter('role' , $role)
-           ->getQuery()
-           ->getResult()
-       ;
+            ->where('u.roles LIKE :role')
+            ->setParameter('role', '%"' . 'ROLE_PARTNER' . '"%')
+            ->getQuery()
+            ->getResult();
     }
     public function findAllPartnersByRole($role): array
     {
         return $this->createQueryBuilder('u')
-        //    ->where('u.partner is null ')   
-           ->where('u.roles = :role ')   
-        //    ->andWhere('u.address is not null')
-            ->setParameter('role' , $role)
-           ->getQuery()
-           ->getResult()
-       ;
+            //    ->where('u.partner is null ')   
+            ->where('u.roles = :role ')
+            //    ->andWhere('u.address is not null')
+            ->setParameter('role', $role)
+            ->getQuery()
+            ->getResult();
     }
     public function findAllPartnersActivated(): array
     {
         return $this->createQueryBuilder('u')
-           ->where('u.isActivated = true')   
-           ->andWhere('u.partner is null')
-        //    ->andWhere('u.address is not null')
-           ->getQuery()
-           ->getResult()
-       ;
+            ->where('u.isActivated = true')
+            ->andWhere('u.roles LIKE :role')
+            ->setParameter('role', '%"' . 'ROLE_PARTNER' . '"%')
+            ->getQuery()
+            ->getResult();
     }
     public function findAllPartnersDisabled(): array
     {
         return $this->createQueryBuilder('u')
-           ->where('u.isActivated = false')  
-           ->andWhere('u.partner is null') 
-        //    ->andWhere('u.address is not null')
-           ->getQuery()
-           ->getResult()
-       ;
+            ->where('u.isActivated = false')
+            ->andWhere('u.roles LIKE :role')
+            ->setParameter('role', '%"' . 'ROLE_PARTNER' . '"%')
+            ->getQuery()
+            ->getResult();
     }
 
     public function findAllStructures(): array
     {
         return $this->createQueryBuilder('u')
-           ->where('u.partner is not null')   
-           ->getQuery()
-           ->getResult()
-       ;
+            ->where('u.roles LIKE :role')
+            ->setParameter('role', '%"' . 'ROLE_STRUCTURE' . '"%')
+            ->getQuery()
+            ->getResult();
     }
     public function findAllStructuresActivated(): array
     {
         return $this->createQueryBuilder('u')
-           ->where('u.partner is not null')   
-           ->andWhere('u.isActivated = true')  
-           ->getQuery()
-           ->getResult()
-       ;
+            ->where('u.isActivated = true')
+            ->andWhere('u.roles LIKE :role')
+            ->setParameter('role', '%"' . 'ROLE_STRUCTURE' . '"%')
+            ->getQuery()
+            ->getResult();
     }
     public function findAllStructuresDisabled(): array
     {
         return $this->createQueryBuilder('u')
-           ->where('u.partner is not null')   
-           ->andWhere('u.isActivated = false')  
-           ->getQuery()
-           ->getResult()
-       ;
+            ->where('u.isActivated = false')
+            ->andWhere('u.roles LIKE :role')
+            ->setParameter('role', '%"' . 'ROLE_STRUCTURE' . '"%')
+            ->getQuery()
+            ->getResult();
     }
 
-    public function findAllStructureByPartner($link): array
+    public function findAllStructureByPartner($id): array
     {
         return $this->createQueryBuilder('u')
-           ->where('u.partner = :link')   
-           ->setParameter('link', $link)   
-           ->getQuery()
-           ->getResult()
-       ;
+            ->where('u.partner = :id')
+            ->setParameter('id', $id)
+            ->getQuery()
+            ->getResult();
     }
 
 
 
 
 
-//    public function findOneBySomeField($value): ?User
-//    {
-//        return $this->createQueryBuilder('u')
-//            ->andWhere('u.exampleField = :val')
-//            ->setParameter('val', $value)
-//            ->getQuery()
-//            ->getOneOrNullResult()
-//        ;
-//    }
+    //    public function findOneBySomeField($value): ?User
+    //    {
+    //        return $this->createQueryBuilder('u')
+    //            ->andWhere('u.exampleField = :val')
+    //            ->setParameter('val', $value)
+    //            ->getQuery()
+    //            ->getOneOrNullResult()
+    //        ;
+    //    }
 }

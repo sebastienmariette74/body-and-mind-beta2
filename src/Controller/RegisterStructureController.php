@@ -17,6 +17,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 use Symfony\Component\Security\Http\Authentication\UserAuthenticatorInterface;
 use Symfony\Component\String\Slugger\SluggerInterface;
 
@@ -30,8 +31,8 @@ class RegisterStructureController extends AbstractController
         // UserAuthenticator $authenticator, 
         EntityManagerInterface $entityManager, 
         SluggerInterface $slugger,
-        // SendMailService $mail, 
-        // JWTService $jwt,
+        SendMailService $mail, 
+        JWTService $jwt,
         UserRepository $userRepository,
         ModuleRepository $moduleRepository,
         UserModuleRepository $userModuleRepository
@@ -62,7 +63,6 @@ class RegisterStructureController extends AbstractController
                 $userModule->setModule($module->getModule());
                 $tableUserModule[] = $userModule;
             }
-            // dd($tableUserModule);
 
             $entityManager->persist($structure);
             foreach($tableUserModule as $userModule){
@@ -79,15 +79,30 @@ class RegisterStructureController extends AbstractController
                 'user_id' => $structure->getId()
             ];
 
-            // $token = $jwt->generate($header, $payload, $this->getParameter('app.jwtsecret'));
+            $token = $jwt->generate($header, $payload, $this->getParameter('app.jwtsecret'));
 
-            // $mail->send(
-            //     'noreply@bodyandmind.fr',
-            //     $structure->getEmail(),
-            //     'Activation de votre compte sur le site Body & Mind',
-            //     'register',
-            //     compact('structure', 'token')
-            // );
+            $mail->send(
+                'noreply@bodyandmind.fr',
+                $structure->getEmail(),
+                'Activation de votre compte sur le site Body & Mind',
+                'register',
+                compact('structure', 'token')
+            );
+
+            $structureName = $structure->getName();
+            $subject = `Activation du compte de la salle de sport : ${structureName}`;
+            $slug = $structure->getSlug();
+            $url = $this->generateUrl('structures_details', ['slug' => $slug], UrlGeneratorInterface::ABSOLUTE_URL);
+
+            $mail->send(
+                'noreply@bodyandmind.fr',
+                $partner->getEmail(),
+                'Activation du compte de votre salle de sport',
+                'info_partner',
+                compact('structure', 'url', 'partner')
+            );
+
+            $this->addFlash('success', 'Emails envoyés avec succès');
 
             return $this->redirectToRoute('structures_');
 

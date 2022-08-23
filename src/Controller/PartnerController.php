@@ -15,6 +15,7 @@ use App\Service\SendMailService;
 use Doctrine\ORM\EntityManagerInterface;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
@@ -42,25 +43,29 @@ class PartnerController extends AbstractController
     
     
     #[Route('/', name: '')]
-    public function index(): Response
+    public function index(Request $request): Response
     {
+        // dd($data);
+
         $role = "ROLE_PARTNER";
         $this->denyAccessUnlessGranted('ROLE_ADMIN');
         
-        $allUsers = $this->userRepository->findAllPartners();
-        // $partners = $this->userRepository->findAllPartnersByRole($role);
-        $partners =[];
-        foreach($allUsers as $user){
-            if ($user->getRoles()[0] === $role){
-                $partners[] = $user;
-            }
-        }
-        // dd($partners);
+        $partners = $this->userRepository->findAllPartners();
 
         if ($this->isGranted('ROLE_ADMIN')) {
             $role = "admin";
         } else {
             $role = "";
+        }
+
+        if($request->isXmlHttpRequest()){
+            return new JsonResponse([
+                "content" => $this->renderView("partner/_content.html.twig", [
+                    "current_menu" => "partner",
+                    "partners" => $partners,
+                    "role" => $role,
+                ])
+            ]);
         }
         
         return $this->render('partner/index.html.twig', [
@@ -71,10 +76,26 @@ class PartnerController extends AbstractController
     }
     
 
+    #[Route('/all', name: 'all')]
+    public function all(): Response
+    {
+        $partners = $this->userRepository->findAllPartners();
+
+        if ($this->isGranted('ROLE_ADMIN')) {
+            $role = "admin";
+        } else {
+            $role = "";
+        }
+
+        return $this->render('partner/_content.html.twig', [
+            'current_menu' => 'partner',
+            'partners' => $partners,
+            'role' => $role,
+        ]);
+    }
     #[Route('/actives', name: 'activated')]
     public function activated(): Response
     {
-        $this->denyAccessUnlessGranted('ROLE_ADMIN');
 
         $partners = $this->userRepository->findAllPartnersActivated();
 
@@ -84,7 +105,7 @@ class PartnerController extends AbstractController
             $role = "";
         }
 
-        return $this->render('partner/index.html.twig', [
+        return $this->render('partner/_content.html.twig', [
             'current_menu' => 'partner',
             'partners' => $partners,
             'role' => $role,
@@ -94,8 +115,7 @@ class PartnerController extends AbstractController
     #[Route('/desactives', name: 'disabled')]
     public function diasble(): Response
     {
-        $this->denyAccessUnlessGranted('ROLE_ADMIN');
-
+        
         $partners = $this->userRepository->findAllPartnersDisabled();
 
         if ($this->isGranted('ROLE_ADMIN')) {
@@ -104,7 +124,7 @@ class PartnerController extends AbstractController
             $role = "";
         }
 
-        return $this->render('partner/index.html.twig', [
+        return $this->render('partner/_content.html.twig', [
             'current_menu' => 'partner',
             'partners' => $partners,
             'role' => $role,
@@ -152,8 +172,8 @@ class PartnerController extends AbstractController
         SluggerInterface $slugger,
         EntityManagerInterface $entityManager,
         string $slug,
-        // JWTService $jwt,
-        // SendMailService $mail,
+        JWTService $jwt,
+        SendMailService $mail,
         UserModuleRepository $userModuleRepository
     ): Response
     {
@@ -206,15 +226,28 @@ class PartnerController extends AbstractController
             ];
 
             // On génère le token
-            // $token = $jwt->generate($header, $payload, $this->getParameter('app.jwtsecret'));
+            $token = $jwt->generate($header, $payload, $this->getParameter('app.jwtsecret'));
 
-            // $mail->send(
-            //     'noreply@bodyandmind.fr',
-            //     $partner->getEmail(),
-            //     'Activation de votre compte sur le site Body & Mind',
-            //     'register',
-            //     compact('structure', 'token')
-            // );
+            $mail->send(
+                'noreply@bodyandmind.fr',
+                $partner->getEmail(),
+                'Activation de votre compte sur le site Body & Mind',
+                'register',
+                compact('structure', 'token')
+            );
+
+            $structureName = $structure->getName();
+            $subject = `Activation du compte de la salle de sport : ${structureName}`;
+
+            $mail->send(
+                'noreply@bodyandmind.fr',
+                $partner->getEmail(),
+                'Activation du compte de votre salle de sport',
+                'info_partner',
+                compact('structure', 'token', 'partner')
+            );
+
+            $this->addFlash('success', 'Emails envoyés avec succès');
 
             return $this->redirectToRoute('partners_details', ['slug' => $slug]);
               
@@ -231,8 +264,6 @@ class PartnerController extends AbstractController
     public function activateUser (User $partner): Response
     {
         $this->denyAccessUnlessGranted('ROLE_ADMIN');
-
-        // dd($partner);
 
         $partner->setIsActivated(($partner->isIsActivated()) ? false:true);
         $this->em->persist($partner);
@@ -252,8 +283,7 @@ class PartnerController extends AbstractController
         $this->em->flush();
 
         return new Response ('true');
-    }
-  
+    }  
 
     #[Route('/{slug}/modifications', name: 'edit')]
     public function edit(
@@ -296,75 +326,75 @@ class PartnerController extends AbstractController
         return $this->redirectToRoute('partners_');
     }
 
-    // #[Route('/verif/{token}', name: 'verify_user')]
-    // public function verifyUser($token, JWTService $jwt, UserRepository $userRepository, EntityManagerInterface $em): Response
-    // {
-    //     dd($token);
-    //     //On vérifie si le token est valide, n'a pas expiré et n'a pas été modifié
-    //     if($jwt->isValid($token) && !$jwt->isExpired($token) && $jwt->check($token, $this->getParameter('app.jwtsecret'))){
-    //         // On récupère le payload
-    //         $payload = $jwt->getPayload($token);
+    #[Route('/verif/{token}', name: 'verify_user')]
+    public function verifyUser($token, JWTService $jwt, UserRepository $userRepository, EntityManagerInterface $em): Response
+    {
+        dd($token);
+        //On vérifie si le token est valide, n'a pas expiré et n'a pas été modifié
+        if($jwt->isValid($token) && !$jwt->isExpired($token) && $jwt->check($token, $this->getParameter('app.jwtsecret'))){
+            // On récupère le payload
+            $payload = $jwt->getPayload($token);
 
-    //         // On récupère le user du token
-    //         $user = $userRepository->find($payload['user_id']);
+            // On récupère le user du token
+            $user = $userRepository->find($payload['user_id']);
 
-    //         //On vérifie que l'utilisateur existe et n'a pas encore activé son compte
-    //         if($user && !$user->isVerified()){
-    //             $user->setIsVerified(true);
-    //             $em->flush($user);
-    //             $this->addFlash('success', 'Utilisateur activé');
-    //             return $this->redirectToRoute("structures_details", ['slug' => $user->getSlug()]);
-    //         }
-    //     }
-    //     // Ici un problème se pose dans le token
-    //     $this->addFlash('danger', 'Le token est invalide ou a expiré');
-    //     return $this->redirectToRoute('app_login');
-    // }
+            //On vérifie que l'utilisateur existe et n'a pas encore activé son compte
+            if($user && !$user->isVerified()){
+                $user->setIsVerified(true);
+                $em->flush($user);
+                $this->addFlash('success', 'Utilisateur activé');
+                return $this->redirectToRoute("structures_details", ['slug' => $user->getSlug()]);
+            }
+        }
+        // Ici un problème se pose dans le token
+        $this->addFlash('danger', 'Le token est invalide ou a expiré');
+        return $this->redirectToRoute('app_login');
+    }
 
-    // #[Route('/renvoiverif', name: 'resend_verif')]
-    // public function resendVerif(JWTService $jwt, SendMailService $mail, UserRepository $userRepository): Response
-    // {
-    //     $user = $this->getUser();
+    #[Route('/renvoiverif', name: 'resend_verif')]
+    public function resendVerif(JWTService $jwt, SendMailService $mail, UserRepository $userRepository): Response
+    {
+        $user = $this->getUser();
 
-    //     if(!$user){
-    //         $this->addFlash('danger', 'Vous devez être connecté pour accéder à cette page');
-    //         return $this->redirectToRoute('app_login');    
-    //     }
+        if(!$user){
+            $this->addFlash('danger', 'Vous devez être connecté pour accéder à cette page');
+            return $this->redirectToRoute('app_login');    
+        }
 
-    //     if($user->isVerified()){
-    //         $this->addFlash('warning', 'Cet utilisateur est déjà activé');
-    //         return $this->redirectToRoute("structures_details", ['slug' => $user->getSlug()]);    
-    //     }
+        if($user->isVerified()){
+            $this->addFlash('warning', 'Cet utilisateur est déjà activé');
+            return $this->redirectToRoute("structures_details", ['slug' => $user->getSlug()]);    
+        }
 
-    //     // On génère le JWT de l'utilisateur
-    //     // On crée le Header
-    //     $header = [
-    //         'typ' => 'JWT',
-    //         'alg' => 'HS256'
-    //     ];
+        // On génère le JWT de l'utilisateur
+        // On crée le Header
+        $header = [
+            'typ' => 'JWT',
+            'alg' => 'HS256'
+        ];
 
-    //     // On crée le Payload
-    //     $payload = [
-    //         'user_id' => $user->getId()
-    //     ];
+        // On crée le Payload
+        $payload = [
+            'user_id' => $user->getId()
+        ];
 
-    //     // On génère le token
-    //     $token = $jwt->generate($header, $payload, $this->getParameter('app.jwtsecret'));
+        // On génère le token
+        $token = $jwt->generate($header, $payload, $this->getParameter('app.jwtsecret'));
 
-    //     // On envoie un mail
-    //     $mail->send(
-    //         'no-reply@monsite.net',
-    //         $user->getEmail(),
-    //         'Activation de votre compte sur le site e-commerce',
-    //         'register',
-    //         compact('user', 'token')
-    //     );
-    //     $this->addFlash('success', 'Email de vérification envoyé');
-    //     if ($this->isGranted('ROLE_PARTNER')) {
-    //         return $this->redirectToRoute('partners_details', ['slug' => $user->getSlug()]);
-    //     } else if($this->isGranted('ROLE_STRUCTURE')) {
-    //         return $this->redirectToRoute('structures_details', ['slug' => $user->getSlug()]);
-    //     };
-    // }
+        // On envoie un mail
+        $mail->send(
+            'no-reply@monsite.net',
+            $user->getEmail(),
+            'Activation de votre compte sur le site e-commerce',
+            'register',
+            compact('user', 'token')
+        );
+        $this->addFlash('success', 'Email de vérification envoyé');
+        if ($this->isGranted('ROLE_PARTNER')) {
+            return $this->redirectToRoute('partners_details', ['slug' => $user->getSlug()]);
+        } else if($this->isGranted('ROLE_STRUCTURE')) {
+            return $this->redirectToRoute('structures_details', ['slug' => $user->getSlug()]);
+        };
+    }
     
 }

@@ -11,16 +11,13 @@ use App\Repository\UserRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Core\User\UserInterface;
 
 #[Route('/structures', name: 'structures_')]
-// #[
-// Route('/structures', name: 'structures_'),
-// IsGranted("ROLE_USER")
-// ]
 class StructureController extends AbstractController
 {
     public function __construct(UserRepository $userRepository, UserModuleRepository $userModuleRepository, private EntityManagerInterface $em)
@@ -30,7 +27,7 @@ class StructureController extends AbstractController
     }
     
     #[Route('/', name: '')]
-    public function index(): Response
+    public function index(Request $request): Response
     {
         $this->denyAccessUnlessGranted('ROLE_ADMIN');
 
@@ -42,9 +39,37 @@ class StructureController extends AbstractController
         } else {
             $role = "";
         }        
+
+        if($request->isXmlHttpRequest()){
+            return new JsonResponse([
+                "content" => $this->renderView("structure/_content.html.twig", [
+                    'current_menu' => 'partner',
+                    'structures' => $structures,
+                    'role' => $role,
+                ])
+            ]);
+        }
         
         return $this->render('structure/index.html.twig', [
             'current_menu' => 'structure',
+            'structures' => $structures,
+            'role' => $role,
+        ]);
+    }
+
+    #[Route('/all', name: 'all')]
+    public function all(): Response
+    {
+        $structures = $this->userRepository->findAllStructures();
+
+        if ($this->isGranted('ROLE_ADMIN')) {
+            $role = "admin";
+        } else {
+            $role = "";
+        }
+
+        return $this->render('structure/_content.html.twig', [
+            'current_menu' => 'partner',
             'structures' => $structures,
             'role' => $role,
         ]);
@@ -61,7 +86,7 @@ class StructureController extends AbstractController
             $role = "";
         }
 
-        return $this->render('structure/index.html.twig', [
+        return $this->render('structure/_content.html.twig', [
             'current_menu' => 'partner',
             'structures' => $structures,
             'role' => $role,
@@ -79,7 +104,7 @@ class StructureController extends AbstractController
             $role = "";
         }
 
-        return $this->render('structure/index.html.twig', [
+        return $this->render('structure/_content.html.twig', [
             'current_menu' => 'partner',
             'structures' => $structures,
             'role' => $role,
@@ -87,11 +112,9 @@ class StructureController extends AbstractController
     }
 
     #[Route('/{slug}', name: 'details')]
-    // public function show(User $structure): Response    
     public function show(User $structure, UserInterface $user): Response    
     {
 
-        // if($user->getUserIdentifier() === $structure->getEmail() || $user === $structure->getPartner() || $this->isGranted('ROLE_ADMIN')){
         if($user->getUserIdentifier() === $structure->getEmail() || $user === $structure->getPartner() || $this->isGranted('ROLE_PARTNER')){
             $structureId = $structure->getId();
             $modules = $this->userModuleRepository->findModulesByUser($structureId);
@@ -101,11 +124,15 @@ class StructureController extends AbstractController
             } else {
                 $role = "";
             }
+            $partner = $structure->getPartner();
+            // dd($structure);
+
             return $this->render('structure/details.html.twig',  [
                 'current_menu' => 'partner',
                 'structure' => $structure,
                 'modules' => $modules,
                 'role' => $role,
+                'partner' => $partner,
             ]);
         } else {
             return $this->render('bundles/TwigBundle/Exception/error404.html.twig');

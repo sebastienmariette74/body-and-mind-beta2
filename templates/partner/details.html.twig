@@ -8,12 +8,20 @@
 {% block PageTitle %}Détails du partenaire : {{ partner.name }}{% endblock %}
 
 {% block body %}
+{% if not app.user.isActivated %}
+<div class="alert alert-warning alert-dismissible" role="alert">
+    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    <div class="alert-message">
+        <strong>Votre compte est actuellement désactivé.</strong>
+    </div>
+</div>
+{% endif %}
 {% if is_granted('ROLE_ADMIN') %}
 <a class="btn btn-success" href="{{ path('partners_add_structure', {slug : partner.slug}) }}">Ajouter une
     structure</a>
 {% endif %}
 
-{# {% if app.user.isVerified or is_granted('ROLE_ADMIN') %} #}
+{% if (app.user.isVerified and app.user.isActivated) or is_granted('ROLE_ADMIN') %}
 
 <div class="row justify-content-center">
 
@@ -71,14 +79,14 @@
         {% endif %}
 
         <div class="form-check form-switch">
-            <input class="form-check-input activate-module" type="checkbox" role="switch" {{ checked }} {#
-                data-role="{{ role }}" #} data-idmodule="{{ module.id_module }}" data-slug="{{ partner.slug }}">
+            <input class="form-check-input activate-module" type="checkbox" role="switch" {{ checked }}
+                data-role="{{ role }}" data-idmodule="{{ module.id_module }}" data-slug="{{ partner.slug }}">
         </div>
     </div>
     {% endfor %}
 
 </div>
-{# {% endif %} #}
+{% endif %}
 
 <!-- Modal -->
 <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
