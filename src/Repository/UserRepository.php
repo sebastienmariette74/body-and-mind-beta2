@@ -129,7 +129,7 @@ class UserRepository extends ServiceEntityRepository implements PasswordUpgrader
             ->getResult();
     }
 
-    public function findAllStructureByPartner($id): array
+    public function findAllStructuresByPartner($id): array
     {
         return $this->createQueryBuilder('u')
             ->where('u.partner = :id')

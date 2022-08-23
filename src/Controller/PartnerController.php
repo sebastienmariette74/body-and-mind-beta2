@@ -143,7 +143,7 @@ class PartnerController extends AbstractController
 
 
             $userId = $partner->getId();
-            $structures = $this->userRepository->findAllStructureByPartner($userId);
+            $structures = $this->userRepository->findAllStructuresByPartner($userId);
             $modules = $this->userModuleRepository->findModulesByUser($userId);
             
             if ($this->isGranted('ROLE_ADMIN')) {
@@ -261,12 +261,22 @@ class PartnerController extends AbstractController
     }
 
     #[Route('/{slug}/active-user', name: 'activate_user')]
-    public function activateUser (User $partner): Response
+    public function activateUser (User $partner, UserRepository $userRepository): Response
     {
         $this->denyAccessUnlessGranted('ROLE_ADMIN');
 
         $partner->setIsActivated(($partner->isIsActivated()) ? false:true);
+        $structures = $userRepository->findAllStructuresByPartner($partner->getId());
+        $tableStructures = [];
+        foreach($structures as $structure){
+            $structure->setIsActivated(false);
+            $tableStructures[] = $structure;
+        }
+
         $this->em->persist($partner);
+        foreach($tableStructures as $structure){
+            $this->em->persist($structure);
+        }
         $this->em->flush();
 
         return new Response ('<html><body>true</body></html>');

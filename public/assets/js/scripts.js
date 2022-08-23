@@ -57,44 +57,6 @@ window.onload = () => {
         }
         });
     }
-
-    let filterButtons = document.querySelectorAll(".filter-button");
-    for (let button of filterButtons) {
-        button.addEventListener("click", () => {
-        // $.ajax({
-        //   type: "POST",
-        //   url: "",
-        //   async: false,
-        //   data: { race: button.dataset.path },
-        // });
-
-        const headers = new Headers();
-        const body = JSON.stringify({
-            firstname: "David",
-            lastname: "Marty",
-            position: "Outside center",
-        }); //JSON.stringify pour convertir en objet JSON et éviter le risque des caractères spéciaux.
-
-        const init = {
-            method: "POST",
-            headers: headers,
-            body: body,
-        };
-
-        fetch("", init).then((response) => console.log(response));
-
-        // let xmlhttp = new XMLHttpRequest();
-        // let path = button.dataset.path;
-        // console.log(path);
-        // xmlhttp.open("POST", "/");
-        // let data = new FormData();
-        // data.append('race', 'chien');
-        // // xmlhttp.open('get', `${path}`);
-        // xmlhttp.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
-        // // xmlhttp.send('race = chien');
-        // xmlhttp.send(data);
-        });
-    }
     
     let deleteButton = document.querySelectorAll(".modal-trigger");
     // console.log(deleteButton);
@@ -109,28 +71,7 @@ window.onload = () => {
             ".modal-body"
         ).textContent = `Voulez-vous supprimer ${button.dataset.name} ?`;
         });
-    }
-
-    async function loadUrl(url) {
-        const response = await fetch(url, {
-            headers: {
-                "X-Requested-With": "XMLHttpRequest"
-            }
-        })
-        console.log(response.status);
-        if (response.status >= 200 && response.status < 300){
-            console.log('ok');
-            // const data = await response.json();
-            // console.log(data);
-            // this.content.innerHTML = data.content;
-        } 
-        // else {
-        //     console.error(response)
-        // }
-    };
-
-    // xhr.setRequestHeader("X-Requested-With","XMLHttpRequest");
-
+    }   
     
     function onClickFilter (event){
         event.preventDefault();
@@ -145,8 +86,6 @@ window.onload = () => {
             console.log(response.data);
             content.innerHTML = response.data;
         })();
-              
-        
     }
 
     console.log(document.querySelectorAll('a.js-filter'));
