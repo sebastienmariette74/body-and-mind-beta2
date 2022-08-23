@@ -1,11 +1,21 @@
 {% extends 'base.html.twig' %}
 
+
+
 {% block title %}Détails de la structure : {{ structure.name}}{% endblock %}
+
+{% block breadcrumb %}
+{% if is_granted('ROLE_PARTNER') %}
+{% include "_partials/_breadcrumb.html.twig" %}
+{% endif %}
+{% endblock %}
+
 
 {% block PageTitle %}Détails de la structure : {{ structure.name}}{% endblock %}
 
 {% block body %}
-{# {% if app.user.isVerified or is_granted('ROLE_ADMIN') %} #}
+{% if app.user.isVerified or is_granted('ROLE_ADMIN') %}
+
 
 <div class="row justify-content-center">
 
@@ -13,48 +23,36 @@
         {# <img src="..." class="card-img-top" alt="..."> #}
         <div class="card-body">
             <h5 class="card-title">
-                    {{ structure.name}}
-            </h5>     
+                {{ structure.name}}
+            </h5>
             <p class="card-text">
                 {{ structure.address}} <br>
                 {{ structure.zipcode}} <br>
                 {{ structure.city}}
 
-            </p>   
+            </p>
             {% if is_granted('ROLE_ADMIN') %}
-                <a class="btn btn-warning" href="{{ path('structures_edit', {slug : structure.slug}) }}">Modifier</a>
+            <a class="btn btn-warning" href="{{ path('structures_edit', {slug : structure.slug}) }}">Modifier</a>
 
-                <button 
-                    type="button" 
-                    class="btn btn-danger modal-trigger" 
-                    data-bs-toggle="modal" 
-                    data-bs-target="#staticBackdrop"
-                    data-name="{{ structure.name }}" 
-                    data-slug="{{ structure.slug }}" 
-                    data-id="{{ structure.id }}"
-                >
-                    Supprimer
-                </button>
+            <button type="button" class="btn btn-danger modal-trigger" data-bs-toggle="modal"
+                data-bs-target="#staticBackdrop" data-name="{{ structure.name }}" data-slug="{{ structure.slug }}"
+                data-id="{{ structure.id }}">
+                Supprimer
+            </button>
 
             {% endif %}
 
 
             {% if structure.isActivated %}
-                {% set checked = 'checked' %}
+            {% set checked = 'checked' %}
             {% else %}
-                {% set checked = '' %}
+            {% set checked = '' %}
             {% endif %}
             <div class="form-check form-switch">
-                <input 
-                    class="form-check-input activate-user" 
-                    type="checkbox" 
-                    role="switch" 
-                    {{ checked }} 
-                    data-role="{{ role }}"
-                    data-id="{{ structure.id }}" 
-                    data-slug="{{ structure.slug }}">
+                <input class="form-check-input activate-user" type="checkbox" role="switch" {{ checked }}
+                    data-role="{{ role }}" data-id="{{ structure.id }}" data-slug="{{ structure.slug }}">
             </div>
-            
+
         </div>
     </div>
     <div>
@@ -62,31 +60,24 @@
         <div>
             {% for module in modules %}
 
-                {{ module.module }}
-                {% if module.is_activated %}
-                {% set checked = 'checked' %}
-                {% else %}
-                {% set checked = '' %}
-                {% endif %}
+            {{ module.module }}
+            {% if module.is_activated %}
+            {% set checked = 'checked' %}
+            {% else %}
+            {% set checked = '' %}
+            {% endif %}
 
-                <div class="form-check form-switch">
-                    <input 
-                        class="form-check-input activate-module" 
-                        type="checkbox" 
-                        role="switch" 
-                        {{ checked }} 
-                        data-role = "{{ role }}"  
-                        data-idmodule="{{ module.id_module }}" 
-                        data-slug="{{ structure.slug }}" 
-                    >
-                </div>
+            <div class="form-check form-switch">
+                <input class="form-check-input activate-module" type="checkbox" role="switch" {{ checked }}
+                    data-role="{{ role }}" data-idmodule="{{ module.id_module }}" data-slug="{{ structure.slug }}">
+            </div>
 
             {% endfor %}
         </div>
-        
+
     </div>
 </div>
-{# {% endif %} #}
+{% endif %}
 
 <!-- Modal -->
 <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"

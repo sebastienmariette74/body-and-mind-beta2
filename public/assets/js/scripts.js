@@ -97,7 +97,7 @@ window.onload = () => {
     }
     
     let deleteButton = document.querySelectorAll(".modal-trigger");
-    console.log(deleteButton);
+    // console.log(deleteButton);
     for (let button of deleteButton) {
         button.addEventListener("click", () => {
         console.log(button.dataset.slug);
@@ -110,4 +110,48 @@ window.onload = () => {
         ).textContent = `Voulez-vous supprimer ${button.dataset.name} ?`;
         });
     }
+
+    async function loadUrl(url) {
+        const response = await fetch(url, {
+            headers: {
+                "X-Requested-With": "XMLHttpRequest"
+            }
+        })
+        console.log(response.status);
+        if (response.status >= 200 && response.status < 300){
+            console.log('ok');
+            // const data = await response.json();
+            // console.log(data);
+            // this.content.innerHTML = data.content;
+        } 
+        // else {
+        //     console.error(response)
+        // }
+    };
+
+    // xhr.setRequestHeader("X-Requested-With","XMLHttpRequest");
+
+    
+    function onClickFilter (event){
+        event.preventDefault();
+
+        const url = this.href;
+        console.log(url);
+
+        (async () => {
+            // GET request using axios with async/await
+            const content = document.querySelector('#content');
+            const response = await axios.get(url);
+            console.log(response.data);
+            content.innerHTML = response.data;
+        })();
+              
+        
+    }
+
+    console.log(document.querySelectorAll('a.js-filter'));
+    document.querySelectorAll('a.js-filter').forEach(function(link){
+        link.addEventListener('click', onClickFilter)
+    })
+    
 };

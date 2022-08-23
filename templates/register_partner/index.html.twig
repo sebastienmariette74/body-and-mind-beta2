@@ -5,22 +5,5 @@
 {% block PageTitle %}Enregistrement d'un partenaire{% endblock %}
 
 {% block body %}
-{{ form_start(form) }}
-    {{ form_row(form.name) }}
-    {{ form_row(form.email) }}
-    {{ form_row(form.address) }}
-    {{ form_row(form.zipcode) }}
-    {{ form_row(form.city) }}
-    {{ form_row(form.isActivated) }}
-    {{ form_row(form.plainPassword, {
-    label: 'Mot de passe'
-    }) }}
-    {% for module in modules %}
-    <div class="form-check form-switch">
-        <label class="form-check-label" for="flexSwitchCheckChecked">{{ module.name }}</label>
-        <input class="form-check-input check-module" name="{{ module.slug }}" value="{{ module.id }}" type="checkbox" role="switch" checked>
-    </div>
-    {% endfor %}
-    <button id="btn-check-module" type="submit" class="btn btn-primary">Enregistrer</button>
-{{ form_end(form) }}
+{% include "register_partner/_content.html.twig" %}
 {% endblock %}

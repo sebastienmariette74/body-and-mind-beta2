@@ -12,6 +12,7 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
 use Symfony\Component\Form\Extension\Core\Type\PasswordType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Validator\Constraints\IsTrue;
 use Symfony\Component\Validator\Constraints\Length;
 use Symfony\Component\Validator\Constraints\NotBlank;
@@ -20,7 +21,7 @@ class RegistrationType extends AbstractType
 {
 
     // public function __construct(private UserRepository $userRepo){}
-    
+
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
@@ -53,7 +54,7 @@ class RegistrationType extends AbstractType
                 'attr' => [
                     'class' => 'form-control'
                 ],
-                'label' => 'Nom',                
+                'label' => 'Nom',
             ])
             ->add('address', TextType::class, [
                 'attr' => [
@@ -92,19 +93,19 @@ class RegistrationType extends AbstractType
                 'placeholder' => 'Quel est le partenaire ?',
                 'class' => User::class,
                 'label' => 'Partenaire',
-                'choice_label' => function(User $user){
+                'choice_label' => function (User $user) {
                     return $user->getName();
                 },
-                'query_builder' => function(UserRepository $userRepo){
+                'query_builder' => function (UserRepository $userRepo) {
                     $qb = $userRepo->createQueryBuilder('u');
-                    return $qb->where('u.partner is null')
-                    ;
+                    return $qb
+                            ->where('u.roles LIKE :role')
+                            ->setParameter('role', '%"'.'ROLE_PARTNER'.'"%');
                 },
                 'attr' => [
                     'class' => 'form-select'
                 ],
-            ])
-        ;
+            ]);
     }
 
     public function configureOptions(OptionsResolver $resolver): void

@@ -45,7 +45,7 @@ class SecurityController extends AbstractController
         UserRepository $userRepository,
         TokenGeneratorInterface $tokenGenerator,
         EntityManagerInterface $entityManager,
-        // SendMailService $mail
+        SendMailService $mail
 
     ): Response
     {
@@ -66,13 +66,13 @@ class SecurityController extends AbstractController
 
                 $context = compact('url', 'user');
 
-                // $mail->send(
-                //     'no-reply@bodyandmind.fr',
-                //     $user->getEmail(),
-                //     'Réinitialisation du mot de passe',
-                //     'password_reset',
-                //     $context
-                // );
+                $mail->send(
+                    'no-reply@bodyandmind.fr',
+                    $user->getEmail(),
+                    'Réinitialisation du mot de passe',
+                    'password_reset',
+                    $context
+                );
 
                 $this->addFlash('success', 'Email envoyé avec succès');
                 return $this->redirectToRoute('app_login');
