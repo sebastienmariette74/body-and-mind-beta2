@@ -102,6 +102,19 @@ class UserRepository extends ServiceEntityRepository implements PasswordUpgrader
             ->getResult();
     }
 
+    public function findPartnersByQuery($query): array
+    {
+        return $this->createQueryBuilder('u')
+            ->where('u.name LIKE :query')
+            ->andWhere('u.roles LIKE :role')
+            ->setParameters([
+                'query' => '%' . $query . '%',
+                'role'=> '%"' . 'ROLE_PARTNER' . '"%'
+            ])
+            ->getQuery()
+            ->getResult();
+    }
+
     public function findAllStructures(): array
     {
         return $this->createQueryBuilder('u')
@@ -138,17 +151,17 @@ class UserRepository extends ServiceEntityRepository implements PasswordUpgrader
             ->getResult();
     }
 
+    public function findStructuresByQuery($query): array
+    {
+        return $this->createQueryBuilder('u')
+        ->where('u.name LIKE :query')
+        ->andWhere('u.roles LIKE :role')
+        ->setParameters([
+            'query' => '%' . $query . '%',
+            'role'=> '%"' . 'ROLE_STRUCTURE' . '"%'
+        ])
+        ->getQuery()
+        ->getResult();
+    }
 
-
-
-
-    //    public function findOneBySomeField($value): ?User
-    //    {
-    //        return $this->createQueryBuilder('u')
-    //            ->andWhere('u.exampleField = :val')
-    //            ->setParameter('val', $value)
-    //            ->getQuery()
-    //            ->getOneOrNullResult()
-    //        ;
-    //    }
 }

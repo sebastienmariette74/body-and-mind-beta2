@@ -111,6 +111,24 @@ class StructureController extends AbstractController
         ]);
     }
 
+    #[Route('/all/{query}', name: 'query')]
+    public function query(string $query): Response
+    {
+        $structures = $this->userRepository->findStructuresByQuery($query);
+
+        if ($this->isGranted('ROLE_ADMIN')) {
+            $role = "admin";
+        } else {
+            $role = "";
+        }
+
+        return $this->render('structure/_content.html.twig', [
+            'current_menu' => 'partner',
+            'structures' => $structures,
+            'role' => $role,
+        ]);
+    }
+
     #[Route('/{slug}', name: 'details')]
     public function show(User $structure, UserInterface $user): Response    
     {
