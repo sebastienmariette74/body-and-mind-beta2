@@ -11,6 +11,13 @@
     <a class="btn btn-primary js-filter" href="{{ path('structures_disabled') }}">DESACTIVES</a>
     <a class="btn btn-success" href="{{ path('app_register_structure') }}">Ajouter une structure</a>
 
+    <form action="">
+        <div class="input-group mb-3">
+            <input type="text" class="form-control js-query" placeholder="Recherche par nom" >
+            <a class="btn btn-primary js-filter" href="{{ path('structures_all') }}">Rechercher</a>
+        </div>
+    </form>
+
 </div>
 
 <div id="content" class="row justify-content-center">

@@ -132,6 +132,24 @@ class PartnerController extends AbstractController
             'role' => $role,
         ]);
     }
+
+    #[Route('/all/{query}', name: 'query')]
+    public function query(string $query): Response
+    {
+        $partners = $this->userRepository->findPartnersByQuery($query);
+
+        if ($this->isGranted('ROLE_ADMIN')) {
+            $role = "admin";
+        } else {
+            $role = "";
+        }
+
+        return $this->render('partner/_content.html.twig', [
+            'current_menu' => 'partner',
+            'partners' => $partners,
+            'role' => $role,
+        ]);
+    }
     
     
     #[Route('/{slug}', name: 'details')]

@@ -81,19 +81,30 @@ window.onload = () => {
     });
   }
 
-  function onClickFilter(event) {
-    event.preventDefault();
+  let query = document.querySelector('.js-query');
 
-    const url = this.href;
-    console.log(url);
-
-    (async () => {
+  let async = (url) => {
+    return (async () => {
       // GET request using axios with async/await
       const content = document.querySelector("#content");
       const response = await axios.get(url);
-      console.log(response.data);
       content.innerHTML = response.data;
     })();
+  }
+
+  function onClickFilter(event) {
+    event.preventDefault();
+    let urlQuery = this.href + "/" + query.value;
+    let url = "";
+    if (query.value === ""){
+      url = this.href;
+      async(url);
+    } else {
+      url = urlQuery 
+      async(url);
+    }
+    query.value = "";
+    
   }
 
   console.log(document.querySelectorAll("a.js-filter"));

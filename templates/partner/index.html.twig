@@ -14,14 +14,9 @@
     <a class="btn btn-success" href="{{ path('app_register_partner') }}">Ajouter un partenaire</a>
 
     <form action="">
-        {# <div class="form-group form-group-inline">
-            <input class="form-control" type="text" name="q" placeholder="Recherche par nom" value="">
-            <button class="btn btn-primary">Rechercher</button>
-        </div> #}
         <div class="input-group mb-3">
-            <input type="text" class="form-control" placeholder="Recherche par nom" aria-label="Recipient's username"
-                aria-describedby="button-addon2">
-            <button class="btn btn-primary js-filter" type="button" id="button-addon2">Rechercher</button>
+            <input type="text" class="form-control js-query" placeholder="Recherche par nom" >
+            <a class="btn btn-primary js-filter" href="{{ path('partners_all') }}">Rechercher</a>
         </div>
     </form>
 
