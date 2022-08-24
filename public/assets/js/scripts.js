@@ -16,7 +16,7 @@ window.addEventListener("DOMContentLoaded", (event) => {
     //     document.body.classList.toggle('sb-sidenav-toggled');
     // }
     sidebarToggle.addEventListener("click", (event) => {
-        console.log('ok');
+      console.log("ok");
       event.preventDefault();
       document.body.classList.toggle("sb-sidenav-toggled");
       localStorage.setItem(
@@ -28,68 +28,76 @@ window.addEventListener("DOMContentLoaded", (event) => {
 });
 
 window.onload = () => {
-    let activateUser = document.querySelectorAll(".activate-user");
+  let activateUser = document.querySelectorAll(".activate-user");
 
-    for (let button of activateUser) {
-        button.addEventListener("click", (event) => {
-        console.log(button.dataset.role);
-        if (button.dataset.role === "admin") {
-            let xmlhttp = new XMLHttpRequest();
-            xmlhttp.open("get", `${button.dataset.slug}/active-user`);
-            xmlhttp.send();
-        } else {
-            event.preventDefault();
-        }
-        });
-    }
+  for (let button of activateUser) {
+    button.style.cursor = "pointer";
+    button.addEventListener("click", (event) => {
+      console.log(button.dataset.disabled);
 
-    let activateModule = document.querySelectorAll(".activate-module");
-
-    for (let button of activateModule) {
-        button.addEventListener("click", (event) => {
-        if (button.dataset.role === "admin") {
-            console.log('ok');
-            let xmlhttp = new XMLHttpRequest();
-            xmlhttp.open("get", `${button.dataset.slug}/${button.dataset.idmodule}/active-module`);
-            xmlhttp.send();
-        } else {
-            event.preventDefault();
-        }
-        });
-    }
-    
-    let deleteButton = document.querySelectorAll(".modal-trigger");
-    for (let button of deleteButton) {
-        button.addEventListener("click", () => {
-        console.log(button.dataset.slug);
-        console.log(button.dataset.id);
-        document.querySelector(
-            ".modal-footer a"
-        ).href = `${button.dataset.slug}/${button.dataset.id}`;
-        document.querySelector(
-            ".modal-body"
-        ).textContent = `Voulez-vous supprimer ${button.dataset.name} ?`;
-        });
-    }   
-    
-    function onClickFilter (event){
+      if (
+        button.dataset.disabled === "disabled" ||
+        button.dataset.role != "admin"
+      ) {
+        button.style.cursor = "default";
         event.preventDefault();
+      } else {
+        let xmlhttp = new XMLHttpRequest();
+        xmlhttp.open("get", `${button.dataset.slug}/active-user`);
+        xmlhttp.send();
+      }
+    });
+  }
 
-        const url = this.href;
-        console.log(url);
+  let activateModule = document.querySelectorAll(".activate-module");
 
-        (async () => {
-            // GET request using axios with async/await
-            const content = document.querySelector('#content');
-            const response = await axios.get(url);
-            console.log(response.data);
-            content.innerHTML = response.data;
-        })();
-    }
+  for (let button of activateModule) {
+    button.addEventListener("click", (event) => {
+      if (button.dataset.role === "admin") {
+        console.log("ok");
+        let xmlhttp = new XMLHttpRequest();
+        xmlhttp.open(
+          "get",
+          `${button.dataset.slug}/${button.dataset.idmodule}/active-module`
+        );
+        xmlhttp.send();
+      } else {
+        event.preventDefault();
+      }
+    });
+  }
 
-    console.log(document.querySelectorAll('a.js-filter'));
-    document.querySelectorAll('a.js-filter').forEach(function(link){
-        link.addEventListener('click', onClickFilter)
-    })
-    
+  let deleteButton = document.querySelectorAll(".modal-trigger");
+  for (let button of deleteButton) {
+    button.addEventListener("click", () => {
+      console.log(button.dataset.slug);
+      console.log(button.dataset.id);
+      document.querySelector(
+        ".modal-footer a"
+      ).href = `${button.dataset.slug}/${button.dataset.id}`;
+      document.querySelector(
+        ".modal-body"
+      ).textContent = `Voulez-vous supprimer ${button.dataset.name} ?`;
+    });
+  }
+
+  function onClickFilter(event) {
+    event.preventDefault();
+
+    const url = this.href;
+    console.log(url);
+
+    (async () => {
+      // GET request using axios with async/await
+      const content = document.querySelector("#content");
+      const response = await axios.get(url);
+      console.log(response.data);
+      content.innerHTML = response.data;
+    })();
+  }
+
+  console.log(document.querySelectorAll("a.js-filter"));
+  document.querySelectorAll("a.js-filter").forEach(function (link) {
+    link.addEventListener("click", onClickFilter);
+  });
 };

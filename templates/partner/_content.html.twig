@@ -22,9 +22,24 @@
         {% set checked = '' %}
         {% endif %}
 
+        {# {{ dump(partner) }} #}
+
+        {% if partner.partner is null %}
+        {% set state = "partner" %}
+        {% else %}
+            {% set state = "structure" %}
+        {% endif %}
+
         <div class="form-check form-switch">
-            <input class="form-check-input activate-user" type="checkbox" role="switch" {{ checked }}
-                data-role="{{ role }}" data-slug="{{ partner.slug }}">
+            <input 
+                class="form-check-input activate-user" 
+                type="checkbox" 
+                role="switch" 
+                {{ checked }}
+                data-role="{{ role }}" 
+                data-slug="{{ partner.slug }}" 
+                data-state="{{ state }}" 
+            >
         </div>
 
 

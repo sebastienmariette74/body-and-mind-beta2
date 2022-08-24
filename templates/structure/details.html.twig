@@ -2,7 +2,7 @@
 
 
 
-{% block title %}Détails de la structure : {{ structure.name}}{% endblock %}
+{% block title %}{{ structure.name}}{% endblock %}
 
 {% block breadcrumb %}
 {% if is_granted('ROLE_PARTNER') %}
@@ -11,10 +11,20 @@
 {% endblock %}
 
 
-{% block PageTitle %}Détails de la structure : {{ structure.name}}{% endblock %}
+{% block PageTitle %}{{ structure.name}}{% endblock %}
 
 {% block body %}
-{% if app.user.isVerified or is_granted('ROLE_ADMIN') %}
+
+{% if not app.user.isActivated %}
+<div class="alert alert-warning alert-dismissible" role="alert">
+    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    <div class="alert-message">
+        <strong>Votre compte est actuellement désactivé.</strong>
+    </div>
+</div>
+{% endif %}
+
+{% if (app.user.isVerified and app.user.isActivated) or is_granted('ROLE_ADMIN') %}
 
 
 <div class="row justify-content-center">
@@ -42,6 +52,12 @@
 
             {% endif %}
 
+            {% if structure.partner is null %}
+            {% set state = "partner" %}
+            {% else %}
+            {% set state = "structure" %}
+            {% endif %}
+
 
             {% if structure.isActivated %}
             {% set checked = 'checked' %}
@@ -50,7 +66,8 @@
             {% endif %}
             <div class="form-check form-switch">
                 <input class="form-check-input activate-user" type="checkbox" role="switch" {{ checked }}
-                    data-role="{{ role }}" data-id="{{ structure.id }}" data-slug="{{ structure.slug }}">
+                    data-role="{{ role }}" data-id="{{ structure.id }}" data-slug="{{ structure.slug }}"
+                    data-state="{{ state }}">
             </div>
 
         </div>
