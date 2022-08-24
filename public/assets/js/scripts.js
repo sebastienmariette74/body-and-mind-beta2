@@ -16,7 +16,6 @@ window.addEventListener("DOMContentLoaded", (event) => {
     //     document.body.classList.toggle('sb-sidenav-toggled');
     // }
     sidebarToggle.addEventListener("click", (event) => {
-      console.log("ok");
       event.preventDefault();
       document.body.classList.toggle("sb-sidenav-toggled");
       localStorage.setItem(
@@ -33,8 +32,6 @@ window.onload = () => {
   for (let button of activateUser) {
     button.style.cursor = "pointer";
     button.addEventListener("click", (event) => {
-      console.log(button.dataset.disabled);
-
       if (
         button.dataset.disabled === "disabled" ||
         button.dataset.role != "admin"
@@ -54,7 +51,6 @@ window.onload = () => {
   for (let button of activateModule) {
     button.addEventListener("click", (event) => {
       if (button.dataset.role === "admin") {
-        console.log("ok");
         let xmlhttp = new XMLHttpRequest();
         xmlhttp.open(
           "get",
@@ -70,8 +66,6 @@ window.onload = () => {
   let deleteButton = document.querySelectorAll(".modal-trigger");
   for (let button of deleteButton) {
     button.addEventListener("click", () => {
-      console.log(button.dataset.slug);
-      console.log(button.dataset.id);
       document.querySelector(
         ".modal-footer a"
       ).href = `${button.dataset.slug}/${button.dataset.id}`;
@@ -81,7 +75,7 @@ window.onload = () => {
     });
   }
 
-  let query = document.querySelector('.js-query');
+  let query = document.querySelector(".js-query");
 
   let async = (url) => {
     return (async () => {
@@ -90,25 +84,38 @@ window.onload = () => {
       const response = await axios.get(url);
       content.innerHTML = response.data;
     })();
-  }
+  };
 
   function onClickFilter(event) {
     event.preventDefault();
     let urlQuery = this.href + "/" + query.value;
     let url = "";
-    if (query.value === ""){
+    if (query.value === "") {
       url = this.href;
       async(url);
     } else {
-      url = urlQuery 
+      url = urlQuery;
       async(url);
     }
     query.value = "";
-    
   }
 
-  console.log(document.querySelectorAll("a.js-filter"));
   document.querySelectorAll("a.js-filter").forEach(function (link) {
     link.addEventListener("click", onClickFilter);
   });
+
+
+  /*_______________ NAVBAR ________________________*/
+  let navLinks = document.querySelectorAll(".nav-link");
+
+  let current = location.href;
+
+  for (let navLink of navLinks) {
+    if (navLink.href == current) {
+      navLink.className.replace("active", "");
+      navLink.className += " active";
+      navLink.style.color = "#fff";
+    }
+  }
+
 };

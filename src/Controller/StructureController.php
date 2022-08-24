@@ -42,19 +42,11 @@ class StructureController extends AbstractController
 
         if($request->isXmlHttpRequest()){
             return new JsonResponse([
-                "content" => $this->renderView("structure/_content.html.twig", [
-                    'current_menu' => 'partner',
-                    'structures' => $structures,
-                    'role' => $role,
-                ])
+                "content" => $this->renderView("structure/_content.html.twig", compact('structures', 'role'))
             ]);
         }
         
-        return $this->render('structure/index.html.twig', [
-            'current_menu' => 'structure',
-            'structures' => $structures,
-            'role' => $role,
-        ]);
+        return $this->render('structure/index.html.twig', compact('structures', 'role'));
     }
 
     #[Route('/all', name: 'all')]
@@ -68,11 +60,7 @@ class StructureController extends AbstractController
             $role = "";
         }
 
-        return $this->render('structure/_content.html.twig', [
-            'current_menu' => 'partner',
-            'structures' => $structures,
-            'role' => $role,
-        ]);
+        return $this->render('structure/_content.html.twig', compact('structures', 'role'));
     }
 
     #[Route('/actives', name: 'activated')]
@@ -86,11 +74,7 @@ class StructureController extends AbstractController
             $role = "";
         }
 
-        return $this->render('structure/_content.html.twig', [
-            'current_menu' => 'partner',
-            'structures' => $structures,
-            'role' => $role,
-        ]);
+        return $this->render('structure/_content.html.twig', compact('structures', 'role'));
     }
 
     #[Route('/desactives', name: 'disabled')]
@@ -104,11 +88,7 @@ class StructureController extends AbstractController
             $role = "";
         }
 
-        return $this->render('structure/_content.html.twig', [
-            'current_menu' => 'partner',
-            'structures' => $structures,
-            'role' => $role,
-        ]);
+        return $this->render('structure/_content.html.twig', compact('structures', 'role'));
     }
 
     #[Route('/all/{query}', name: 'query')]
@@ -122,11 +102,7 @@ class StructureController extends AbstractController
             $role = "";
         }
 
-        return $this->render('structure/_content.html.twig', [
-            'current_menu' => 'partner',
-            'structures' => $structures,
-            'role' => $role,
-        ]);
+        return $this->render('structure/_content.html.twig', compact('structures', 'role'));
     }
 
     #[Route('/{slug}', name: 'details')]
@@ -145,13 +121,7 @@ class StructureController extends AbstractController
             $partner = $structure->getPartner();
             // dd($structure);
 
-            return $this->render('structure/details.html.twig',  [
-                'current_menu' => 'partner',
-                'structure' => $structure,
-                'modules' => $modules,
-                'role' => $role,
-                'partner' => $partner,
-            ]);
+            return $this->render('structure/details.html.twig', compact('structure', 'role', 'modules', 'partner'));
         } else {
             return $this->render('bundles/TwigBundle/Exception/error404.html.twig');
         }
@@ -165,9 +135,7 @@ class StructureController extends AbstractController
 
         $structure->setIsActivated(($structure->isIsActivated()) ? false:true);
         $this->em->persist($structure);
-        $this->em->flush();
-
-        
+        $this->em->flush();        
 
         return new Response ('<html><body>true</body></html>');
     }
@@ -206,11 +174,7 @@ class StructureController extends AbstractController
             return $this->redirectToRoute('structures_');
         }
 
-        return $this->renderForm('structure/edit.html.twig',  [
-            'current_menu' => 'partner',
-            'partner' => $partner,
-            'form' => $form
-        ]);
+        return $this->renderForm('structure/edit.html.twig', compact('partner', 'form'));
     }
 
     #[Route('/{slug}/{id}', name: 'delete')]

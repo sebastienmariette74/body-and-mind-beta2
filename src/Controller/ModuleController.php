@@ -60,12 +60,7 @@ class ModuleController extends AbstractController
             return $this->redirectToRoute('modules_');
         }
 
-        return $this->renderForm('modules/edit.html.twig',
-          [
-            'current_menu' => 'partner',
-            'module' => $module,
-            'form' => $form
-        ]);
+        return $this->renderForm('modules/edit.html.twig', compact('module', 'form'));
     }
 
     #[Route('/ajouter-un-module', name: 'add')]
@@ -87,16 +82,13 @@ class ModuleController extends AbstractController
             return $this->redirectToRoute('modules_');
         }
 
-        return $this->renderForm('modules/add.html.twig',  [
-            'current_menu' => 'partner',
-            'form' => $form
-        ]);
+        return $this->renderForm('modules/add.html.twig', compact('form'));
     }
 
     #[Route('/{slug}/{id}', name: 'delete')]
     public function delete(Module $module)
     {
-        // $this->denyAccessUnlessGranted('ROLE_ADMIN');
+        $this->denyAccessUnlessGranted('ROLE_ADMIN');
         
         $this->em->remove($module);
         $this->em->flush();

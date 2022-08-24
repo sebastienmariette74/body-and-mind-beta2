@@ -61,20 +61,12 @@ class PartnerController extends AbstractController
 
         if($request->isXmlHttpRequest()){
             return new JsonResponse([
-                "content" => $this->renderView("partner/_content.html.twig", [
-                    "current_menu" => "partner",
-                    "partners" => $partners,
-                    "role" => $role,
-                ])
+                "content" => $this->renderView("partner/_content.html.twig", compact('partners', 'role'))
             ]);
         }
        
         
-        return $this->render('partner/index.html.twig', [
-            'current_menu' => 'partner',
-            'partners' => $partners,
-            'role' => $role,
-        ]);
+        return $this->render('partner/index.html.twig', compact('partners', 'role'));
     }
     
 
@@ -89,12 +81,9 @@ class PartnerController extends AbstractController
             $role = "";
         }
 
-        return $this->render('partner/_content.html.twig', [
-            'current_menu' => 'partner',
-            'partners' => $partners,
-            'role' => $role,
-        ]);
+        return $this->render('partner/_content.html.twig', compact('partners', 'role'));
     }
+
     #[Route('/actives', name: 'activated')]
     public function activated(): Response
     {
@@ -107,11 +96,7 @@ class PartnerController extends AbstractController
             $role = "";
         }
 
-        return $this->render('partner/_content.html.twig', [
-            'current_menu' => 'partner',
-            'partners' => $partners,
-            'role' => $role,
-        ]);
+        return $this->render('partner/_content.html.twig', compact('partners', 'role'));
     }
 
     #[Route('/desactives', name: 'disabled')]
@@ -126,11 +111,7 @@ class PartnerController extends AbstractController
             $role = "";
         }
 
-        return $this->render('partner/_content.html.twig', [
-            'current_menu' => 'partner',
-            'partners' => $partners,
-            'role' => $role,
-        ]);
+        return $this->render('partner/_content.html.twig', compact('partners', 'role'));
     }
 
     #[Route('/all/{query}', name: 'query')]
@@ -144,13 +125,8 @@ class PartnerController extends AbstractController
             $role = "";
         }
 
-        return $this->render('partner/_content.html.twig', [
-            'current_menu' => 'partner',
-            'partners' => $partners,
-            'role' => $role,
-        ]);
-    }
-    
+        return $this->render('partner/_content.html.twig', compact('partners', 'role'));
+    }    
     
     #[Route('/{slug}', name: 'details')]
     public function show(User $partner, UserInterface $user): Response
@@ -158,9 +134,6 @@ class PartnerController extends AbstractController
         $this->denyAccessUnlessGranted('ROLE_PARTNER');
         
         if($user->getUserIdentifier() === $partner->getEmail() || $this->isGranted('ROLE_ADMIN')){
-
-            // dd($partner->getRoles()[0] === 'ROLE_ADMIN');
-
 
             $userId = $partner->getId();
             $structures = $this->userRepository->findAllStructuresByPartner($userId);
@@ -172,13 +145,7 @@ class PartnerController extends AbstractController
                 $role = "";
             }        
             
-            return $this->render('partner/details.html.twig',  [
-                'current_menu' => 'partner',
-                'partner' => $partner,
-                'structures' => $structures,
-                'modules' => $modules,
-                'role' => $role,
-            ]);
+            return $this->render('partner/details.html.twig', compact('partner', 'role', 'structures', 'modules'));
         } else {
             return $this->render('bundles/TwigBundle/Exception/error404.html.twig');
         }
@@ -277,12 +244,7 @@ class PartnerController extends AbstractController
             return $this->redirectToRoute('partners_details', ['slug' => $partner->getSlug()]);
               
         }        
-        return $this->renderForm('partner/add_structure.html.twig',  [
-            'current_menu' => 'partner',
-            'structure' => $structure,
-            'partner' => $partner,
-            'form' => $form
-        ]);
+        return $this->renderForm('partner/add_structure.html.twig',  compact('structure', 'partner', 'form'));
     }
 
     #[Route('/{slug}/active-user', name: 'activate_user')]
@@ -343,11 +305,7 @@ class PartnerController extends AbstractController
             return $this->redirectToRoute('partners_');
         }
 
-        return $this->renderForm('partner/edit.html.twig',  [
-            'current_menu' => 'partner',
-            'partner' => $partner,
-            'form' => $form
-        ]);
+        return $this->renderForm('partner/edit.html.twig',  compact('partner', 'form'));
     }
 
     #[Route('/{slug}/{id}', name: 'delete')]
