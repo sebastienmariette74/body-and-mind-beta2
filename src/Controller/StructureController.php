@@ -141,12 +141,12 @@ class StructureController extends AbstractController
     }
 
     #[Route('/{slug}/active-user', name: 'activate_user')]
-    public function activateUser (User $partner): Response
+    public function activateUser (User $structure): Response
     {
         $this->denyAccessUnlessGranted('ROLE_ADMIN');
 
-        $partner->setIsActivated(($partner->isIsActivated()) ? false:true);
-        $this->em->persist($partner);
+        $structure->setIsActivated(($structure->isIsActivated()) ? false:true);
+        $this->em->persist($structure);
         $this->em->flush();
 
         

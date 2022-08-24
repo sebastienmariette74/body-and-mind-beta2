@@ -4,8 +4,13 @@
 {% include "_flash.html.twig" %}
 {% endblock %}
 
-{% block title %}Détails du partenaire : {{ partner.name }}{% endblock %}
-{% block PageTitle %}Détails du partenaire : {{ partner.name }}{% endblock %}
+{% block title %}{{ partner.name }}{% endblock %}
+{% block PageTitle %}{{ partner.name }}{% endblock %}
+{% block breadcrumb %}
+    {% if is_granted('ROLE_ADMIN') %}
+        {% include "_partials/_breadcrumb.html.twig" %}
+    {% endif %}
+{% endblock %}
 
 {% block body %}
 {% if not app.user.isActivated %}
@@ -51,15 +56,28 @@
 
             {% endif %}
 
-            {% if structure.isActivated %}
+            {# {% if structure.partner is null %}
+            {% set state = "partner" %}
+            {% else %}
+            {% set state = "structure" %}
+            {% endif %} #}
+
+            {% set state = structure.partner is null ? 'partner' : 'structure' %}
+
+            {% set disabled = not partner.isActivated ? 'disabled' : '' %}
+
+            {% set checked = structure.isActivated ? 'checked' : '' %}
+
+            {# {% if structure.isActivated %}
             {% set checked = 'checked' %}
             {% else %}
             {% set checked = '' %}
-            {% endif %}
+            {% endif %} #}
 
             <div class="form-check form-switch">
                 <input class="form-check-input activate-user" type="checkbox" role="switch" {{ checked }}
-                    data-role="{{ role }}" data-id="{{ structure.id }}" data-slug="{{ structure.slug }}">
+                    data-role="{{ role }}" data-id="{{ structure.id }}" data-slug="{{ structure.slug }}"
+                    data-state="{{ state }}" data-disabled="{{ disabled }}">
             </div>
 
         </div>

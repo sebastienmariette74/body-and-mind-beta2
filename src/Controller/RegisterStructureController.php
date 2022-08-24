@@ -41,6 +41,7 @@ class RegisterStructureController extends AbstractController
         $structure = new User();
         $form = $this->createForm(RegistrationType::class, $structure);  
         $form->remove('slug');
+        $form->remove('isActivated');
 
         $form->handleRequest($request);
 
@@ -54,6 +55,7 @@ class RegisterStructureController extends AbstractController
                 )
             );
             $partner = $structure->getPartner();
+            $structure->setIsActivated($partner->isIsActivated() ? true:false);
             $modules = $userModuleRepository->findUserModulesByUser($partner->getid());
             $tableUserModule = [];
             foreach($modules as $module){

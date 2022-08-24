@@ -21,6 +21,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 use Symfony\Component\PasswordHasher\PasswordHasherInterface;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\String\Slugger\SluggerInterface;
 
@@ -67,6 +68,7 @@ class PartnerController extends AbstractController
                 ])
             ]);
         }
+       
         
         return $this->render('partner/index.html.twig', [
             'current_menu' => 'partner',
@@ -183,6 +185,7 @@ class PartnerController extends AbstractController
         $form = $this->createForm(RegistrationType::class, $structure);          
         $form->remove('slug');
         $form->remove('partner');
+        $form->remove('isActivated');
 
         $form->handleRequest($request);
 
@@ -196,6 +199,8 @@ class PartnerController extends AbstractController
                 )
             );
             $structure->setPartner($partner);
+
+            $structure->setIsActivated($partner->isIsActivated() ? true:false);
 
             $modules = $userModuleRepository->findUserModulesByUser($partner->getid());
             $tableUserModule = [];
@@ -238,18 +243,20 @@ class PartnerController extends AbstractController
 
             $structureName = $structure->getName();
             $subject = `Activation du compte de la salle de sport : ${structureName}`;
+            $slug = $structure->getSlug();
+            $url = $this->generateUrl('structures_details', ['slug' => $slug], UrlGeneratorInterface::ABSOLUTE_URL);
 
             $mail->send(
                 'noreply@bodyandmind.fr',
                 $partner->getEmail(),
                 'Activation du compte de votre salle de sport',
                 'info_partner',
-                compact('structure', 'token', 'partner')
+                compact('structure', 'url', 'partner')
             );
 
             $this->addFlash('success', 'Emails envoyés avec succès');
 
-            return $this->redirectToRoute('partners_details', ['slug' => $slug]);
+            return $this->redirectToRoute('partners_details', ['slug' => $partner->getSlug()]);
               
         }        
         return $this->renderForm('partner/add_structure.html.twig',  [
