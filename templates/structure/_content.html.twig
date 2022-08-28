@@ -1,3 +1,5 @@
+{% block flash %}{% include "_partials/_flash.html.twig" %}{% endblock %}
+
 {% for structure in structures %}
 <div class="card col-3  m-3" style="width: 18rem;">
     {# <img src="..." class="card-img-top" alt="..."> #}
@@ -21,27 +23,21 @@
             data-id="{{ structure.id }}">Supprimer</button> #}
         {# {% endif %} #}
 
-        {% if structure.partner is null %}
-        {% set state = "partner" %}
-        {% else %}
-        {% set state = "structure" %}
-        {% endif %}
+        {% set state = structure.partner is null ? "partner" : "stucture" %}
+
+        {% set checked = structure.isActivated ? 'checked' : '' %}
 
 
-        {% if structure.isActivated %}
-        {% set checked = 'checked' %}
-        {% else %}
-        {% set checked = '' %}
-        {% endif %}
         <div class="form-check form-switch">
             <input 
-                class="form-check-input activate-user" 
+                class="form-check-input modal-switch-user btn-lg" 
                 type="checkbox" 
                 role="switch" 
                 {{ checked }}
                 data-role="{{ role }}" 
                 data-id="{{ structure.id }}" 
                 data-slug="{{ structure.slug }}"
+                data-name="{{ structure.name }}"
                 data-state="{{ state }}"
             >
         </div>

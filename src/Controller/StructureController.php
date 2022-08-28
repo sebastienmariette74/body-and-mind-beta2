@@ -8,6 +8,7 @@ use App\Form\RegisterStructureType;
 use App\Form\RegistrationType;
 use App\Repository\UserModuleRepository;
 use App\Repository\UserRepository;
+use App\Service\SendMailService;
 use Doctrine\ORM\EntityManagerInterface;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -25,7 +26,7 @@ class StructureController extends AbstractController
         $this->userRepository = $userRepository;
         $this->userModuleRepository = $userModuleRepository;
     }
-    
+
     #[Route('/', name: '')]
     public function index(Request $request): Response
     {
@@ -38,14 +39,14 @@ class StructureController extends AbstractController
             $role = "admin";
         } else {
             $role = "";
-        }        
+        }
 
-        if($request->isXmlHttpRequest()){
+        if ($request->isXmlHttpRequest()) {
             return new JsonResponse([
                 "content" => $this->renderView("structure/_content.html.twig", compact('structures', 'role'))
             ]);
         }
-        
+
         return $this->render('structure/index.html.twig', compact('structures', 'role'));
     }
 
@@ -106,13 +107,13 @@ class StructureController extends AbstractController
     }
 
     #[Route('/{slug}', name: 'details')]
-    public function show(User $structure, UserInterface $user): Response    
+    public function show(User $structure, UserInterface $user): Response
     {
 
-        if($user->getUserIdentifier() === $structure->getEmail() || $user === $structure->getPartner() || $this->isGranted('ROLE_PARTNER')){
+        if ($user->getUserIdentifier() === $structure->getEmail() || $user === $structure->getPartner() || $this->isGranted('ROLE_PARTNER')) {
             $structureId = $structure->getId();
             $modules = $this->userModuleRepository->findModulesByUser($structureId);
-    
+
             if ($this->isGranted('ROLE_ADMIN')) {
                 $role = "admin";
             } else {
@@ -125,41 +126,95 @@ class StructureController extends AbstractController
         } else {
             return $this->render('bundles/TwigBundle/Exception/error404.html.twig');
         }
-        
     }
 
-    #[Route('/{slug}/active-user', name: 'activate_user')]
-    public function activateUser (User $structure): Response
-    {
-        $this->denyAccessUnlessGranted('ROLE_ADMIN');
+    // #[Route('/{slug}/active-user', name: 'activate_user')]
+    // public function activateUser (User $structure): Response
+    // {
+    //     $this->denyAccessUnlessGranted('ROLE_ADMIN');
 
-        $structure->setIsActivated(($structure->isIsActivated()) ? false:true);
-        $this->em->persist($structure);
-        $this->em->flush();        
+    //     $structure->setIsActivated(($structure->isIsActivated()) ? false:true);
+    //     $this->em->persist($structure);
+    //     $this->em->flush();        
 
-        return new Response ('<html><body>true</body></html>');
-    }
+    //     $structureId = $structure->getId();
+    //         $modules = $this->userModuleRepository->findModulesByUser($structureId);
+
+    //         if ($this->isGranted('ROLE_ADMIN')) {
+    //             $role = "admin";
+    //         } else {
+    //             $role = "";
+    //         }
+    //         $partner = $structure->getPartner();
+
+    //         return $this->render('structure/details.html.twig', compact('structure', 'role', 'modules', 'partner'));
+    // }   
 
     #[Route('/{slug}/{id}/active-module', name: 'activate_module')]
-    public function activateModule (Module $module, string $slug, string $id) : Response
+    public function activateModule(Module $module, string $slug, string $id): Response
     {
 
         $module = $this->userModuleRepository->findModule($slug, $id);
-        $module->setIsActivated(($module->isIsActivated()) ? false:true);
+        $module->setIsActivated(($module->isIsActivated()) ? false : true);
         $this->em->persist($module);
         $this->em->flush();
 
-        return new Response ('true');
+        return new Response('true');
+    }
+
+    #[Route('/{slug}/active-user', name: 'activate_user')]
+    public function activateUser(User $structure, Request $request, SendMailService $mail): Response
+    {
+        $this->denyAccessUnlessGranted('ROLE_ADMIN');
+       
+        $structures = $this->userRepository->findAllStructures();
+
+        $structure->setIsActivated(($structure->isIsActivated()) ? false : true);
+        $this->em->persist($structure);
+        $this->em->flush();
+
+        $type = "structure";
+        $partner = $structure->getPartner();
+
+        $mail->send(
+            'noreply@bodyandmind.fr',
+            $structure->getEmail(),
+            'Changement du statut de votre compte sur le site Body & Mind',
+            'info_state_structure',
+            compact('structure', 'type', 'partner')
+        );
+
+        $partner = $structure->getPartner();
+        $type = "partner";
+        $mail->send(
+            'noreply@bodyandmind.fr',
+            $structure->getPartner()->getEmail(),
+            'Changement du statut de votre compte sur le site Body & Mind',
+            'info_state_structure',
+            compact('partner', 'type', 'structure')
+        );
+
+        if ($this->isGranted('ROLE_ADMIN')) {
+            $role = "admin";
+        } else {
+            $role = "";
+        }
+
+        $this->addFlash('success', 'Email(s) envoyé(s) avec succès');
+        // $this->addFlash('success', 'Changement(s) effectué(s) avec succès');
+
+        return $this->render('structure/_content.html.twig', compact('structures', 'role'));
+        
     }
 
     #[Route('/{slug}/active', name: 'activate')]
-    public function activer (User $partner): Response
+    public function activer(User $partner): Response
     {
-        $partner->setIsActivated(($partner->isIsActivated()) ? false:true);
+        $partner->setIsActivated(($partner->isIsActivated()) ? false : true);
         $this->em->persist($partner);
         $this->em->flush();
 
-        return new Response ('true');
+        return new Response('true');
     }
 
     #[Route('/{slug}/modifications', name: 'edit')]
@@ -182,6 +237,8 @@ class StructureController extends AbstractController
     {
         $this->em->remove($partner);
         $this->em->flush();
+
+        $this->addFlash('success', 'Utilisateur supprimé.');
 
         return $this->redirectToRoute('structures_');
     }
