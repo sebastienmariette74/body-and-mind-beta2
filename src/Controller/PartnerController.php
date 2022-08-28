@@ -41,25 +41,26 @@ class PartnerController extends AbstractController
     #[Route('/', name: '')]
     public function index(Request $request): Response
     {
-        // dd($data);
+        $limit = 9;
+        $page = (int)$request->query->get("page", 1);
+        
+        // dd($page);
 
         $role = "ROLE_PARTNER";
         $this->denyAccessUnlessGranted('ROLE_ADMIN');
 
-        $partners = $this->userRepository->findAllPartners();
+        $partners = $this->userRepository->findAllByRole("ROLE_PARTNER");
+        // $partners = $this->userRepository->getPaginated($page, $limit);
+        // dd($partners)
+        // $total = $this->userRepository->getTotalPartner();
+
+
 
         if ($this->isGranted('ROLE_ADMIN')) {
             $role = "admin";
         } else {
             $role = "";
         }
-
-        // if ($request->isXmlHttpRequest()) {
-        //     return new JsonResponse([
-        //         "content" => $this->renderView("partner/_content.html.twig", compact('partners', 'role'))
-        //     ]);
-        // }
-
 
         return $this->render('partner/index.html.twig', compact('partners', 'role'));
     }

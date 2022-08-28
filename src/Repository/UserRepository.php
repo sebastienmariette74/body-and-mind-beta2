@@ -65,30 +65,23 @@ class UserRepository extends ServiceEntityRepository implements PasswordUpgrader
             ->getResult();
     }
 
-    public function findAllPartners(): array
+    public function findAllByRole($role): array
     {
         return $this->createQueryBuilder('u')
             ->where('u.roles LIKE :role')
-            ->setParameter('role', '%"' . 'ROLE_PARTNER' . '"%')
+            ->setParameter('role', '%"' . $role . '"%')
+            ->orderBy('u.name')
             ->getQuery()
             ->getResult();
     }
-    public function findAllPartnersByRole($role): array
-    {
-        return $this->createQueryBuilder('u')
-            //    ->where('u.partner is null ')   
-            ->where('u.roles = :role ')
-            //    ->andWhere('u.address is not null')
-            ->setParameter('role', $role)
-            ->getQuery()
-            ->getResult();
-    }
+    
     public function findAllPartnersActivated(): array
     {
         return $this->createQueryBuilder('u')
             ->where('u.isActivated = true')
             ->andWhere('u.roles LIKE :role')
             ->setParameter('role', '%"' . 'ROLE_PARTNER' . '"%')
+            ->orderBy('u.name')
             ->getQuery()
             ->getResult();
     }
@@ -98,6 +91,7 @@ class UserRepository extends ServiceEntityRepository implements PasswordUpgrader
             ->where('u.isActivated = false')
             ->andWhere('u.roles LIKE :role')
             ->setParameter('role', '%"' . 'ROLE_PARTNER' . '"%')
+            ->orderBy('u.name')
             ->getQuery()
             ->getResult();
     }
@@ -109,8 +103,9 @@ class UserRepository extends ServiceEntityRepository implements PasswordUpgrader
             ->andWhere('u.roles LIKE :role')
             ->setParameters([
                 'query' => '%' . $query . '%',
-                'role'=> '%"' . 'ROLE_PARTNER' . '"%'
+                'role' => '%"' . 'ROLE_PARTNER' . '"%'
             ])
+            ->orderBy('u.name')
             ->getQuery()
             ->getResult();
     }
@@ -120,6 +115,7 @@ class UserRepository extends ServiceEntityRepository implements PasswordUpgrader
         return $this->createQueryBuilder('u')
             ->where('u.roles LIKE :role')
             ->setParameter('role', '%"' . 'ROLE_STRUCTURE' . '"%')
+            ->orderBy('u.name')
             ->getQuery()
             ->getResult();
     }
@@ -129,6 +125,7 @@ class UserRepository extends ServiceEntityRepository implements PasswordUpgrader
             ->where('u.isActivated = true')
             ->andWhere('u.roles LIKE :role')
             ->setParameter('role', '%"' . 'ROLE_STRUCTURE' . '"%')
+            ->orderBy('u.name')
             ->getQuery()
             ->getResult();
     }
@@ -138,6 +135,7 @@ class UserRepository extends ServiceEntityRepository implements PasswordUpgrader
             ->where('u.isActivated = false')
             ->andWhere('u.roles LIKE :role')
             ->setParameter('role', '%"' . 'ROLE_STRUCTURE' . '"%')
+            ->orderBy('u.name')
             ->getQuery()
             ->getResult();
     }
@@ -147,6 +145,7 @@ class UserRepository extends ServiceEntityRepository implements PasswordUpgrader
         return $this->createQueryBuilder('u')
             ->where('u.partner = :id')
             ->setParameter('id', $id)
+            ->orderBy('u.name')
             ->getQuery()
             ->getResult();
     }
@@ -154,14 +153,32 @@ class UserRepository extends ServiceEntityRepository implements PasswordUpgrader
     public function findStructuresByQuery($query): array
     {
         return $this->createQueryBuilder('u')
-        ->where('u.name LIKE :query')
-        ->andWhere('u.roles LIKE :role')
-        ->setParameters([
-            'query' => '%' . $query . '%',
-            'role'=> '%"' . 'ROLE_STRUCTURE' . '"%'
-        ])
-        ->getQuery()
-        ->getResult();
+            ->where('u.name LIKE :query')
+            ->andWhere('u.roles LIKE :role')
+            ->setParameters([
+                'query' => '%' . $query . '%',
+                'role' => '%"' . 'ROLE_STRUCTURE' . '"%'
+            ])
+            ->orderBy('u.name')
+            ->getQuery()
+            ->getResult();
     }
 
+    public function getPaginated($page, $limit)
+    {
+        $query = $this->createQueryBuilder('u')
+            ->where('u.roles LIKE :role')
+            ->setParameter('role', '%"' . 'ROLE_PARTNER' . '"%')
+            ->setFirstResult(($page * $limit) - $limit)
+            ->setMaxResults($limit)
+            ->orderBy('u.name');
+        return $query->getQuery()->getResult();
+    }
+    public function getTotal($role)
+    {
+        $query = $this->createQueryBuilder('u')
+            ->where('u.roles LIKE :role')
+            ->setParameter('role', '%"' . 'ROLE_PARTNER' . '"%');
+        return $query->getQuery()->getResult();
+    }
 }

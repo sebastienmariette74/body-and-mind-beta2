@@ -166,7 +166,28 @@ class StructureController extends AbstractController
     public function activateUser(User $structure, Request $request, SendMailService $mail): Response
     {
         $this->denyAccessUnlessGranted('ROLE_ADMIN');
-       
+
+        // dd(parse_url($_SERVER[]));
+        if (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on')
+            $url = "https";
+        else 
+            $url = "http";
+
+        // Ajoutez // à l'URL.
+        $url .= "://";
+
+        // Ajoutez l'hôte (nom de domaine, ip) à l'URL.
+        $url .= $_SERVER['HTTP_HOST'];
+
+        // Ajouter l'emplacement de la ressource demandée à l'URL
+        $url .= $_SERVER['REQUEST_URI'];
+
+        // Afficher l'URL
+        // echo $url;
+        // dd(parse_url($url));
+        // dd($_SERVER['HTTP_REFERER']);
+
+
         $structures = $this->userRepository->findAllStructures();
 
         $structure->setIsActivated(($structure->isIsActivated()) ? false : true);
@@ -200,11 +221,16 @@ class StructureController extends AbstractController
             $role = "";
         }
 
+        // dd(isset($_COOKIE["card"]));
+
         $this->addFlash('success', 'Email(s) envoyé(s) avec succès');
         // $this->addFlash('success', 'Changement(s) effectué(s) avec succès');
 
-        return $this->render('structure/_content.html.twig', compact('structures', 'role'));
-        
+        if(isset($_COOKIE['card'])){
+            return $this->render('structure/_card.html.twig', compact('structure', 'structures', 'role'));
+        }else{            
+            return $this->render('structure/_content.html.twig', compact('structures', 'role'));
+        }
     }
 
     #[Route('/{slug}/active', name: 'activate')]

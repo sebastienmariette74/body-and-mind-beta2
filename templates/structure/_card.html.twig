@@ -27,11 +27,11 @@
 
         {% set checked = structure.isActivated ? 'checked' : '' %}
 
-        {# <div class="form-check form-switch">
-            <input class="form-check-input activate-user modal-switch-user" type="checkbox" role="switch" {{ checked }}
+        <div class="form-check form-switch">
+            <input class="form-check-input activate-user modal-switch-user btn-lg" type="checkbox" role="switch" {{ checked }}
                 data-role="{{ role }}" data-id="{{ structure.id }}" data-name="{{ structure.name }}" data-slug="{{ structure.slug }}"
                 data-state="{{ state }}">
-        </div> #}
+        </div>
 
     </div>
 </div>
