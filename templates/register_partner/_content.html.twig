@@ -12,7 +12,7 @@
     {% for module in modules %}
     <div class="form-check form-switch">
         <label class="form-check-label" for="flexSwitchCheckChecked">{{ module.name }}</label>
-        <input class="form-check-input check-module" name="{{ module.slug }}" value="{{ module.id }}" type="checkbox" role="switch" checked>
+        <input class="form-check-input check-module btn-lg" name="{{ module.slug }}" value="{{ module.id }}" type="checkbox" role="switch" checked>
     </div>
     {% endfor %}
     <button id="btn-check-module" type="submit" class="btn btn-primary">Enregistrer</button>

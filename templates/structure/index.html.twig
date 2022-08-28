@@ -20,26 +20,12 @@
 
 </div>
 
-<div id="content" class="row justify-content-center">
+<div id="content" class="row justify-content-center content">
     {% include "structure/_content.html.twig" %}
 </div>
 
-<!-- Modal -->
-<div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
-    aria-labelledby="staticBackdropLabel" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-            </div>
-            <div class="modal-footer">
-                <a class="btn btn-primary" href="">VALIDER</a>
-            </div>
-        </div>
-    </div>
-</div>
+{% include "_partials/_modal_switch.html.twig" %}
+{% include "_partials/_modal_delete.html.twig" %}
 
 {% endblock %}
 

@@ -11699,3 +11699,47 @@ body {
   font-size: 0.75rem;
   border-radius: 0.25rem !important;
 }
+
+/* The Modal (background) */
+.modal-switch {
+  display: none; /* Hidden by default */
+  position: fixed; /* Stay in place */
+  z-index: 1; /* Sit on top */
+  padding-top: 100px; /* Location of the box */
+  left: 0;
+  top: 0;
+  width: 100%; /* Full width */
+  height: 100%; /* Full height */
+  overflow: auto; /* Enable scroll if needed */
+  background-color: rgb(0,0,0); /* Fallback color */
+  background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+}
+
+/* Modal Content */
+.modal-content-switch {
+  background-color: #fefefe;
+  margin: auto;
+  padding: 20px;
+  /* border: 1px solid #888; */
+  width: 50%;
+  z-index: 2;
+}
+
+/* The Close Button */
+#close-switch {
+  color: #aaaaaa;
+  float: right;
+  font-size: 28px;
+  font-weight: bold;
+}
+
+#close-switch:hover,
+#close-switch:focus {
+  color: #000;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+/* .modal-body-switch, .modal-footer-switch {
+  border: none;
+} */

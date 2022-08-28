@@ -7,9 +7,9 @@
 {% block title %}{{ partner.name }}{% endblock %}
 {% block PageTitle %}{{ partner.name }}{% endblock %}
 {% block breadcrumb %}
-    {% if is_granted('ROLE_ADMIN') %}
-        {% include "_partials/_breadcrumb.html.twig" %}
-    {% endif %}
+{% if is_granted('ROLE_ADMIN') %}
+{% include "_partials/_breadcrumb.html.twig" %}
+{% endif %}
 {% endblock %}
 
 {% block body %}
@@ -26,63 +26,14 @@
     structure</a>
 {% endif %}
 
+{# <button class="btn btn-primary" id="btn-test">TEST</button> #}
+
 {% if (app.user.isVerified and app.user.isActivated) or is_granted('ROLE_ADMIN') %}
 
-<div class="row justify-content-center">
-
-    {% for structure in structures %}
-    <div class="card col-3  m-3" style="width: 18rem;">
-        {# <img src="..." class="card-img-top" alt="..."> #}
-        <div class="card-body">
-            <h5 class="card-title">
-                <a href="{{ path('structures_details', {slug: structure.slug}) }}">
-                    {{ structure.name}}
-                </a>
-            </h5>
-            <p class="card-text">
-                {{ structure.address}} <br>
-                {{ structure.zipcode}} <br>
-                {{ structure.city}}
-            </p>
-
-            {% if is_granted('ROLE_ADMIN') %}
-            <a class="btn btn-warning" href="{{ path('structures_edit', {slug : structure.slug}) }}">Modifier</a>
-
-            <button type="button" class="btn btn-danger modal-trigger" data-bs-toggle="modal"
-                data-bs-target="#staticBackdrop" data-name="{{ structure.name }}" data-slug="{{ structure.slug }}"
-                data-id="{{ structure.id }}">
-                Supprimer
-            </button>
-
-            {% endif %}
-
-            {# {% if structure.partner is null %}
-            {% set state = "partner" %}
-            {% else %}
-            {% set state = "structure" %}
-            {% endif %} #}
-
-            {% set state = structure.partner is null ? 'partner' : 'structure' %}
-
-            {% set disabled = not partner.isActivated ? 'disabled' : '' %}
-
-            {% set checked = structure.isActivated ? 'checked' : '' %}
-
-            {# {% if structure.isActivated %}
-            {% set checked = 'checked' %}
-            {% else %}
-            {% set checked = '' %}
-            {% endif %} #}
-
-            <div class="form-check form-switch">
-                <input class="form-check-input activate-user" type="checkbox" role="switch" {{ checked }}
-                    data-role="{{ role }}" data-id="{{ structure.id }}" data-slug="{{ structure.slug }}"
-                    data-state="{{ state }}" data-disabled="{{ disabled }}">
-            </div>
-
-        </div>
-    </div>
-    {% endfor %}
+<div id="cards" class="row justify-content-center content">
+    {% include "partner/_cards.html.twig" %}    
+    {% include "_partials/_modal_switch.html.twig" %}
+    {% include "_partials/_modal_delete.html.twig" %}
 </div>
 <div>
     <h2>Permissions globales</h2>
@@ -90,14 +41,10 @@
     <div>
         {{ module.module }}
 
-        {% if module.is_activated %}
-        {% set checked = 'checked' %}
-        {% else %}
-        {% set checked = '' %}
-        {% endif %}
+        {% set checked = module.is_activated ? 'checked' : '' %}
 
         <div class="form-check form-switch">
-            <input class="form-check-input activate-module" type="checkbox" role="switch" {{ checked }}
+            <input class="form-check-input activate-module btn-lg" type="checkbox" role="switch" {{ checked }}
                 data-role="{{ role }}" data-idmodule="{{ module.id_module }}" data-slug="{{ partner.slug }}">
         </div>
     </div>
@@ -106,21 +53,6 @@
 </div>
 {% endif %}
 
-<!-- Modal -->
-<div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
-    aria-labelledby="staticBackdropLabel" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-            </div>
-            <div class="modal-footer">
-                <a class="btn btn-primary" href="">VALIDER</a>
-            </div>
-        </div>
-    </div>
-</div>
+
 
 {% endblock %}

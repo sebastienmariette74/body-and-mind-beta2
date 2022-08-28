@@ -28,3 +28,4 @@ npm run build
 symfony serve -d
 ```
 
+[mailHog](https://github.com/mailhog/MailHog/releases/tag/v1.0.1)
