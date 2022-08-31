@@ -127,7 +127,7 @@ $(document).ready(function () {
 
     // When the user clicks anywhere outside of the modal, close it
     window.onclick = function (event) {
-      if (event.target == $('#modal-switch')) {
+      if (event.target == $("#modal-switch")) {
         modalSwitch.style.display = "none";
       }
     };
@@ -193,12 +193,15 @@ $(document).ready(function () {
 
     $(".btn-switch").click(function (e) {
       e.preventDefault();
+      
+      let params = new URLSearchParams(window.location.search);
+      let paramsToString = params.toString();
       let url = "";
       let href = window.location.pathname.split("/");
       if (href.includes("partenaires")) {
-        url = `${window.location.protocol}//${window.location.host}/partenaires/${slug}/active-user`;
+        url = `${window.location.protocol}//${window.location.host}/partenaires/${slug}/active-user/?${paramsToString}`;
       } else {
-        url = `${window.location.protocol}//${window.location.host}/structures/${slug}/active-user`;
+        url = `${window.location.protocol}//${window.location.host}/structures/${slug}/active-user/?${paramsToString}`;
         if (href[2] != "") {
           let date = new Date();
           date.setTime(date.getTime() + 1000);
@@ -223,33 +226,38 @@ $(document).ready(function () {
 
   let query = document.querySelector(".js-query");
 
-  let async = (url, element) => {
+  let async = (url, element = null) => {
     return (async () => {
       // GET request using axios with async/await
       const response = await axios.get(url);
-      $(`.${element}`).html(response.data);
+      if (element != null) {
+        $(`.${element}`).html(response.data);
+      }
     })();
   };
 
   function onClickFilter(event) {
     event.preventDefault();
-    let urlQuery = this.href + "/" + query.value;
-    let url = "";
-    if (query.value === "") {
-      url = this.href;
-      async(url, "content");
-    } else {
-      url = urlQuery;
-      async(url, "content");
+    let filter = $(this).attr("name");
+    let page = $("#filters input:hidden").attr("value");
+    let query = $('.js-query').val();
+    let params = new URLSearchParams();
+    params.append("filter", filter);
+    params.append("page", page);
+    if($('.js-query').val() != ""){
+      params.append("query", query);
     }
-    query.value = "";
+
+    let url = new URL(window.location.href);
+    console.log(url.pathname + "?" + params.toString() + "&ajax=1");
+    async(url.pathname + "?" + params.toString() + "&ajax=1", "content");
+
+    // On met à jour l'url
+    history.pushState({}, null, url.pathname + "?" + params.toString());
   }
 
-  $(document).on('click', "a.js-filter", onClickFilter )
-
-  // document.querySelectorAll("a.js-filter").forEach(function (link) {
-  //   link.addEventListener("click", onClickFilter);
-  // });
+  // $(document).on('click', "a.js-filter", onClickFilter )
+  $(document).on("click", ".js-filter", onClickFilter);
 
   /*_______________ NAVBAR ________________________*/
   let navLinks = document.querySelectorAll(".nav-link");
@@ -263,4 +271,11 @@ $(document).ready(function () {
       navLink.style.color = "#fff";
     }
   }
+
+  $("#content").on("click", ".page-link", function (e) {
+    e.preventDefault();
+    let params = $(this).attr("href");
+    let url = new URL(window.location.href);
+    async(url.pathname + params + "&ajax=1", "content");
+  });
 });

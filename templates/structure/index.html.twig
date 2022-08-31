@@ -6,7 +6,7 @@
 
 {% block body %}
 <div>
-    <a class="btn btn-primary js-filter" href="{{ path('structures_all') }}">TOUT</a>
+    {# <a class="btn btn-primary js-filter" href="{{ path('structures_all') }}">TOUT</a>
     <a class="btn btn-primary js-filter" href="{{ path('structures_activated') }}">ACTIVES</a>
     <a class="btn btn-primary js-filter" href="{{ path('structures_disabled') }}">DESACTIVES</a>
     <a class="btn btn-success" href="{{ path('app_register_structure') }}">Ajouter une structure</a>
@@ -16,6 +16,14 @@
             <input type="text" class="form-control js-query" placeholder="Recherche par nom" >
             <a class="btn btn-primary js-filter" href="{{ path('structures_all') }}">Rechercher</a>
         </div>
+    </form> #}
+
+    <form id="filters" class="mb-3">
+        <input type="text" class="btn btn-primary js-filter" name="all" value="TOUT">
+        <input type="text" class="btn btn-primary js-filter" name="activated" value="ACTIVES">
+        <input type="text" class="btn btn-primary js-filter" name="disabled" value="DESACTIVES">
+        <input type="text" class="form-control js-query d-inline-block"  placeholder="Filtrer par nom">
+        <input type="hidden" name="page" value="{{ page }}">
     </form>
 
 </div>

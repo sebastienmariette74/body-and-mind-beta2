@@ -11,6 +11,7 @@ use App\Form\RegistrationType;
 use App\Repository\UserModuleRepository;
 use App\Repository\UserRepository;
 use App\Service\JWTService;
+use App\Service\PaginationService;
 use App\Service\SendMailService;
 use Doctrine\ORM\EntityManagerInterface;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
@@ -39,90 +40,65 @@ class PartnerController extends AbstractController
 
 
     #[Route('/', name: '')]
-    public function index(Request $request): Response
+    public function index(Request $request, PaginationService $pagination, UserRepository $userRepo): Response
     {
-        $limit = 9;
-        $page = (int)$request->query->get("page", 1);
-        
-        // dd($page);
-
-        $role = "ROLE_PARTNER";
         $this->denyAccessUnlessGranted('ROLE_ADMIN');
 
-        $partners = $this->userRepository->findAllByRole("ROLE_PARTNER");
-        // $partners = $this->userRepository->getPaginated($page, $limit);
-        // dd($partners)
-        // $total = $this->userRepository->getTotalPartner();
+        $filter = $request->get('filter');
+        // var_dump($filter);
+        // var_dump($request->get('ajax'));
+        if (!$request->get('ajax')) {
 
+            if ($request->get("filter") != "") {
+                if ($request->get("filter") == "activated" || $request->get("filter") == "all"  || $request->get("filter") == "disabled") {
+                    $filter = htmlentities($request->get("filter"));
+                } else {
+                    return $this->render('errors/error.html.twig');
+                }
+            }
 
+            $paginate = $pagination->pagination($request, $userRepo, 9, "getPaginated", null, "ROLE_PARTNER", null, "getTotal");
+            $partners = $paginate['partners'];
+            $total = $paginate['total'];
+            $limit = $paginate['limit'];
+            $page = $paginate['page'];
 
-        if ($this->isGranted('ROLE_ADMIN')) {
-            $role = "admin";
+            if ($this->isGranted('ROLE_ADMIN')) {
+                $role = "admin";
+            } else {
+                $role = "";
+            }
+
+            return $this->render('partner/index.html.twig', compact('partners', 'role', 'total', 'limit', 'page', 'filter'));
         } else {
-            $role = "";
-        }
+            
+            if ($request->get("filter") != "") {
+                if ($request->get("filter") == "activated" || $request->get("filter") == "all"  || $request->get("filter") == "disabled") {
+                    $filter = htmlentities($request->get("filter"));
+                } else {
+                    return $this->render('errors/error.html.twig');
+                }
+            }
 
-        return $this->render('partner/index.html.twig', compact('partners', 'role'));
+            $query = htmlentities($request->get("query"));
+            $paginate = $pagination->pagination($request, $userRepo, 9, "getPaginated", $filter, "ROLE_PARTNER", $query, "getTotal");
+            $partners = $paginate['partners'];
+            $total = $paginate['total'];
+            $limit = $paginate['limit'];
+            $page = $paginate['page'];
+
+            if ($this->isGranted('ROLE_ADMIN')) {
+                $role = "admin";
+            } else {
+                $role = "";
+            }
+            // return new Response('true');
+            return $this->render('partner/_content.html.twig', compact('partners', 'role', 'total', 'limit', 'page'));
+        }
     }
 
 
-    #[Route('/all', name: 'all')]
-    public function all(): Response
-    {
-        $partners = $this->userRepository->findAllPartners();
 
-        if ($this->isGranted('ROLE_ADMIN')) {
-            $role = "admin";
-        } else {
-            $role = "";
-        }
-
-        return $this->render('partner/_content.html.twig', compact('partners', 'role'));
-    }
-
-    #[Route('/actives', name: 'activated')]
-    public function activated(): Response
-    {
-
-        $partners = $this->userRepository->findAllPartnersActivated();
-
-        if ($this->isGranted('ROLE_ADMIN')) {
-            $role = "admin";
-        } else {
-            $role = "";
-        }
-
-        return $this->render('partner/_content.html.twig', compact('partners', 'role'));
-    }
-
-    #[Route('/desactives', name: 'disabled')]
-    public function diasble(): Response
-    {
-
-        $partners = $this->userRepository->findAllPartnersDisabled();
-
-        if ($this->isGranted('ROLE_ADMIN')) {
-            $role = "admin";
-        } else {
-            $role = "";
-        }
-        // return new Response ('<html><body>true</body></html>');
-        return $this->render('partner/_content.html.twig', compact('partners', 'role'));
-    }
-
-    #[Route('/all/{query}', name: 'query')]
-    public function query(string $query): Response
-    {
-        $partners = $this->userRepository->findPartnersByQuery($query);
-
-        if ($this->isGranted('ROLE_ADMIN')) {
-            $role = "admin";
-        } else {
-            $role = "";
-        }
-
-        return $this->render('partner/_content.html.twig', compact('partners', 'role'));
-    }
 
     #[Route('/{slug}', name: 'details')]
     public function show(User $partner, UserInterface $user, Request $request): Response
@@ -140,15 +116,6 @@ class PartnerController extends AbstractController
                 $role = "";
             }
 
-            // if ($request->isXmlHttpRequest()) {
-            //     return new JsonResponse([
-            //         "content" => "yes"
-            //         // "content" => $this->renderView("partner/_cards.html.twig", compact('partner', 'role', 'structures'))
-            //         // "content" => $this->renderView("partner/_cards.html.twig", compact('partner', 'role', 'structures'))
-            //         // "content" => $this->renderView("partner/_switch_user.html.twig", compact('partners', 'role'))
-            //     ]);
-            // }
-
             if ($this->isGranted('ROLE_ADMIN')) {
                 $role = "admin";
             } else {
@@ -161,11 +128,11 @@ class PartnerController extends AbstractController
     }
 
     #[Route('/{slug}/active-user', name: 'activate_user')]
-    public function activateUser(User $user, UserRepository $userRepository, SendMailService $mail): Response
+    public function activateUser(User $user, UserRepository $userRepository, SendMailService $mail, Request $request, PaginationService $pagination): Response
     {
         $this->denyAccessUnlessGranted('ROLE_ADMIN');
 
-        $partners = $this->userRepository->findAllPartners();
+        $partners = $this->userRepository->findAllByRole("ROLE_PARTNER");
 
         if ($user->getRoles()[0] === 'ROLE_PARTNER') {
             $user->setIsActivated(($user->isIsActivated()) ? false : true);
@@ -177,14 +144,14 @@ class PartnerController extends AbstractController
                     $structure->setIsActivated(false);
                     $type = "structure";
                     $partner = $user;
-                        $mail->send(
-                            'noreply@bodyandmind.fr',
-                            $structure->getEmail(),
-                            'Changement du statut de votre compte sur le site Body & Mind',
-                            'info_state_partner',
-                            compact('structure', 'partner', 'type')
-                        );
-                    }
+                    $mail->send(
+                        'noreply@bodyandmind.fr',
+                        $structure->getEmail(),
+                        'Changement du statut de votre compte sur le site Body & Mind',
+                        'info_state_partner',
+                        compact('structure', 'partner', 'type')
+                    );
+                }
             }
 
             foreach ($tableStructures as $structure) {
@@ -212,9 +179,42 @@ class PartnerController extends AbstractController
             );
 
             $this->addFlash('success', 'Email(s) envoyé(s) avec succès');
-            // $this->addFlash('success', 'Changement(s) effectué(s) avec succès');
 
-            return $this->render('partner/_content.html.twig', compact('partners', 'role'));
+            // return $this->render('partner/_content.html.twig', compact('partners', 'role'));
+
+            // $filter = $request->get('filter');
+            // if (!$request->get('ajax')) {
+
+            //     $paginate = $pagination->pagination($request, $userRepository, 9, "getPaginated", null, "ROLE_PARTNER", null, "getTotal");
+            //     $partners = $paginate['partners'];
+            //     $total = $paginate['total'];
+            //     $limit = $paginate['limit'];
+            //     $page = $paginate['page'];
+
+            //     if ($this->isGranted('ROLE_ADMIN')) {
+            //         $role = "admin";
+            //     } else {
+            //         $role = "";
+            //     }
+
+            //     return $this->render('partner/_content.html.twig', compact('partners', 'role', 'total', 'limit', 'page'));
+            // } else {
+            $filter = $request->get('filter');
+            $query = $request->get('query');
+            $paginate = $pagination->pagination($request, $userRepository, 9, "getPaginated", $filter, "ROLE_PARTNER", $query, "getTotal");
+            $partners = $paginate['partners'];
+            $total = $paginate['total'];
+            $limit = $paginate['limit'];
+            $page = $paginate['page'];
+
+            if ($this->isGranted('ROLE_ADMIN')) {
+                $role = "admin";
+            } else {
+                $role = "";
+            }
+            // return new Response('true');
+            return $this->render('partner/_content.html.twig', compact('partners', 'role', 'total', 'limit', 'page'));
+            // }
         }
 
         if ($user->getRoles()[0] === 'ROLE_STRUCTURE') {
@@ -232,7 +232,7 @@ class PartnerController extends AbstractController
             $this->em->flush();
 
             $type = 'structure';
-            
+
 
             $structure = $user;
             $partner = $user->getPartner();
@@ -244,7 +244,7 @@ class PartnerController extends AbstractController
                 compact('structure', 'type', 'partner')
             );
 
-            $type = 'partner';   
+            $type = 'partner';
             $mail->send(
                 'noreply@bodyandmind.fr',
                 $user->getPartner()->getEmail(),
@@ -257,7 +257,7 @@ class PartnerController extends AbstractController
 
             $partner = $user->getPartner();
             return $this->render("partner/_cards.html.twig", compact('partner', 'role', 'structures'));
-        }      
+        }
     }
 
     #[Route('/{slug}/{id}/active-module', name: 'activate_module')]
@@ -475,4 +475,69 @@ class PartnerController extends AbstractController
             return $this->redirectToRoute('structures_details', ['slug' => $user->getSlug()]);
         };
     }
+
+    // #[Route('/all', name: 'all')]
+    // public function all(): Response
+    // {
+    //     $partners = $this->userRepository->findAllByRole("ROLE_PARTNER");
+
+    //     if ($this->isGranted('ROLE_ADMIN')) {
+    //         $role = "admin";
+    //     } else {
+    //         $role = "";
+    //     }
+
+    //     return $this->render('partner/_content.html.twig', compact('partners', 'role'));
+    // }
+
+    // #[Route('/actives', name: 'activated')]
+    // public function activated(PaginationService $pagination, Request $request, UserRepository $userRepo): Response
+    // {
+
+    //     $paginate = $pagination->pagination($request, $userRepo, 9, "getPaginatedAllActivatedByRole", "ROLE_PARTNER", "getTotalActivatedByRole");
+    //     // dd($paginate);
+    //     $partners = $paginate['partners'];
+    //     $total = $paginate['total'];
+    //     $limit = $paginate['limit'];
+    //     $page = $paginate['page'];
+
+    //     // $partners = $this->userRepository->findAllPartnersActivated();
+
+    //     if ($this->isGranted('ROLE_ADMIN')) {
+    //         $role = "admin";
+    //     } else {
+    //         $role = "";
+    //     }
+
+    //     return $this->render('partner/_content.html.twig', compact('partners', 'role', 'total', 'limit', 'page'));
+    // }
+
+    // #[Route('/desactives', name: 'disabled')]
+    // public function diasble(): Response
+    // {
+
+    //     $partners = $this->userRepository->findAllPartnersDisabled();
+
+    //     if ($this->isGranted('ROLE_ADMIN')) {
+    //         $role = "admin";
+    //     } else {
+    //         $role = "";
+    //     }
+    //     // return new Response ('<html><body>true</body></html>');
+    //     return $this->render('partner/_content.html.twig', compact('partners', 'role'));
+    // }
+
+    // #[Route('/all/{query}', name: 'query')]
+    // public function query(string $query): Response
+    // {
+    //     $partners = $this->userRepository->findPartnersByQuery($query);
+
+    //     if ($this->isGranted('ROLE_ADMIN')) {
+    //         $role = "admin";
+    //     } else {
+    //         $role = "";
+    //     }
+
+    //     return $this->render('partner/_content.html.twig', compact('partners', 'role'));
+    // }
 }
