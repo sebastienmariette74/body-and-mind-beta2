@@ -31,24 +31,25 @@
 {% if (app.user.isVerified and app.user.isActivated) or is_granted('ROLE_ADMIN') %}
 
 <div id="cards" class="row justify-content-center content">
-    {% include "partner/_cards.html.twig" %}    
+    {% include "partner/_cards.html.twig" %}
     {% include "_partials/_modal_switch.html.twig" %}
     {% include "_partials/_modal_delete.html.twig" %}
 </div>
-<div>
+
+<div id="modules">
     <h2>Permissions globales</h2>
-    {% for module in modules %}
-    <div>
-        {{ module.module }}
+    <div >
+        {% for module in modules %}
 
         {% set checked = module.is_activated ? 'checked' : '' %}
 
         <div class="form-check form-switch">
+            <label for="">{{ module.module }}</label>
             <input class="form-check-input activate-module btn-lg" type="checkbox" role="switch" {{ checked }}
                 data-role="{{ role }}" data-idmodule="{{ module.id_module }}" data-slug="{{ partner.slug }}">
         </div>
+        {% endfor %}
     </div>
-    {% endfor %}
 
 </div>
 {% endif %}

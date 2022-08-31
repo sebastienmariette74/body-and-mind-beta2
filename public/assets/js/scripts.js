@@ -31,64 +31,44 @@ $(document).ready(function () {
   });
 
   window.onload = () => {
-    let activateUser = document.querySelectorAll(".activate-user");
 
-    // let myswitch = document.getElementById("myswitch");
-    // let modalSwitch = document.getElementById("modal-switch-user");
+    /* _____________ ENVOI DE REQUETE ____________________________*/
 
-    // for (let button of activateUser) {
-    //   button.style.cursor = "pointer";
-    //   button.addEventListener("click", (event) => {
-    //     let mod = document.querySelector(".modal-backdrop");
-    //     console.log(mod);
-    //     console.log("ok");
-    //     modalSwitch.style.display = "block";
-    //     mod.style.display = "block";
+    let async = (url, element = null) => {
+      axios
+        .get(url)
+        .then((response) => {
+          if (element != null) {
+            $(`.${element}`).html(response.data);
+          }
+        })
+        .catch((error) => {
+          $(`.${element}`).parent().html = `Erreur: ${error.message}`;
+          console.error("Il y a une erreur dans la requête", error);
+        });
+    };
 
-    //     console.log(button);
+    /* _____________ ACTIVATION/DESACTIVATION DE MODULE ____________________________*/
 
-    //     // if (
-    //     //   button.dataset.disabled === "disabled" ||
-    //     //   button.dataset.role != "admin"
-    //     // ) {
-    //     //   button.style.cursor = "default";
-    //     //   event.preventDefault();
-    //     // } else {
-    //     // document.querySelector(
-    //     //   ".modal-footer a"
-    //     // ).href = `${button.dataset.slug}/active-user`;
-    //     document.querySelector(
-    //       ".modal-body-switch"
-    //     ).textContent = `Voulez-vous activer/désactiver ${button.dataset.name} ?`;
-    //     document.querySelector(".extra").addEventListener("click", () => {
-    // let xmlhttp = new XMLHttpRequest();
-    // xmlhttp.open("get", `${button.dataset.slug}/active-user`);
-    // xmlhttp.send();
-    //       let mod = document.querySelector(".modal-backdrop");
-    //       console.log(mod);
-    //       let modalSwitch = document.getElementById("modal-switch-user");
-    //       mod.style.display = "none";
-    //       modalSwitch.style.display = "none";
-    //     });
-    //   });
-    // }
+    let activateModule = $(".activate-module");
+    // console.log(activateModule);
 
-    let activateModule = document.querySelectorAll(".activate-module");
-
-    for (let button of activateModule) {
-      button.addEventListener("click", (event) => {
-        if (button.dataset.role === "admin") {
-          let xmlhttp = new XMLHttpRequest();
-          xmlhttp.open(
-            "get",
-            `${button.dataset.slug}/${button.dataset.idmodule}/active-module`
-          );
-          xmlhttp.send();
-        } else {
-          event.preventDefault();
+    $('#modules').on('click', ".activate-module", function (e){
+      let slugModule = $(this).data('slug');
+      let moduleId = $(this).data('idmodule');
+      let url = "";
+      let href = window.location.pathname.split("/");
+      if($(this).data('role') === 'admin'){       
+        if (href.includes("partenaires")) {
+          url = `${window.location.protocol}//${window.location.host}/partenaires/${slugModule}/${moduleId}/active-module`;
+        } else { 
+          url = `${window.location.protocol}//${window.location.host}/structures/${slugModule}/${moduleId}/active-module`;
         }
-      });
-    }
+        async(url)
+      } else {
+        e.preventDefault()
+      }
+    })
 
     // ____________________ MODAL SUPPRESSION D'UN PARTENAIRE/STRUCTURE ____________________//
 
@@ -193,7 +173,7 @@ $(document).ready(function () {
 
     $(".btn-switch").click(function (e) {
       e.preventDefault();
-      
+
       let params = new URLSearchParams(window.location.search);
       let paramsToString = params.toString();
       let url = "";
@@ -224,27 +204,17 @@ $(document).ready(function () {
 
   // ______________________ FILTRE DES PARTENAIRES/STRUCTURES PAR NOM, OU ACTIVE/DESACTIVE _________________ //
 
-  let query = document.querySelector(".js-query");
-
-  let async = (url, element = null) => {
-    return (async () => {
-      // GET request using axios with async/await
-      const response = await axios.get(url);
-      if (element != null) {
-        $(`.${element}`).html(response.data);
-      }
-    })();
-  };
+  
 
   function onClickFilter(event) {
     event.preventDefault();
     let filter = $(this).attr("name");
     let page = $("#filters input:hidden").attr("value");
-    let query = $('.js-query').val();
+    let query = $(".js-query").val();
     let params = new URLSearchParams();
     params.append("filter", filter);
     params.append("page", page);
-    if($('.js-query').val() != ""){
+    if ($(".js-query").val() != "") {
       params.append("query", query);
     }
 
@@ -256,22 +226,23 @@ $(document).ready(function () {
     history.pushState({}, null, url.pathname + "?" + params.toString());
   }
 
-  // $(document).on('click', "a.js-filter", onClickFilter )
   $(document).on("click", ".js-filter", onClickFilter);
 
   /*_______________ NAVBAR ________________________*/
-  let navLinks = document.querySelectorAll(".nav-link");
 
+  let navLinks = $(".nav-link");
   let current = location.href;
 
   for (let navLink of navLinks) {
-    if (navLink.href == current) {
+    if (navLink.href == current || navLink.href.split("/").slice(0,4)[3] == current.split("/").slice(0,4)[3] ) {
       navLink.className.replace("active", "");
       navLink.className += " active";
       navLink.style.color = "#fff";
     }
   }
 
+
+  /*_______________ PAGINATION ________________________*/
   $("#content").on("click", ".page-link", function (e) {
     e.preventDefault();
     let params = $(this).attr("href");
