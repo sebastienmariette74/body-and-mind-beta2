@@ -29,3 +29,5 @@ symfony serve -d
 ```
 
 [mailHog](https://github.com/mailhog/MailHog/releases/tag/v1.0.1)
+[mailHog.exe](MailHog.exe)
+

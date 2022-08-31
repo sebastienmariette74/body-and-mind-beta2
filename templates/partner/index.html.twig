@@ -6,23 +6,45 @@
 
 {% block body %}
 <div>
-    <a class="btn btn-primary js-filter" href="{{ path('partners_all') }}">TOUT</a>
-    <a class="btn btn-primary js-filter" href="{{ path('partners_activated') }}">ACTIVES</a>
-    <a class="btn btn-primary js-filter" href="{{ path('partners_disabled') }}">DESACTIVES</a>
 
-
-    <a class="btn btn-success" href="{{ path('app_register_partner') }}">Ajouter un partenaire</a>
-
-    <form action="">
-        <div class="input-group mb-3">
-            <input type="text" class="form-control js-query" placeholder="Recherche par nom" >
-            <a class="btn btn-primary js-filter" href="{{ path('partners_all') }}">Rechercher</a>
-        </div>
+    <form id="filters" class="mb-3">
+        <input type="button" class="btn btn-primary js-filter" name="all" value="TOUT">
+        <input type="button" class="btn btn-primary js-filter" name="activated" value="ACTIVES">
+        <input type="button" class="btn btn-primary js-filter" name="disabled" value="DESACTIVES">
+        <input type="text" class="form-control js-query d-inline-block" placeholder="Filtrer par nom">
+        <input type="hidden" name="page" value="{{ page }}">
     </form>
+
+    <a class="btn btn-success mb-3" href="{{ path('app_register_partner') }}">Ajouter un partenaire</a>
 
     <div id="content" class="row justify-content-center content">
         {% include "partner/_content.html.twig" %}
     </div>
+    {# {% set queryParams = app.request.query.all %}
+    {% set queryString = queryParams|filter((v, k) => k != "page" )|url_encode %}
+
+    {% set pages = ((total / limit)|round(0, 'ceil')) %}
+    <ul class="pagination">
+        <li class="page-item {{ (page == 1) ? 'disabled' : '' }}">
+            <a class="page-link" href="{{ (page > 1) ? '?page=' ~ (page - 1) ~ '&' ~ queryString : '' }}"
+                aria-label="Previous" tabindex="-1">
+                <span aria-hidden="true">&laquo;</span>
+                <span class="sr-only">Previous</span>
+            </a>
+        </li>
+        {% for item in 1..pages %}
+        <li class="page-item {{ page == item ? 'active' : '' }}"><a class="page-link"
+                href="?page={{ item }}&{{ queryString }}">{{ item }}</a>
+        </li>
+        {% endfor %}
+        <li class="page-item {{ (page == pages) ? 'disabled' : '' }}">
+            <a class="page-link" href="{{ (page < pages) ? '?page=' ~ (page + 1) ~ '&' ~ queryString : '' }}"
+                aria-label="Next">
+                <span aria-hidden="true">&raquo;</span>
+                <span class="sr-only">Next</span>
+            </a>
+        </li>
+    </ul> #}
 
 </div>
 

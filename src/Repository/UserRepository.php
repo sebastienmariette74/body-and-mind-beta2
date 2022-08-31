@@ -57,14 +57,6 @@ class UserRepository extends ServiceEntityRepository implements PasswordUpgrader
         $this->add($user, true);
     }
 
-    public function findAllActivatedPartners(): array
-    {
-        return $this->createQueryBuilder('u')
-            ->where('u.isActivated = true')
-            ->getQuery()
-            ->getResult();
-    }
-
     public function findAllByRole($role): array
     {
         return $this->createQueryBuilder('u')
@@ -74,71 +66,83 @@ class UserRepository extends ServiceEntityRepository implements PasswordUpgrader
             ->getQuery()
             ->getResult();
     }
+
+    // public function findAllActivatedPartners(): array
+    // {
+    //     return $this->createQueryBuilder('u')
+    //         ->where('u.isActivated = true')
+    //         ->getQuery()
+    //         ->getResult();
+    // }
+
     
-    public function findAllPartnersActivated(): array
-    {
-        return $this->createQueryBuilder('u')
-            ->where('u.isActivated = true')
-            ->andWhere('u.roles LIKE :role')
-            ->setParameter('role', '%"' . 'ROLE_PARTNER' . '"%')
-            ->orderBy('u.name')
-            ->getQuery()
-            ->getResult();
-    }
-    public function findAllPartnersDisabled(): array
-    {
-        return $this->createQueryBuilder('u')
-            ->where('u.isActivated = false')
-            ->andWhere('u.roles LIKE :role')
-            ->setParameter('role', '%"' . 'ROLE_PARTNER' . '"%')
-            ->orderBy('u.name')
-            ->getQuery()
-            ->getResult();
-    }
 
-    public function findPartnersByQuery($query): array
-    {
-        return $this->createQueryBuilder('u')
-            ->where('u.name LIKE :query')
-            ->andWhere('u.roles LIKE :role')
-            ->setParameters([
-                'query' => '%' . $query . '%',
-                'role' => '%"' . 'ROLE_PARTNER' . '"%'
-            ])
-            ->orderBy('u.name')
-            ->getQuery()
-            ->getResult();
-    }
+    // public function findAllPartnersActivated($role): array
+    // {
+    //     return $this->createQueryBuilder('u')
+    //         ->where('u.isActivated = true')
+    //         ->andWhere('u.roles LIKE :role')
+    //         ->setParameter('role', '%"' . 'ROLE_PARTNER' . '"%')
+    //         ->orderBy('u.name')
+    //         ->getQuery()
+    //         ->getResult();
+    // }
+    // public function findAllPartnersDisabled(): array
+    // {
+    //     return $this->createQueryBuilder('u')
+    //         ->where('u.isActivated = false')
+    //         ->andWhere('u.roles LIKE :role')
+    //         ->setParameter('role', '%"' . 'ROLE_PARTNER' . '"%')
+    //         ->orderBy('u.name')
+    //         ->getQuery()
+    //         ->getResult();
+    // }
 
-    public function findAllStructures(): array
-    {
-        return $this->createQueryBuilder('u')
-            ->where('u.roles LIKE :role')
-            ->setParameter('role', '%"' . 'ROLE_STRUCTURE' . '"%')
-            ->orderBy('u.name')
-            ->getQuery()
-            ->getResult();
-    }
-    public function findAllStructuresActivated(): array
-    {
-        return $this->createQueryBuilder('u')
-            ->where('u.isActivated = true')
-            ->andWhere('u.roles LIKE :role')
-            ->setParameter('role', '%"' . 'ROLE_STRUCTURE' . '"%')
-            ->orderBy('u.name')
-            ->getQuery()
-            ->getResult();
-    }
-    public function findAllStructuresDisabled(): array
-    {
-        return $this->createQueryBuilder('u')
-            ->where('u.isActivated = false')
-            ->andWhere('u.roles LIKE :role')
-            ->setParameter('role', '%"' . 'ROLE_STRUCTURE' . '"%')
-            ->orderBy('u.name')
-            ->getQuery()
-            ->getResult();
-    }
+    // public function findPartnersByQuery($query): array
+    // {
+    //     return $this->createQueryBuilder('u')
+    //         ->where('u.name LIKE :query')
+    //         ->andWhere('u.roles LIKE :role')
+    //         ->setParameters([
+    //             'query' => '%' . $query . '%',
+    //             'role' => '%"' . 'ROLE_PARTNER' . '"%'
+    //         ])
+    //         ->orderBy('u.name')
+    //         ->getQuery()
+    //         ->getResult();
+    // }
+
+    // public function findAllStructures(): array
+    // {
+    //     return $this->createQueryBuilder('u')
+    //         ->where('u.roles LIKE :role')
+    //         ->setParameter('role', '%"' . 'ROLE_STRUCTURE' . '"%')
+    //         ->orderBy('u.name')
+    //         ->getQuery()
+    //         ->getResult();
+    // }
+
+    // public function findAllStructuresActivated(): array
+    // {
+    //     return $this->createQueryBuilder('u')
+    //         ->where('u.isActivated = true')
+    //         ->andWhere('u.roles LIKE :role')
+    //         ->setParameter('role', '%"' . 'ROLE_STRUCTURE' . '"%')
+    //         ->orderBy('u.name')
+    //         ->getQuery()
+    //         ->getResult();
+    // }
+
+    // public function findAllStructuresDisabled(): array
+    // {
+    //     return $this->createQueryBuilder('u')
+    //         ->where('u.isActivated = false')
+    //         ->andWhere('u.roles LIKE :role')
+    //         ->setParameter('role', '%"' . 'ROLE_STRUCTURE' . '"%')
+    //         ->orderBy('u.name')
+    //         ->getQuery()
+    //         ->getResult();
+    // }
 
     public function findAllStructuresByPartner($id): array
     {
@@ -150,35 +154,109 @@ class UserRepository extends ServiceEntityRepository implements PasswordUpgrader
             ->getResult();
     }
 
-    public function findStructuresByQuery($query): array
-    {
-        return $this->createQueryBuilder('u')
-            ->where('u.name LIKE :query')
-            ->andWhere('u.roles LIKE :role')
-            ->setParameters([
-                'query' => '%' . $query . '%',
-                'role' => '%"' . 'ROLE_STRUCTURE' . '"%'
-            ])
-            ->orderBy('u.name')
-            ->getQuery()
-            ->getResult();
-    }
+    // public function findStructuresByQuery($query): array
+    // {
+    //     return $this->createQueryBuilder('u')
+    //         ->where('u.name LIKE :query')
+    //         ->andWhere('u.roles LIKE :role')
+    //         ->setParameters([
+    //             'query' => '%' . $query . '%',
+    //             'role' => '%"' . 'ROLE_STRUCTURE' . '"%'
+    //         ])
+    //         ->orderBy('u.name')
+    //         ->getQuery()
+    //         ->getResult();
+    // }
 
-    public function getPaginated($page, $limit)
+    public function getPaginated($page, $limit, $role, $filter, $querySearch)
     {
         $query = $this->createQueryBuilder('u')
             ->where('u.roles LIKE :role')
-            ->setParameter('role', '%"' . 'ROLE_PARTNER' . '"%')
+            ->setParameter('role', '%"' . $role . '"%')
             ->setFirstResult(($page * $limit) - $limit)
             ->setMaxResults($limit)
             ->orderBy('u.name');
+
+        if ($filter === 'activated'){
+            $query->andWhere('u.isActivated = true');
+        }
+
+        if ($filter === 'disabled'){
+            $query->andWhere('u.isActivated = false');
+        }
+
+        if ($querySearch != null) {
+            $query->andWhere('u.name LIKE :query')
+            ->setParameter('query' , '%' . $querySearch . '%')
+            ->orderBy('u.name');
+        }
+            
         return $query->getQuery()->getResult();
     }
-    public function getTotal($role)
+
+    public function getTotal($role, $filter, $querySearch)
     {
         $query = $this->createQueryBuilder('u')
+            ->select('COUNT(u)')
             ->where('u.roles LIKE :role')
-            ->setParameter('role', '%"' . 'ROLE_PARTNER' . '"%');
-        return $query->getQuery()->getResult();
+            ->setParameter('role', '%"' . $role . '"%');
+        
+            if ($filter === 'activated'){
+                $query->andWhere('u.isActivated = true');
+            }
+    
+            if ($filter === 'disabled'){
+                $query->andWhere('u.isActivated = false');
+            }
+
+            if ($querySearch != null) {
+                $query->andWhere('u.name LIKE :query')
+                ->setParameter('query' , '%' . $querySearch . '%')
+                ->orderBy('u.name');
+            }
+            
+        return $query->getQuery()->getSingleScalarResult();
     }
+
+    // public function getPaginatedAllByRole($page, $limit, $role)
+    // {
+    //     $query = $this->createQueryBuilder('u')
+    //         ->where('u.roles LIKE :role')
+    //         ->setParameter('role', '%"' . $role . '"%')
+    //         ->setFirstResult(($page * $limit) - $limit)
+    //         ->setMaxResults($limit)
+    //         ->orderBy('u.name');
+    //     return $query->getQuery()->getResult();
+    // }
+
+    // public function getTotalByRole($role)
+    // {
+    //     $query = $this->createQueryBuilder('u')
+    //         ->select('COUNT(u)')
+    //         ->where('u.roles LIKE :role')
+    //         ->setParameter('role', '%"' . $role . '"%');
+    //     return $query->getQuery()->getSingleScalarResult();
+    // }
+
+    // public function getPaginatedAllActivatedByRole($page, $limit, $role)
+    // {
+    //     $query = $this->createQueryBuilder('u')
+    //         ->where('u.isActivated = true')
+    //         ->andWhere('u.roles LIKE :role')
+    //         ->setParameter('role', '%"' . $role . '"%')
+    //         ->setFirstResult(($page * $limit) - $limit)
+    //         ->setMaxResults($limit)
+    //         ->orderBy('u.name');
+    //     return $query->getQuery()->getResult();
+    // }
+
+    // public function getTotalActivatedByRole($role)
+    // {
+    //     $query = $this->createQueryBuilder('u')
+    //         ->select('COUNT(u)')            
+    //         ->where('u.isActivated = true')
+    //         ->andWhere('u.roles LIKE :role')
+    //         ->setParameter('role', '%"' . $role . '"%');
+    //     return $query->getQuery()->getSingleScalarResult();
+    // }
 }

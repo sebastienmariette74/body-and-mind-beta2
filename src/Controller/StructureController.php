@@ -8,6 +8,7 @@ use App\Form\RegisterStructureType;
 use App\Form\RegistrationType;
 use App\Repository\UserModuleRepository;
 use App\Repository\UserRepository;
+use App\Service\PaginationService;
 use App\Service\SendMailService;
 use Doctrine\ORM\EntityManagerInterface;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
@@ -21,90 +22,122 @@ use Symfony\Component\Security\Core\User\UserInterface;
 #[Route('/structures', name: 'structures_')]
 class StructureController extends AbstractController
 {
-    public function __construct(UserRepository $userRepository, UserModuleRepository $userModuleRepository, private EntityManagerInterface $em)
+    public function __construct(private UserRepository $userRepo, private UserModuleRepository $userModuleRepository, private EntityManagerInterface $em)
     {
-        $this->userRepository = $userRepository;
-        $this->userModuleRepository = $userModuleRepository;
     }
 
     #[Route('/', name: '')]
-    public function index(Request $request): Response
+    public function index(Request $request, PaginationService $pagination): Response
     {
         $this->denyAccessUnlessGranted('ROLE_ADMIN');
 
-        $structures = $this->userRepository->findAllStructures();
-        // dd($structures);
+        $filter = $request->get('filter');
+        if (!$request->get('ajax')) {
 
-        if ($this->isGranted('ROLE_ADMIN')) {
-            $role = "admin";
+            $paginate = $pagination->pagination($request, $this->userRepo, 9, "getPaginated", null, "ROLE_STRUCTURE", null, "getTotal");
+            $structures = $paginate['partners'];
+            $total = $paginate['total'];
+            $limit = $paginate['limit'];
+            $page = $paginate['page'];
+
+            if ($this->isGranted('ROLE_ADMIN')) {
+                $role = "admin";
+            } else {
+                $role = "";
+            }
+
+            return $this->render('structure/index.html.twig', compact('structures', 'role', 'total', 'limit', 'page', 'filter'));
         } else {
-            $role = "";
+            $filter = $request->get('filter');
+            $query = $request->get('query');
+            $paginate = $pagination->pagination($request, $this->userRepo, 9, "getPaginated", $filter, "ROLE_STRUCTURE", $query, "getTotal");
+            $structures = $paginate['partners'];
+            $total = $paginate['total'];
+            $limit = $paginate['limit'];
+            $page = $paginate['page'];
+
+            if ($this->isGranted('ROLE_ADMIN')) {
+                $role = "admin";
+            } else {
+                $role = "";
+            }
+            // return new Response('true');
+            return $this->render('structure/_content.html.twig', compact('structures', 'role', 'total', 'limit', 'page'));
         }
 
-        if ($request->isXmlHttpRequest()) {
-            return new JsonResponse([
-                "content" => $this->renderView("structure/_content.html.twig", compact('structures', 'role'))
-            ]);
-        }
+        // $structures = $this->userRepository->findAllByRole("ROLE_STRUCTURE");
+        // // dd($structures);
 
-        return $this->render('structure/index.html.twig', compact('structures', 'role'));
+        // if ($this->isGranted('ROLE_ADMIN')) {
+        //     $role = "admin";
+        // } else {
+        //     $role = "";
+        // }
+
+        // if ($request->isXmlHttpRequest()) {
+        //     return new JsonResponse([
+        //         "content" => $this->renderView("structure/_content.html.twig", compact('structures', 'role'))
+        //     ]);
+        // }
+
+        // return $this->render('structure/index.html.twig', compact('structures', 'role'));
     }
 
-    #[Route('/all', name: 'all')]
-    public function all(): Response
-    {
-        $structures = $this->userRepository->findAllStructures();
+    // #[Route('/all', name: 'all')]
+    // public function all(): Response
+    // {
+    //     $structures = $this->userRepository->findAllByRole("ROLE_STRUCTURE");
 
-        if ($this->isGranted('ROLE_ADMIN')) {
-            $role = "admin";
-        } else {
-            $role = "";
-        }
+    //     if ($this->isGranted('ROLE_ADMIN')) {
+    //         $role = "admin";
+    //     } else {
+    //         $role = "";
+    //     }
 
-        return $this->render('structure/_content.html.twig', compact('structures', 'role'));
-    }
+    //     return $this->render('structure/_content.html.twig', compact('structures', 'role'));
+    // }
 
-    #[Route('/actives', name: 'activated')]
-    public function activated(): Response
-    {
-        $structures = $this->userRepository->findAllStructuresActivated();
+    // #[Route('/actives', name: 'activated')]
+    // public function activated(): Response
+    // {
+    //     $structures = $this->userRepository->findAllStructuresActivated();
 
-        if ($this->isGranted('ROLE_ADMIN')) {
-            $role = "admin";
-        } else {
-            $role = "";
-        }
+    //     if ($this->isGranted('ROLE_ADMIN')) {
+    //         $role = "admin";
+    //     } else {
+    //         $role = "";
+    //     }
 
-        return $this->render('structure/_content.html.twig', compact('structures', 'role'));
-    }
+    //     return $this->render('structure/_content.html.twig', compact('structures', 'role'));
+    // }
 
-    #[Route('/desactives', name: 'disabled')]
-    public function diasble(): Response
-    {
-        $structures = $this->userRepository->findAllStructuresDisabled();
+    // #[Route('/desactives', name: 'disabled')]
+    // public function diasble(): Response
+    // {
+    //     $structures = $this->userRepository->findAllStructuresDisabled();
 
-        if ($this->isGranted('ROLE_ADMIN')) {
-            $role = "admin";
-        } else {
-            $role = "";
-        }
+    //     if ($this->isGranted('ROLE_ADMIN')) {
+    //         $role = "admin";
+    //     } else {
+    //         $role = "";
+    //     }
 
-        return $this->render('structure/_content.html.twig', compact('structures', 'role'));
-    }
+    //     return $this->render('structure/_content.html.twig', compact('structures', 'role'));
+    // }
 
-    #[Route('/all/{query}', name: 'query')]
-    public function query(string $query): Response
-    {
-        $structures = $this->userRepository->findStructuresByQuery($query);
+    // #[Route('/all/{query}', name: 'query')]
+    // public function query(string $query): Response
+    // {
+    //     $structures = $this->userRepository->findStructuresByQuery($query);
 
-        if ($this->isGranted('ROLE_ADMIN')) {
-            $role = "admin";
-        } else {
-            $role = "";
-        }
+    //     if ($this->isGranted('ROLE_ADMIN')) {
+    //         $role = "admin";
+    //     } else {
+    //         $role = "";
+    //     }
 
-        return $this->render('structure/_content.html.twig', compact('structures', 'role'));
-    }
+    //     return $this->render('structure/_content.html.twig', compact('structures', 'role'));
+    // }
 
     #[Route('/{slug}', name: 'details')]
     public function show(User $structure, UserInterface $user): Response
@@ -163,14 +196,14 @@ class StructureController extends AbstractController
     }
 
     #[Route('/{slug}/active-user', name: 'activate_user')]
-    public function activateUser(User $structure, Request $request, SendMailService $mail): Response
+    public function activateUser(User $structure, Request $request, SendMailService $mail, PaginationService $pagination): Response
     {
         $this->denyAccessUnlessGranted('ROLE_ADMIN');
 
         // dd(parse_url($_SERVER[]));
         if (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on')
             $url = "https";
-        else 
+        else
             $url = "http";
 
         // Ajoutez // à l'URL.
@@ -182,13 +215,7 @@ class StructureController extends AbstractController
         // Ajouter l'emplacement de la ressource demandée à l'URL
         $url .= $_SERVER['REQUEST_URI'];
 
-        // Afficher l'URL
-        // echo $url;
-        // dd(parse_url($url));
-        // dd($_SERVER['HTTP_REFERER']);
-
-
-        $structures = $this->userRepository->findAllStructures();
+        // $structures = $this->userRepository->findAllByRole("ROLE_STRUCTURE");
 
         $structure->setIsActivated(($structure->isIsActivated()) ? false : true);
         $this->em->persist($structure);
@@ -221,15 +248,24 @@ class StructureController extends AbstractController
             $role = "";
         }
 
-        // dd(isset($_COOKIE["card"]));
-
         $this->addFlash('success', 'Email(s) envoyé(s) avec succès');
-        // $this->addFlash('success', 'Changement(s) effectué(s) avec succès');
 
-        if(isset($_COOKIE['card'])){
+        $filter = $request->get('filter');
+        $query = $request->get('query');
+        $paginate = $pagination->pagination($request, $this->userRepo, 9, "getPaginated", $filter, "ROLE_STRUCTURE", $query, "getTotal");
+        $structures = $paginate['partners'];
+        $total = $paginate['total'];
+        $limit = $paginate['limit'];
+        $page = $paginate['page'];
+
+        
+
+
+
+        if (isset($_COOKIE['card'])) {
             return $this->render('structure/_card.html.twig', compact('structure', 'structures', 'role'));
-        }else{            
-            return $this->render('structure/_content.html.twig', compact('structures', 'role'));
+        } else {
+            return $this->render('structure/_content.html.twig', compact('structures', 'role', 'total', 'limit', 'page'));
         }
     }
 
