@@ -1,17 +1,5 @@
-
-let async = (url, element = null) => {
-  axios
-    .get(url)
-    .then((response) => {
-      if (element != null) {
-      $(`.${element}`).html(response.data);
-      }
-    })
-    .catch((error) => {
-      $(`.${element}`).parent().html = `Erreur: ${error.message}`;
-      console.error("Il y a une erreur dans la requête", error);
-    });
-};
+const axios = require('axios').default;
+import {async} from "../functions/async.js"
 
 // ____________________ MODAL SUPPRESSION D'UN PARTENAIRE/STRUCTURE ____________________//
 

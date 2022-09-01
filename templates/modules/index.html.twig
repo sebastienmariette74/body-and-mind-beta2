@@ -5,37 +5,39 @@
 {% block PageTitle %}Liste des droits{% endblock %}
 
 {% block body %}
-<a href="{{ path('modules_add') }}" class="btn btn-success">Ajouter un droit</a>
+    <a href="{{ path('modules_add') }}" class="btn btn-success add-user mx-3">Ajouter un droit</a>
 
-<div class="row justify-content-center">
+    <div id="content" class="row justify-content-center">
 
-    {% for module in modules %}
-        <div class="card col-3  m-3" style="width: 18rem;">
-            {# <img src="..." class="card-img-top" alt="..."> #}
-            <div class="card-body">
-                
-                <h5 class="card-title">
-                    {{ module.name }}
-                </h5>
-                
-                <a class="btn btn-warning" href="{{ path('modules_edit', {'id' : module.id} ) }}">Modifier</a>
-                
-                <button 
-                type="button" 
-                class="btn btn-danger modal-trigger" 
-                data-bs-toggle="modal" 
-                data-bs-target="#staticBackdrop" 
-                data-name="{{ module.name }}"
-                data-slug="{{ module.slug }}" 
-                data-id="{{ module.id }}"
-                >
-                    Supprimer
-                </button>
+        {% for module in modules %}
+            <div class="card col-3 mb-3 m-3" style="width: 18rem;">
+                {# <img src="..." class="card-img-top" alt="..."> #}
+                <div class="card-body d-flex flex-column justify-content-between">
+
+                    <h5 class="card-title fw-bold">
+                        {{ module.name }}
+                    </h5>
+
+                    <div>
+                        <a class="btn btn-warning" href="{{ path('modules_edit', {'id' : module.id} ) }}">Modifier</a>
+
+                        <button
+                                type="button"
+                                class="btn btn-danger modal-trigger"
+                                data-bs-toggle="modal"
+                                data-bs-target="#staticBackdrop"
+                                data-name="{{ module.name }}"
+                                data-slug="{{ module.slug }}"
+                                data-id="{{ module.id }}"
+                        >
+                            Supprimer
+                        </button>
+                    </div>
+                </div>
             </div>
-        </div>
-    {% endfor %}
+        {% endfor %}
 
-    {# <div class="modal shadow-1 white modal-falling" id="modal-delete" data-ax="modal">
+        {# <div class="modal shadow-1 white modal-falling" id="modal-delete" data-ax="modal">
         <div class="modal-header">Header</div>
 
         <div class="divider"></div>
@@ -51,21 +53,23 @@
             <button data-target="modal-delete" class=" btn shadow-1 rounded-1 btn-small primary">ANNULER</button>
         </div>
     </div> #}
-</div>
-<!-- Modal -->
-<div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+    </div>
+
+    {% include "_partials/_modal_delete.html.twig" %}
+    <!-- Modal -->
+    {# <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
 aria-labelledby="staticBackdropLabel" aria-hidden="true">
 <div class="modal-dialog">
     <div class="modal-content">
         <div class="modal-header">
             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
-        <div class="modal-body">
+        <div class="modal-body-delete">
         </div>
         <div class="modal-footer">
             <a class="btn btn-primary" href="">VALIDER</a>
         </div>
     </div>
 </div>
-</div>
+</div> #}
 {% endblock %}

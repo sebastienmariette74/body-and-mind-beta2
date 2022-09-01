@@ -1,57 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
-  <component name="ChangeListManager">
-    <list default="true" id="8eee44ac-1143-4b8a-a68a-3a01446b62cb" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/php.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/phpunit.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/templates/_partials/_pagination.html.twig" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/body-and-mind.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/body-and-mind.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/app.js" beforeDir="false" afterPath="$PROJECT_DIR$/assets/app.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/functions/Async.js" beforeDir="false" afterPath="$PROJECT_DIR$/assets/functions/Async.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/scripts/_filters.js" beforeDir="false" afterPath="$PROJECT_DIR$/assets/scripts/_filters.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/scripts/_modal_delete.js" beforeDir="false" afterPath="$PROJECT_DIR$/assets/scripts/_modal_delete.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/scripts/_modal_switch.js" beforeDir="false" afterPath="$PROJECT_DIR$/assets/scripts/_modal_switch.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/scripts/_modules.js" beforeDir="false" afterPath="$PROJECT_DIR$/assets/scripts/_modules.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/scripts/_pagination.js" beforeDir="false" afterPath="$PROJECT_DIR$/assets/scripts/_pagination.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/styles/app.scss" beforeDir="false" afterPath="$PROJECT_DIR$/assets/styles/app.scss" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/styles/pages/_template.scss" beforeDir="false" afterPath="$PROJECT_DIR$/assets/styles/pages/_template.scss" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/_partials/_main.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/_partials/_main.html.twig" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/base.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/base.html.twig" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/modules/index.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/modules/index.html.twig" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/partner/_cards.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/partner/_cards.html.twig" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/partner/_content.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/partner/_content.html.twig" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/partner/details.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/partner/details.html.twig" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/partner/index.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/partner/index.html.twig" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/structure/_card.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/structure/_card.html.twig" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/structure/_content.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/structure/_content.html.twig" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/structure/details.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/structure/details.html.twig" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/structure/index.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/structure/index.html.twig" afterDir="false" />
-    </list>
-    <option name="SHOW_DIALOG" value="false" />
-    <option name="HIGHLIGHT_CONFLICTS" value="true" />
-    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
-    <option name="LAST_RESOLUTION" value="IGNORE" />
-  </component>
-  <component name="ComposerSettings" synchronizationState="SYNCHRONIZE">
-    <pharConfigPath>$PROJECT_DIR$/composer.json</pharConfigPath>
-    <execution />
-  </component>
-  <component name="FormatOnSaveOptions">
-    <option name="myRunOnSave" value="true" />
-  </component>
-  <component name="Git.Settings">
-    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
-  </component>
-  <component name="MarkdownSettingsMigration">
-    <option name="stateVersion" value="1" />
-  </component>
-  <component name="OptimizeOnSaveOptions">
-    <option name="myRunOnSave" value="true" />
-  </component>
-  <component name="PhpWorkspaceProjectConfiguration">
+  <component name="PhpIncludePathManager">
     <include_path>
       <path value="$PROJECT_DIR$/vendor/phpunit/php-code-coverage" />
       <path value="$PROJECT_DIR$/vendor/phpunit/phpunit" />
@@ -186,67 +135,10 @@
       <path value="$PROJECT_DIR$/vendor/psr/container" />
     </include_path>
   </component>
-  <component name="ProjectId" id="2DetHCmCLWEK5FvEyVIL2NpjEFs" />
-  <component name="ProjectLevelVcsManager">
-    <ConfirmationsSetting value="2" id="Add" />
-  </component>
-  <component name="ProjectViewState">
-    <option name="hideEmptyMiddlePackages" value="true" />
-    <option name="showLibraryContents" value="true" />
-  </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "ASKED_SHARE_PROJECT_CONFIGURATION_FILES": "true",
-    "RunOnceActivity.OpenProjectViewOnStart": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
-    "WebServerToolWindowFactoryState": "false",
-    "code.cleanup.on.save": "true",
-    "last_opened_file_path": "D:/00 - FORMATIONS/00 - formation DEV/STUDI/EVALUATIONS/10 - ECF/body-and-mind",
-    "node.js.detected.package.eslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "nodejs_package_manager_path": "npm",
-    "rearrange.code.on.save": "true",
-    "settings.editor.selected.configurable": "actions.on.save",
-    "vue.rearranger.settings.migration": "true"
-  }
-}]]></component>
-  <component name="RunManager">
-    <configuration default="true" type="ComposerRunConfigurationType" factoryName="Composer Script">
-      <option name="pathToComposerJson" value="$PROJECT_DIR$/composer.json" />
-      <method v="2" />
-    </configuration>
-    <configuration name="phpunit.xml.dist" type="PHPUnitRunConfigurationType" factoryName="PHPUnit">
-      <TestRunner scope="XML" />
-      <method v="2" />
-    </configuration>
-  </component>
-  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
-  <component name="TaskManager">
-    <task active="true" id="Default" summary="Default task">
-      <changelist id="8eee44ac-1143-4b8a-a68a-3a01446b62cb" name="Changes" comment="" />
-      <created>1661071294902</created>
-      <option name="number" value="Default" />
-      <option name="presentableId" value="Default" />
-      <updated>1661071294902</updated>
-      <workItem from="1661071323028" duration="171000" />
-      <workItem from="1662025186100" duration="78000" />
-      <workItem from="1662025350646" duration="19963000" />
-    </task>
-    <servers />
-  </component>
-  <component name="TypeScriptGeneratedFilesManager">
-    <option name="version" value="3" />
-  </component>
-  <component name="Vcs.Log.Tabs.Properties">
-    <option name="TAB_STATES">
-      <map>
-        <entry key="MAIN">
-          <value>
-            <State />
-          </value>
-        </entry>
-      </map>
-    </option>
+  <component name="PhpProjectSharedConfiguration" php_language_level="8.1" />
+  <component name="PhpUnit">
+    <phpunit_settings>
+      <PhpUnitSettings configuration_file_path="$PROJECT_DIR$/phpunit.xml.dist" custom_loader_path="$PROJECT_DIR$/vendor/autoload.php" use_configuration_file="true" />
+    </phpunit_settings>
   </component>
 </project>

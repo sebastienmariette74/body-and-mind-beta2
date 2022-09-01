@@ -15,4 +15,92 @@
  * Copyright 2011-2021 Twitter, Inc.
  * Licensed under MIT (https://github.com/twbs/bootstrap/blob/main/LICENSE)
  */
- 
+
+@import url('https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap');
+
+* {
+  /*border: 1px solid black;*/
+}
+
+body {
+  font-family: 'Lato', sans-serif;
+  margin: 0;
+  padding: 0;
+}
+
+h1 {
+  text-transform: uppercase;
+  text-align: center;
+  font-weight: bold;
+}
+
+.container-fluid {
+  margin: 0;
+  padding: 0;
+}
+
+.js-filter {
+  text-transform: uppercase;
+}
+
+.add-user {
+  display: block;
+}
+
+.card {
+  box-shadow: 0 0 10px 5px grey;
+  z-index: 1;
+  min-height: 150px;
+}
+
+.card-body {
+  text-align: center;
+}
+
+.card-title a {
+  padding: 20px 0px;
+}
+
+.form-switch {
+  display: block;
+  padding: 0 40px;
+}
+
+.js-query {
+  width: 50%;
+  margin: 8px auto 0;
+}
+
+.modal-switch-user {
+  z-index: 2;
+}
+
+.form-check-input {
+  margin: 0 auto !important;
+  padding: 0;
+}
+
+.form-check {
+  display: inline-block;
+}
+
+.card-module {
+  box-shadow: 0 0 10px 5px grey;
+  border-radius: 20px;
+  margin: 16px auto;
+}
+
+.label-module {
+  text-align: left;
+  height: 40px;
+  line-height: 40px;
+}
+
+.form-switch-module {
+  height: 40px;
+}
+
+.activate-module {
+  top: 50%;
+  transform: translateY(50%);
+}

@@ -1,31 +1,31 @@
 {% if is_granted('ROLE_ADMIN') %}
-<div id="layoutSidenav_nav">
-    <nav class="sb-sidenav accordion sb-sidenav-dark" id="sidenavAccordion">
-        <div class="sb-sidenav-menu">
-            <div class="nav">
-                <a class="nav-link" href="/">
-                    <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
-                    Accueil
-                </a>
-                <a class="nav-link" href="{{ path('partners_') }}">
-                    <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
-                    Partenaires
-                </a>
-                <a class="nav-link" href="{{ path('structures_') }}">
-                    <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
-                    Structures
-                </a>
-                <a class="nav-link" href="{{ path('modules_') }}">
-                    <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
-                    Droits
-                </a>
+    <div id="layoutSidenav_nav">
+        <nav class="sb-sidenav accordion sb-sidenav-dark" id="sidenavAccordion">
+            <div class="sb-sidenav-menu">
+                <div class="nav">
+                    <a class="nav-link" href="/">
+                        <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
+                        Accueil
+                    </a>
+                    <a class="nav-link" href="{{ path('partners_') }}">
+                        <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
+                        Partenaires
+                    </a>
+                    <a class="nav-link" href="{{ path('structures_') }}">
+                        <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
+                        Structures
+                    </a>
+                    <a class="nav-link" href="{{ path('modules_') }}">
+                        <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
+                        Droits
+                    </a>
+                </div>
             </div>
-        </div>
-        <div class="sb-sidenav-footer">
-            <div class="small">Logged in as:</div>
-            Start Bootstrap
-        </div>
-    </nav>
-</div>
+            <div class="sb-sidenav-footer">
+                <div class="small">Logged in as:</div>
+                {{ app.user.userIdentifier }}
+            </div>
+        </nav>
+    </div>
 {% endif %}
 
