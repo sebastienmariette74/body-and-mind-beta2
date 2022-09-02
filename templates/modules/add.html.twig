@@ -2,15 +2,15 @@
 
 {% block title %}Ajouter un module{% endblock %}
 
-{% block PageTitle %}Ajouter un module{% endblock %}
+{% block PageTitle %}<h1 class="my-3">Ajouter un module</h1>{% endblock %}
 
 {% block body %}
-<div>
-    {{ form_start(form) }}
+    <div>
+        {{ form_start(form) }}
         {{ form_row(form.name) }}
         <button type="submit" class="btn btn-primary mt-3">Ajouter</button>
-    {{ form_end(form) }}
-</div>
+        {{ form_end(form) }}
+    </div>
 
 
 {% endblock %}

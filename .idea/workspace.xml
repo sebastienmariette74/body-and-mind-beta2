@@ -2,20 +2,47 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="8eee44ac-1143-4b8a-a68a-3a01446b62cb" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/assets/styles/layouts/_modal_delete.scss" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/assets/images/logo.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/assets/images/logo.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/assets/styles/layouts/_card.scss" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/assets/styles/layouts/_main.scss" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/assets/styles/pages/_home.scss" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/assets/styles/pages/_login.scss" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/assets/styles/pages/_partner.scss" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/assets/app.js" beforeDir="false" afterPath="$PROJECT_DIR$/assets/app.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/assets/scripts/_modal_delete.js" beforeDir="false" afterPath="$PROJECT_DIR$/assets/scripts/_modal_delete.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/scripts/_modal_switch.js" beforeDir="false" afterPath="$PROJECT_DIR$/assets/scripts/_modal_switch.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/scripts/_navbar.js" beforeDir="false" afterPath="$PROJECT_DIR$/assets/scripts/_navbar.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/assets/styles/app.scss" beforeDir="false" afterPath="$PROJECT_DIR$/assets/styles/app.scss" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/styles/layouts/_modal_switch.scss" beforeDir="false" afterPath="$PROJECT_DIR$/assets/styles/layouts/_modal_switch.scss" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/assets/styles/pages/_template.scss" beforeDir="false" afterPath="$PROJECT_DIR$/assets/styles/pages/_template.scss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/config/packages/twig.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/config/packages/twig.yaml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Controller/RegisterPartnerController.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Controller/RegisterPartnerController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Controller/StructureController.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Controller/StructureController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Form/RegistrationType.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Form/RegistrationType.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/_partials/_main.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/_partials/_main.html.twig" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/templates/_partials/_modal_delete.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/_partials/_modal_delete.html.twig" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/templates/base.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/base.html.twig" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/home/index.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/home/index.html.twig" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/modules/add.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/modules/add.html.twig" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/modules/edit.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/modules/edit.html.twig" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/templates/modules/index.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/modules/index.html.twig" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/templates/partner/_content.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/partner/_content.html.twig" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/partner/add_structure.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/partner/add_structure.html.twig" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/partner/details.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/partner/details.html.twig" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/partner/edit.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/partner/edit.html.twig" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/partner/index.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/partner/index.html.twig" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/register_partner/_content.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/register_partner/_content.html.twig" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/register_partner/index.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/register_partner/index.html.twig" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/register_structure/index.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/register_structure/index.html.twig" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/security/login.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/security/login.html.twig" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/security/reset_password.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/security/reset_password.html.twig" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/security/reset_password_request.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/security/reset_password_request.html.twig" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/structure/details.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/structure/details.html.twig" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/structure/edit.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/structure/edit.html.twig" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/structure/index.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/structure/index.html.twig" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/webpack.config.js" beforeDir="false" afterPath="$PROJECT_DIR$/webpack.config.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -25,6 +52,13 @@
   <component name="ComposerSettings" doNotAsk="true" synchronizationState="SYNCHRONIZE">
     <pharConfigPath>$PROJECT_DIR$/composer.json</pharConfigPath>
     <execution />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="SCSS File" />
+      </list>
+    </option>
   </component>
   <component name="FormatOnSaveOptions">
     <option name="myRunOnSave" value="true" />
@@ -188,7 +222,8 @@
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "WebServerToolWindowFactoryState": "false",
     "code.cleanup.on.save": "true",
-    "last_opened_file_path": "D:/00 - FORMATIONS/00 - formation DEV/STUDI/EVALUATIONS/10 - ECF/body-and-mind/assets/styles/layouts",
+    "last_opened_file_path": "D:/00 - FORMATIONS/00 - formation DEV/STUDI/EVALUATIONS/10 - ECF/body-and-mind/assets/images",
+    "list.type.of.created.stylesheet": "SCSS",
     "node.js.detected.package.eslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
     "nodejs_package_manager_path": "npm",
@@ -199,6 +234,7 @@
 }]]></component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="D:\00 - FORMATIONS\00 - formation DEV\STUDI\EVALUATIONS\10 - ECF\body-and-mind\assets\images" />
       <recent name="D:\00 - FORMATIONS\00 - formation DEV\STUDI\EVALUATIONS\10 - ECF\body-and-mind\assets\styles\layouts" />
     </key>
   </component>
@@ -220,6 +256,7 @@
       <workItem from="1662025186100" duration="78000" />
       <workItem from="1662025350646" duration="19963000" />
       <workItem from="1662090791103" duration="5523000" />
+      <workItem from="1662105794392" duration="27395000" />
     </task>
     <servers />
   </component>

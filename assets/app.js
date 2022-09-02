@@ -28,8 +28,3 @@ import './scripts/_pagination';
 // Scripts
 //
   
-let test = document.querySelector('.test');
-test.addEventListener('click', ()=>{
-    console('ok');
-    test.style.color = 'black';
-})

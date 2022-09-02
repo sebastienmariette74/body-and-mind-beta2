@@ -2,23 +2,29 @@
 
 {% block title %}Les structures{% endblock %}
 
-{% block PageTitle %}Les structures{% endblock %}
+{% block PageTitle %}<h1 class="my-3">Les structures</h1>{% endblock %}
 
 {% block body %}
     <div>
 
         <form id="filters" class="mb-3">
-            <input type="button" class="btn btn-primary js-filter" name="all" value="tout">
-            <input type="button" class="btn btn-primary js-filter" name="activated" value="activés">
-            <input type="button" class="btn btn-primary js-filter" name="disabled" value="désactivés">
+            <div class="d-flex justify-content-center">
+                <input type="button" class="btn btn-primary js-filter me-2" name="all" value="tout">
+                <input type="button" class="btn btn-primary js-filter me-2" name="activated" value="activés">
+                <input type="button" class="btn btn-primary js-filter" name="disabled" value="désactivés">
+            </div>
             <input type="text" class="form-control js-query d-inline-block" placeholder="Filtrer par nom">
             <input type="hidden" name="page" value="{{ page }}">
         </form>
 
-    </div>
+        <a class="btn btn-success mb-3 mx-3 add-user" href="{{ path('app_register_structure') }}">Ajouter une
+            structure</a>
 
-    <div id="content" class="row justify-content-center content">
-        {% include "structure/_content.html.twig" %}
+
+        <div id="content" class="row justify-content-center content">
+            {% include "structure/_content.html.twig" %}
+        </div>
+
     </div>
 
     {% include "_partials/_modal_switch.html.twig" %}

@@ -2,15 +2,15 @@
 
 {% block title %}Modifier le droit : {{ module.name }}{% endblock %}
 
-{% block PageTitle %}Modifier le droit : {{ module.name }}{% endblock %}
+{% block PageTitle %}<h1 class="my-3">Modifier le droit : {{ module.name }}</h1>{% endblock %}
 
 {% block body %}
-<div>
-    {{ form_start(form) }}
+    <div>
+        {{ form_start(form) }}
         {{ form_row(form.name) }}
         <button type="submit" class="btn btn-primary mt-3">Modifier</button>
-    {{ form_end(form) }}
-</div>
+        {{ form_end(form) }}
+    </div>
 
 
 {% endblock %}

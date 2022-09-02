@@ -2,7 +2,7 @@
 
 {% block title %}Liste des droits{% endblock %}
 
-{% block PageTitle %}Liste des droits{% endblock %}
+{% block PageTitle %}<h1 class="my-3">Liste des droits</h1>{% endblock %}
 
 {% block body %}
     <a href="{{ path('modules_add') }}" class="btn btn-success add-user mx-3">Ajouter un droit</a>
@@ -36,16 +36,10 @@
                 </div>
             </div>
         {% endfor %}
-        <button
-                                type="button"
-                                class="btn btn-danger test"
-                        >
-                            test
-                        </button>
 
     </div>
 
 
     {% include "_partials/_modal_delete.html.twig" %}
-    
+
 {% endblock %}

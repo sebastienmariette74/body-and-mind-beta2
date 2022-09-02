@@ -2,12 +2,12 @@
 
 {% block title %}Modifier la structure : {{ partner.name }}{% endblock %}
 
-{% block PageTitle %}Modifier la structure : {{ partner.name }}{% endblock %}
+{% block PageTitle %}<h1 class="my-3">Modifier la structure : {{ partner.name }}</h1>{% endblock %}
 
 {% block body %}
 
-<div>
-    {{ form_start(form) }}
+    <div>
+        {{ form_start(form) }}
         {{ form_row(form.name) }}
         {{ form_row(form.email) }}
         {{ form_row(form.address) }}
@@ -17,8 +17,8 @@
         {{ form_row(form.partner) }}
         {{ form_row(form.slug) }}
         <button type="submit" class="btn btn-primary mt-3">Modifier</button>
-    {{ form_end(form) }}
-</div>
+        {{ form_end(form) }}
+    </div>
 
 
 {% endblock %}

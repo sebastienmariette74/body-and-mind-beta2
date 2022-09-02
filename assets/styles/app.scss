@@ -1,8 +1,14 @@
 @import "custom";
 @import "~bootstrap/scss/bootstrap";
 @import "./pages/template";
+@import "./pages/register_partner";
+@import "./pages/login";
+@import "./pages/home";
+@import "./pages/partner";
 @import "./layouts/modal_switch";
 @import "./layouts/modal_delete";
+@import "./layouts/card";
+@import "./layouts/main";
 
 @charset "UTF-8";
 /*!
@@ -42,66 +48,4 @@ h1 {
 
 .js-filter {
   text-transform: uppercase;
-}
-
-.add-user {
-  display: block;
-}
-
-.card {
-  box-shadow: 0 0 10px 5px grey;
-  z-index: 1;
-  min-height: 150px;
-}
-
-.card-body {
-  text-align: center;
-}
-
-.card-title a {
-  padding: 20px 0px;
-}
-
-.form-switch {
-  display: block;
-  padding: 0 40px;
-}
-
-.js-query {
-  width: 50%;
-  margin: 8px auto 0;
-}
-
-.modal-switch-user {
-  z-index: 2;
-}
-
-.form-check-input {
-  margin: 0 auto !important;
-  padding: 0;
-}
-
-.form-check {
-  display: inline-block;
-}
-
-.card-module {
-  box-shadow: 0 0 10px 5px grey;
-  border-radius: 20px;
-  margin: 16px auto;
-}
-
-.label-module {
-  text-align: left;
-  height: 40px;
-  line-height: 40px;
-}
-
-.form-switch-module {
-  height: 40px;
-}
-
-.activate-module {
-  top: 50%;
-  transform: translateY(50%);
 }

@@ -11,7 +11,7 @@
 {% endblock %}
 
 
-{% block PageTitle %}{{ structure.name }}{% endblock %}
+{% block PageTitle %}<h1 class="my-3">{{ structure.name }}</h1>{% endblock %}
 
 {% block body %}
 
@@ -41,7 +41,7 @@
                     {% set checked = module.is_activated ? 'checked' : '' %}
 
                     <div class="form-check form-switch form-switch-module">
-                        <input class="form-check-input activate-module btn-lg col-2" type="checkbox"
+                        <input class="form-check-input activate-module style-module btn-lg col-2" type="checkbox"
                                role="switch" {{ checked }}
                                data-role="{{ role }}" data-idmodule="{{ module.id_module }}"
                                data-slug="{{ structure.slug }}">
