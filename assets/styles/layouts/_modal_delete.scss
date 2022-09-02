@@ -1,5 +1,5 @@
 /* The Modal (background) */
-.modal-switch {
+.modal-delete {
   display: none;
   position: fixed;
   z-index: 1;
@@ -14,7 +14,7 @@
 }
 
 /* Modal Content */
-.modal-content-switch {
+.modal-content-delete {
   background-color: #fefefe;
   margin: auto;
   padding: 20px;
@@ -37,7 +37,3 @@
   text-decoration: none;
   cursor: pointer;
 }
-
-/* .modal-body-switch, .modal-footer-switch {
-  border: none;
-} */

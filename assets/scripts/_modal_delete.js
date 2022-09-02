@@ -1,33 +1,39 @@
-
-let async = (url, element = null) => {
-  axios
-    .get(url)
-    .then((response) => {
-      if (element != null) {
-      $(`.${element}`).html(response.data);
-      }
-    })
-    .catch((error) => {
-      $(`.${element}`).parent().html = `Erreur: ${error.message}`;
-      console.error("Il y a une erreur dans la requête", error);
-    });
-};
+const axios = require('axios').default;
+import {async} from "../functions/async.js"
 
 // ____________________ MODAL SUPPRESSION D'UN PARTENAIRE/STRUCTURE ____________________//
 
-$("#content").on("click", ".modal-trigger", function (e) {
-  let href = $(this).data("slug") + "/" + $(this).data("id");
 
-  $(".modal-footer-delete a").attr("href", href);
+    window.onclick = function (event) {
+        if (event.target == $("#modal-delete")) {
+            $("#modal-delete").css("display", "none");
+        }
+    };
 
-  let name = $(this).data("name");
+    $('.modal_trigger').on("click", function (e) {
+        console.log('ok');
+        $("#modal-delete").css("display", "block");
+    });
 
-  $(".modal-body-delete").text("Voulez-vous supprimer " + name + "?");
-});
+    $("#content").on("click", ".modal-trigger", function (e) {
+        $("#modal-delete").css("display", "block");
+        let href = $(this).data("slug") + "/" + $(this).data("id");
+        $(".modal-footer-delete a").attr("href", href);
+        let name = $(this).data("name");
+        $(".modal-body-delete").text("Voulez-vous supprimer " + name + "?");
+    });
 
-$("#cards").on("click", ".modal-trigger", function (e) {
-  let href = $(this).data("slug") + "/" + $(this).data("id");
-  $(".modal-footer-delete a").attr("href", href);
-  let name = $(this).data("name");
-  $(".modal-body-delete").text("Voulez-vous supprimer " + name + "?");
-});
+    $("#cards").on("click", ".modal-trigger", function (e) {
+        $("#modal-delete").css("display", "block");
+        let href = $(this).data("slug") + "/" + $(this).data("id");
+        $(".modal-footer-delete a").attr("href", href);
+        let name = $(this).data("name");
+        $(".modal-body-delete").text("Voulez-vous supprimer " + name + "?");
+    });
+
+    $(".btn-delete-cancel").on("click", function (e) {
+        e.preventDefault();
+        console.log("ok");
+        $("#modal-delete").css("display", "none");
+    });
+

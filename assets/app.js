@@ -8,17 +8,15 @@
 // any CSS you import will output into a single css file (app.css in this case)
 import './styles/app.scss';
 
-import { Tooltip, Toast, Popover } from 'bootstrap';
-
 // start the Stimulus application
 import './bootstrap';
 
-import  './scripts/_navbar';
-import  './scripts/_modules';
-import  './scripts/_modal_delete';
-import  './scripts/_modal_switch';
-import  './scripts/_filters';
-import  './scripts/_pagination';
+import './scripts/_navbar';
+import './scripts/_modules';
+import './scripts/_modal_delete';
+import './scripts/_modal_switch';
+import './scripts/_filters';
+import './scripts/_pagination';
 
 
 /*!
@@ -29,8 +27,4 @@ import  './scripts/_pagination';
 //
 // Scripts
 //
-
-
-  
-  
   

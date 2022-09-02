@@ -1,58 +1,66 @@
 {% extends 'base.html.twig' %}
 
 {% block flash %}
-{% include "_partials/_flash.html.twig" %}
+    {% include "_partials/_flash.html.twig" %}
 {% endblock %}
 
 {% block title %}{{ partner.name }}{% endblock %}
-{% block PageTitle %}{{ partner.name }}{% endblock %}
+
+{% block PageTitle %}<h1 class="my-3">{{ partner.name }}</h1>{% endblock %}
+
 {% block breadcrumb %}
-{% if is_granted('ROLE_ADMIN') %}
-{% include "_partials/_breadcrumb.html.twig" %}
-{% endif %}
+    {% if is_granted('ROLE_ADMIN') %}
+        {% include "_partials/_breadcrumb.html.twig" %}
+    {% endif %}
 {% endblock %}
 
 {% block body %}
-{% if not app.user.isActivated %}
-<div class="alert alert-warning alert-dismissible" role="alert">
-    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-    <div class="alert-message">
-        <strong>Votre compte est actuellement désactivé.</strong>
-    </div>
-</div>
-{% endif %}
-{% if is_granted('ROLE_ADMIN') %}
-<a class="btn btn-success" href="{{ path('partners_add_structure', {slug : partner.slug}) }}">Ajouter une
-    structure</a>
-{% endif %}
-
-{# <button class="btn btn-primary" id="btn-test">TEST</button> #}
-
-{% if (app.user.isVerified and app.user.isActivated) or is_granted('ROLE_ADMIN') %}
-
-<div id="cards" class="row justify-content-center content">
-    {% include "partner/_cards.html.twig" %}
-    {% include "_partials/_modal_switch.html.twig" %}
-    {% include "_partials/_modal_delete.html.twig" %}
-</div>
-
-<div id="modules">
-    <h2>Permissions globales</h2>
-    <div >
-        {% for module in modules %}
-
-        {% set checked = module.is_activated ? 'checked' : '' %}
-
-        <div class="form-check form-switch">
-            <label for="">{{ module.module }}</label>
-            <input class="form-check-input activate-module btn-lg" type="checkbox" role="switch" {{ checked }}
-                data-role="{{ role }}" data-idmodule="{{ module.id_module }}" data-slug="{{ partner.slug }}">
+    {% if not app.user.isActivated %}
+        <div class="alert alert-warning alert-dismissible" role="alert">
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            <div class="alert-message">
+                <strong>Votre compte est actuellement désactivé.</strong>
+            </div>
         </div>
-        {% endfor %}
-    </div>
+    {% endif %}
+    {% if is_granted('ROLE_ADMIN') %}
+        <a class="btn btn-success add-user mx-3 mb-2"
+           href="{{ path('partners_add_structure', {slug : partner.slug}) }}">Ajouter
+            une
+            structure</a>
+    {% endif %}
 
-</div>
-{% endif %}
+    {% if (app.user.isVerified and app.user.isActivated) or is_granted('ROLE_ADMIN') %}
+
+        <div id="cards" class="row justify-content-center content">
+            {% include "partner/_cards.html.twig" %}
+            {% include "_partials/_modal_switch.html.twig" %}
+            {% include "_partials/_modal_delete.html.twig" %}
+        </div>
+
+        <hr class="mt-2 mb-4">
+
+        <div id="modules" class="card-module pb-2">
+            <h2 class="py-3 fw-bold m-0">Permissions globales</h2>
+            <hr class="mt-0 mb-2">
+            <div class="row">
+                {% for module in modules %}
+
+                    {% set checked = module.is_activated ? 'checked' : '' %}
+
+                    <div class="form-check form-switch form-switch-module">
+                        <input class="form-check-input activate-module style-module btn-lg col-2" type="checkbox"
+                               role="switch" {{ checked }}
+                               data-role="{{ role }}" data-idmodule="{{ module.id_module }}"
+                               data-slug="{{ partner.slug }}">
+
+                        <label class="col-9 label-module">{{ module.module }}</label>
+                    </div>
+                {% endfor %}
+            </div>
+
+        </div>
+    {% endif %}
 
 
 

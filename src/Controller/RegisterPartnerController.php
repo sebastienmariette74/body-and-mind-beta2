@@ -4,8 +4,6 @@ namespace App\Controller;
 
 use App\Entity\User;
 use App\Entity\UserModule;
-use App\Form\RegisterPartnerType;
-use App\Form\RegisterType;
 use App\Form\RegistrationType;
 use App\Repository\ModuleRepository;
 use App\Repository\UserRepository;

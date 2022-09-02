@@ -11,9 +11,7 @@ use App\Repository\UserRepository;
 use App\Service\PaginationService;
 use App\Service\SendMailService;
 use Doctrine\ORM\EntityManagerInterface;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -161,28 +159,6 @@ class StructureController extends AbstractController
         }
     }
 
-    // #[Route('/{slug}/active-user', name: 'activate_user')]
-    // public function activateUser (User $structure): Response
-    // {
-    //     $this->denyAccessUnlessGranted('ROLE_ADMIN');
-
-    //     $structure->setIsActivated(($structure->isIsActivated()) ? false:true);
-    //     $this->em->persist($structure);
-    //     $this->em->flush();        
-
-    //     $structureId = $structure->getId();
-    //         $modules = $this->userModuleRepository->findModulesByUser($structureId);
-
-    //         if ($this->isGranted('ROLE_ADMIN')) {
-    //             $role = "admin";
-    //         } else {
-    //             $role = "";
-    //         }
-    //         $partner = $structure->getPartner();
-
-    //         return $this->render('structure/details.html.twig', compact('structure', 'role', 'modules', 'partner'));
-    // }   
-
     #[Route('/{slug}/{id}/active-module', name: 'activate_module')]
     public function activateModule(Module $module, string $slug, string $id): Response
     {
@@ -257,10 +233,6 @@ class StructureController extends AbstractController
         $total = $paginate['total'];
         $limit = $paginate['limit'];
         $page = $paginate['page'];
-
-        
-
-
 
         if (isset($_COOKIE['card'])) {
             return $this->render('structure/_card.html.twig', compact('structure', 'structures', 'role'));
