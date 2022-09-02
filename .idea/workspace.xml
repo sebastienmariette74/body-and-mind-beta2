@@ -2,40 +2,27 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="8eee44ac-1143-4b8a-a68a-3a01446b62cb" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/php.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/phpunit.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/templates/_partials/_pagination.html.twig" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/body-and-mind.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/body-and-mind.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/assets/styles/layouts/_modal_delete.scss" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/assets/app.js" beforeDir="false" afterPath="$PROJECT_DIR$/assets/app.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/functions/Async.js" beforeDir="false" afterPath="$PROJECT_DIR$/assets/functions/Async.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/scripts/_filters.js" beforeDir="false" afterPath="$PROJECT_DIR$/assets/scripts/_filters.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/assets/scripts/_modal_delete.js" beforeDir="false" afterPath="$PROJECT_DIR$/assets/scripts/_modal_delete.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/assets/scripts/_modal_switch.js" beforeDir="false" afterPath="$PROJECT_DIR$/assets/scripts/_modal_switch.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/scripts/_modules.js" beforeDir="false" afterPath="$PROJECT_DIR$/assets/scripts/_modules.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/scripts/_pagination.js" beforeDir="false" afterPath="$PROJECT_DIR$/assets/scripts/_pagination.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/assets/styles/app.scss" beforeDir="false" afterPath="$PROJECT_DIR$/assets/styles/app.scss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/styles/layouts/_modal_switch.scss" beforeDir="false" afterPath="$PROJECT_DIR$/assets/styles/layouts/_modal_switch.scss" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/assets/styles/pages/_template.scss" beforeDir="false" afterPath="$PROJECT_DIR$/assets/styles/pages/_template.scss" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/_partials/_main.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/_partials/_main.html.twig" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/_partials/_modal_delete.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/_partials/_modal_delete.html.twig" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/templates/base.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/base.html.twig" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/templates/modules/index.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/modules/index.html.twig" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/partner/_cards.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/partner/_cards.html.twig" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/templates/partner/_content.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/partner/_content.html.twig" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/partner/details.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/partner/details.html.twig" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/partner/index.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/partner/index.html.twig" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/structure/_card.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/structure/_card.html.twig" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/structure/_content.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/structure/_content.html.twig" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/structure/details.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/structure/details.html.twig" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/structure/index.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/structure/index.html.twig" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
-  <component name="ComposerSettings" synchronizationState="SYNCHRONIZE">
+  <component name="ComposerSettings" doNotAsk="true" synchronizationState="SYNCHRONIZE">
     <pharConfigPath>$PROJECT_DIR$/composer.json</pharConfigPath>
     <execution />
   </component>
@@ -199,10 +186,9 @@
     "ASKED_SHARE_PROJECT_CONFIGURATION_FILES": "true",
     "RunOnceActivity.OpenProjectViewOnStart": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
-    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
     "WebServerToolWindowFactoryState": "false",
     "code.cleanup.on.save": "true",
-    "last_opened_file_path": "D:/00 - FORMATIONS/00 - formation DEV/STUDI/EVALUATIONS/10 - ECF/body-and-mind",
+    "last_opened_file_path": "D:/00 - FORMATIONS/00 - formation DEV/STUDI/EVALUATIONS/10 - ECF/body-and-mind/assets/styles/layouts",
     "node.js.detected.package.eslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
     "nodejs_package_manager_path": "npm",
@@ -211,11 +197,12 @@
     "vue.rearranger.settings.migration": "true"
   }
 }]]></component>
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="D:\00 - FORMATIONS\00 - formation DEV\STUDI\EVALUATIONS\10 - ECF\body-and-mind\assets\styles\layouts" />
+    </key>
+  </component>
   <component name="RunManager">
-    <configuration default="true" type="ComposerRunConfigurationType" factoryName="Composer Script">
-      <option name="pathToComposerJson" value="$PROJECT_DIR$/composer.json" />
-      <method v="2" />
-    </configuration>
     <configuration name="phpunit.xml.dist" type="PHPUnitRunConfigurationType" factoryName="PHPUnit">
       <TestRunner scope="XML" />
       <method v="2" />
@@ -232,6 +219,7 @@
       <workItem from="1661071323028" duration="171000" />
       <workItem from="1662025186100" duration="78000" />
       <workItem from="1662025350646" duration="19963000" />
+      <workItem from="1662090791103" duration="5523000" />
     </task>
     <servers />
   </component>

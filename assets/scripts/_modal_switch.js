@@ -53,6 +53,7 @@ $("#cards").on("click", ".modal-switch-user", function (e) {
 });
 
 $("#content").on("click", ".modal-switch-user", function (e) {
+    console.log('ok');
     e.preventDefault();
     let switchChecked = $(this).is(":checked");
     name = $(this).data("name");
