@@ -2,11 +2,11 @@
 
 {% block title %}{{ structure.name }}{% endblock %}
 
-{% block breadcrumb %}
+{# {% block breadcrumb %}
     {% if is_granted('ROLE_PARTNER') %}
         {% include "_partials/_breadcrumb.html.twig" %}
     {% endif %}
-{% endblock %}
+{% endblock %} #}
 
 
 {% block PageTitle %}<h1 class="my-3">{{ structure.name }}</h1>{% endblock %}

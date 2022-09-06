@@ -8,11 +8,11 @@
 
 {% block PageTitle %}<h1 class="my-3">{{ partner.name }}</h1>{% endblock %}
 
-{% block breadcrumb %}
+{# {% block breadcrumb %}
     {% if is_granted('ROLE_ADMIN') %}
         {% include "_partials/_breadcrumb.html.twig" %}
     {% endif %}
-{% endblock %}
+{% endblock %} #}
 
 {% block body %}
     {% if not app.user.isActivated %}

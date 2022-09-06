@@ -3,6 +3,24 @@
   <component name="ChangeListManager">
     <list default="true" id="8eee44ac-1143-4b8a-a68a-3a01446b62cb" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/app.js" beforeDir="false" afterPath="$PROJECT_DIR$/assets/app.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/scripts/_modal_delete.js" beforeDir="false" afterPath="$PROJECT_DIR$/assets/scripts/_modal_delete.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/scripts/_modal_switch.js" beforeDir="false" afterPath="$PROJECT_DIR$/assets/scripts/_modal_switch.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/scripts/_modules.js" beforeDir="false" afterPath="$PROJECT_DIR$/assets/scripts/_modules.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/styles/layouts/_modal_delete.scss" beforeDir="false" afterPath="$PROJECT_DIR$/assets/styles/layouts/_modal_delete.scss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/styles/layouts/_modal_module.scss" beforeDir="false" afterPath="$PROJECT_DIR$/assets/styles/layouts/_modal_module.scss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/styles/layouts/_modal_switch.scss" beforeDir="false" afterPath="$PROJECT_DIR$/assets/styles/layouts/_modal_switch.scss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/_partials/_modal_delete.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/_partials/_modal_delete.html.twig" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/_partials/_modal_module.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/_partials/_modal_module.html.twig" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/_partials/_modal_switch.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/_partials/_modal_switch.html.twig" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/base.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/base.html.twig" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/email/register.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/email/register.html.twig" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/modules/index.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/modules/index.html.twig" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/partner/_cards.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/partner/_cards.html.twig" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/partner/details.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/partner/details.html.twig" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/security/login.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/security/login.html.twig" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/structure/details.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/structure/details.html.twig" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -180,23 +198,23 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "ASKED_SHARE_PROJECT_CONFIGURATION_FILES": "true",
-    "RunOnceActivity.OpenProjectViewOnStart": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "WebServerToolWindowFactoryState": "false",
-    "code.cleanup.on.save": "true",
-    "last_opened_file_path": "D:/00 - FORMATIONS/00 - formation DEV/STUDI/EVALUATIONS/10 - ECF/body-and-mind/assets/images",
-    "list.type.of.created.stylesheet": "SCSS",
-    "node.js.detected.package.eslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "nodejs_package_manager_path": "npm",
-    "rearrange.code.on.save": "true",
-    "settings.editor.selected.configurable": "terminal",
-    "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;ASKED_SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
+    &quot;code.cleanup.on.save&quot;: &quot;true&quot;,
+    &quot;last_opened_file_path&quot;: &quot;D:/00 - FORMATIONS/00 - formation DEV/STUDI/EVALUATIONS/10 - ECF/body-and-mind/assets/images&quot;,
+    &quot;list.type.of.created.stylesheet&quot;: &quot;SCSS&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;rearrange.code.on.save&quot;: &quot;true&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;terminal&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
-}]]></component>
+}</component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="D:\00 - FORMATIONS\00 - formation DEV\STUDI\EVALUATIONS\10 - ECF\body-and-mind\assets\images" />
@@ -223,6 +241,7 @@
       <workItem from="1662090791103" duration="5523000" />
       <workItem from="1662105794392" duration="28252000" />
       <workItem from="1662360141052" duration="180000" />
+      <workItem from="1662481872692" duration="1641000" />
     </task>
     <servers />
   </component>

@@ -11,8 +11,6 @@ window.onclick = function (event) {
 
 $(".activate-module").css("cursor", "pointer");
 
-$(".modal-content-module").css("top", "0%");
-
 let name, slug, role, moduleId, switchChecked, modulepartner;
 
 $("#modules").on("click", ".activate-module", function (e) {
@@ -28,7 +26,6 @@ $("#modules").on("click", ".activate-module", function (e) {
     e.preventDefault();
 
     $("#modal-module").css("display", "block");
-    $(".modal-content-module").css("top", "50%");
     
     name = $(this).data("name");
     let href = window.location.pathname.split("/");
@@ -72,7 +69,6 @@ $("#modules").on("click", ".activate-module", function (e) {
       e.preventDefault();
       
       if (modulepartner === "désactivé") {
-        $(".modal-content-module").css("transition", "top 2s ease-in");
 
         $(".modal-body-module .question").css("display", "none");
         $(".modal-body-module .para1").text(

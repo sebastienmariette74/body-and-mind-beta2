@@ -20,7 +20,8 @@ import {async} from "../functions/async.js"
         let href = $(this).data("slug") + "/" + $(this).data("id");
         $(".modal-footer-delete a").attr("href", href);
         let name = $(this).data("name");
-        $(".modal-body-delete").text("Voulez-vous supprimer " + name + "?");
+        $(".modal-body-delete .question1").text("Voulez-vous supprimer ");
+        $(".modal-body-delete .question2").text(name);
     });
 
     $("#cards").on("click", ".modal-trigger", function (e) {
@@ -28,7 +29,8 @@ import {async} from "../functions/async.js"
         let href = $(this).data("slug") + "/" + $(this).data("id");
         $(".modal-footer-delete a").attr("href", href);
         let name = $(this).data("name");
-        $(".modal-body-delete").text("Voulez-vous supprimer " + name + "?");
+        $(".modal-body-delete .question1").text("Voulez-vous supprimer ");
+        $(".modal-body-delete .question2").text(name);
     });
 
     $(".btn-delete-cancel").on("click", function (e) {

@@ -24,6 +24,7 @@
 
 <body>
 {% include "_partials/_nav.html.twig" %}
+{% block flash %}{% include "_partials/_flash.html.twig" %}{% endblock %}
 
 <section id="login">
     <div>
@@ -36,11 +37,9 @@
                 </div>
             </div>
         {% endif %}
-        {% block flash %}{% include "_partials/_flash.html.twig" %}{% endblock %}
         {# {% include "_partials/_flash.html.twig" %} #}
         <main>
             <div id="flash"></div>
-            {% block breadcrumb %}{% endblock %}
             <div class="container-fluid container-login d-flex flex-column">
                 <h1 class="my-3">
                     {% block PageTitle %}
