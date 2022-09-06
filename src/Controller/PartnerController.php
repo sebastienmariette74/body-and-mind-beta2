@@ -261,15 +261,41 @@ class PartnerController extends AbstractController
     }
 
     #[Route('/{slug}/{id}/active-module', name: 'activate_module')]
-    public function activateModule(Module $module, string $slug, string $id): Response
+    public function activateModule(Module $module, string $slug, string $id, User $user): Response
     {
-
+        $partner = $this->userRepository->findUserBySlug($slug);
+        // dd($partner->getId());
         $module = $this->userModuleRepository->findModule($slug, $id);
-        $module->setIsActivated(($module->isIsActivated()) ? false : true);
+        $structures = $this->userRepository->findAllStructuresByPartner($partner->getId());
+     
+
+        // $module->setIsActivated(($module->isIsActivated()) ? false : true);
+        
+            if ($module->isIsActivated()) {
+                $module->setIsActivated(false);
+                foreach($structures as $structure){
+                    $module = $this->userModuleRepository->findModuleByStructureById($structure->getId(), $id);
+                    $module->setIsActivated(false);
+                }
+            } else {
+                $module->setIsActivated(true);
+            }
+        
         $this->em->persist($module);
         $this->em->flush();
 
-        return new Response('true');
+        // return new Response('true');
+        if ($this->isGranted('ROLE_ADMIN')) {
+            $role = "admin";
+        } else {
+            $role = "";
+        }
+        
+        $modules = $this->userModuleRepository->findModulesByUser($partner->getId());
+        // dd($modules);
+
+        return $this->render("partner/_modules.html.twig", compact('partner', 'role', 'structures', 'modules'));
+        // return new Response ("true");
     }
 
     #[Route('/{slug}/ajouter-une-structure', name: 'add_structure')]

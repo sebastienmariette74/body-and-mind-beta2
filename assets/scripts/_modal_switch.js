@@ -72,7 +72,7 @@ $("#content").on("click", ".modal-switch-user", function (e) {
     state = $(this).data("state");
 });
 
-$(".btn-switch").click(function (e) {
+$(".btn-switch").on("click", function (e) {
     e.preventDefault();
 
     let params = new URLSearchParams(window.location.search);
@@ -97,7 +97,7 @@ $(".btn-switch").click(function (e) {
     $("#modal-switch").css("display", "none");
 });
 
-$(".btn-switch-cancel").click(function (e) {
+$(".btn-switch-cancel").on("click", function (e) {
     e.preventDefault();
     $("#modal-switch").css("display", "none");
 });

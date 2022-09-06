@@ -1,21 +1,19 @@
-
-<nav class="sb-topnav navbar navbar-expand navbar-dark bg-dark">    
+<nav class="sb-topnav navbar navbar-expand navbar-dark bg-dark">
 
     <!-- Navbar Brand-->
     {# <a class="navbar-brand ps-3" href="/">Body &amp; Mind</a> #}
     {% if is_granted("ROLE_ADMIN") %}
     <a class="navbar-brand ps-3" href="/">Body &amp; Mind</a>
-    {% endif %}   
-
-    {% if is_granted("ROLE_PARTNER") %}
-        {% if partner.slug is defined %}
-        <a class="navbar-brand ps-3" href="{{ path('partners_details', {slug : partner.slug}) }}">Body &amp; Mind</a>
-        {% endif %}
-    {% elseif is_granted("ROLE_STRUCTURE") %}
-        {% if structure.slug is defined %}
-        <a class="navbar-brand ps-3" href="{{ path('structures_details', {slug : structure.slug}) }}">Body &amp; Mind</a>
-        {% endif %}
+    {% elseif is_granted("ROLE_PARTNER") %}
+    {% if partner.slug is defined %}
+    <a class="navbar-brand ps-3" href="{{ path('partners_details', {slug : partner.slug}) }}">Body &amp; Mind</a>
     {% endif %}
+    {% elseif is_granted("ROLE_STRUCTURE") %}
+    {% if structure.slug is defined %}
+    <a class="navbar-brand ps-3" href="{{ path('structures_details', {slug : structure.slug}) }}">Body &amp; Mind</a>
+    {% endif %}
+    {% endif %}
+
 
     <!-- Sidebar Toggle-->
     {% if is_granted('ROLE_ADMIN') %}
@@ -30,7 +28,7 @@
                 aria-describedby="btnNavbarSearch" /> #}
             {# <button class="btn btn-primary" id="btnNavbarSearch" type="button"><i class="fas fa-search"></i></button>
             #}
-            </div>
+        </div>
     </form>
     <!-- Navbar-->
     <ul class="navbar-nav ms-auto ms-md-0 me-3 me-lg-4">

@@ -46,11 +46,10 @@ class UserModuleRepository extends ServiceEntityRepository
             // ->select('u.id, u.slug, u.name as user, mod.name as Module, mod.slugModule, m.is_activated')
             ->innerJoin('m.user', 'u')
             ->innerJoin('m.module', 'mod')
-            ->where('u.id = :id')   
+            ->where('u.id = :id')
             ->setParameter('id', $id)
             ->getQuery()
-            ->getResult()
-       ;
+            ->getResult();
     }
     public function findUserModulesByUser($id): array
     {
@@ -59,11 +58,10 @@ class UserModuleRepository extends ServiceEntityRepository
             // ->select('u.id, u.slug, u.name as user, mod.name as Module, mod.slugModule, m.is_activated')
             ->innerJoin('m.user', 'u')
             ->innerJoin('m.module', 'mod')
-            ->where('u.id = :id')   
+            ->where('u.id = :id')
             ->setParameter('id', $id)
             ->getQuery()
-            ->getResult()
-       ;
+            ->getResult();
     }
     public function findAllModules(): array
     {
@@ -76,8 +74,7 @@ class UserModuleRepository extends ServiceEntityRepository
             // ->where('mod.id = 1')   
             // ->setParameter('id', $id)
             ->getQuery()
-            ->getResult()
-       ;
+            ->getResult();
     }
     public function findModule($slug, $id): ?UserModule
     {
@@ -86,39 +83,64 @@ class UserModuleRepository extends ServiceEntityRepository
             // ->select('u.id, u.slug, u.name as user, mod.name as Module, mod.slugModule, m.is_activated')
             ->innerJoin('m.user', 'u')
             ->innerJoin('m.module', 'mod')
-            ->where('u.slug = :slug')   
-            ->andWhere('mod.id = :id')   
+            ->where('u.slug = :slug')
+            ->andWhere('mod.id = :id')
             ->setParameters([
                 'slug' => $slug,
                 'id' => $id
-                ])
+            ])
             ->getQuery()
-            ->getOneOrNullResult()
-       ;
+            ->getOneOrNullResult();
     }
 
-//    /**
-//     * @return UserModule[] Returns an array of UserModule objects
-//     */
-//    public function findByExampleField($value): array
-//    {
-//        return $this->createQueryBuilder('u')
-//            ->andWhere('u.exampleField = :val')
-//            ->setParameter('val', $value)
-//            ->orderBy('u.id', 'ASC')
-//            ->setMaxResults(10)
-//            ->getQuery()
-//            ->getResult()
-//        ;
-//    }
+    public function findModuleByStructureById($structure, $id): ?UserModule
+    {
+        return $this->createQueryBuilder('m')
+            ->where('m.user = :structure')
+            ->andWhere('m.module = :id')
+            ->setParameters([
+                'structure' => $structure,
+                'id' => $id
+            ])
+            ->getQuery()
+            ->getOneOrNullResult();
+    }
 
-//    public function findOneBySomeField($value): ?UserModule
-//    {
-//        return $this->createQueryBuilder('u')
-//            ->andWhere('u.exampleField = :val')
-//            ->setParameter('val', $value)
-//            ->getQuery()
-//            ->getOneOrNullResult()
-//        ;
-//    }
+    public function findModulesByPartner($partner): array
+    {
+        return $this->createQueryBuilder('m')
+            ->select('mod.id as module_id, m.is_activated as activated')
+            ->innerJoin('m.module', 'mod')
+            ->where('m.user = :partner')
+            ->setParameter('partner', $partner)
+            ->getQuery()
+            ->getResult();
+    }
+
+
+
+    //    /**
+    //     * @return UserModule[] Returns an array of UserModule objects
+    //     */
+    //    public function findByExampleField($value): array
+    //    {
+    //        return $this->createQueryBuilder('u')
+    //            ->andWhere('u.exampleField = :val')
+    //            ->setParameter('val', $value)
+    //            ->orderBy('u.id', 'ASC')
+    //            ->setMaxResults(10)
+    //            ->getQuery()
+    //            ->getResult()
+    //        ;
+    //    }
+
+    //    public function findOneBySomeField($value): ?UserModule
+    //    {
+    //        return $this->createQueryBuilder('u')
+    //            ->andWhere('u.exampleField = :val')
+    //            ->setParameter('val', $value)
+    //            ->getQuery()
+    //            ->getOneOrNullResult()
+    //        ;
+    //    }
 }

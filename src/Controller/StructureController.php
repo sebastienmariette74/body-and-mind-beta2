@@ -151,24 +151,54 @@ class StructureController extends AbstractController
                 $role = "";
             }
             $partner = $structure->getPartner();
-            // dd($structure);
 
-            return $this->render('structure/details.html.twig', compact('structure', 'role', 'modules', 'partner'));
+            $modulesPartner = $this->userModuleRepository->findModulesByPartner($structure->getPartner());
+            // dd($modulesPartner);
+
+            return $this->render('structure/details.html.twig', compact('structure', 'role', 'modules', 'partner', 'modulesPartner'));
         } else {
             return $this->render('bundles/TwigBundle/Exception/error404.html.twig');
         }
     }
 
     #[Route('/{slug}/{id}/active-module', name: 'activate_module')]
-    public function activateModule(Module $module, string $slug, string $id): Response
+    public function activateModule(Module $module, string $slug, string $id, UserRepository $userRepo, Request $request): Response
     {
+        if ($request->get('cancel')) {
+            $structure = $this->userRepo->findUserBySlug($slug);
+            $module = $this->userModuleRepository->findModule($slug, $id);
 
-        $module = $this->userModuleRepository->findModule($slug, $id);
-        $module->setIsActivated(($module->isIsActivated()) ? false : true);
-        $this->em->persist($module);
-        $this->em->flush();
+            if ($this->isGranted('ROLE_ADMIN')) {
+                $role = "admin";
+            } else {
+                $role = "";
+            }
 
-        return new Response('true');
+            $modulesPartner = $this->userModuleRepository->findModulesByPartner($structure->getPartner());
+
+            $modules = $this->userModuleRepository->findModulesByUser($structure->getId());
+
+            return $this->render("structure/_modules.html.twig", compact('structure', 'role', 'modules', 'modulesPartner'));
+        } else {
+
+            $structure = $this->userRepo->findUserBySlug($slug);
+            $module = $this->userModuleRepository->findModule($slug, $id);
+            $module->setIsActivated(($module->isIsActivated()) ? false : true);
+            $this->em->persist($module);
+            $this->em->flush();
+    
+            if ($this->isGranted('ROLE_ADMIN')) {
+                $role = "admin";
+            } else {
+                $role = "";
+            }
+    
+            $modulesPartner = $this->userModuleRepository->findModulesByPartner($structure->getPartner());
+    
+            $modules = $this->userModuleRepository->findModulesByUser($structure->getId());
+    
+            return $this->render("structure/_modules.html.twig", compact('structure', 'role', 'modules', 'modulesPartner'));
+        }
     }
 
     #[Route('/{slug}/active-user', name: 'activate_user')]

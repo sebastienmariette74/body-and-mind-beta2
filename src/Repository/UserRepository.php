@@ -67,6 +67,9 @@ class UserRepository extends ServiceEntityRepository implements PasswordUpgrader
             ->getResult();
     }
 
+  
+
+
     // public function findAllActivatedPartners(): array
     // {
     //     return $this->createQueryBuilder('u')
@@ -144,6 +147,15 @@ class UserRepository extends ServiceEntityRepository implements PasswordUpgrader
     //         ->getResult();
     // }
 
+    public function findUserBySlug($slug)
+    {
+        return $this->createQueryBuilder('u')
+            ->where('u.slug = :slug')
+            ->setParameter('slug', $slug)
+            ->getQuery()
+            ->getOneOrNullResult();
+    }
+    
     public function findAllStructuresByPartner($id): array
     {
         return $this->createQueryBuilder('u')
