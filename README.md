@@ -81,10 +81,11 @@ L’interface sera utilisée par l’équipe technique de développement de la m
 
 Guide d'utilisation
 =========
+
 Le guide d'utilisation se trouve dans le dossier annexes.
 
 Vous pouvez également cliquer sur
-ce [lien]()
+ce [lien](https://github.com/sebastienmariette74/body-and-mind/blob/main/annexes/guide%20d'utilisation.pdf).
 
 Déploiement
 =========

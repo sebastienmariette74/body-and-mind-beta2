@@ -4,23 +4,6 @@
     <list default="true" id="8eee44ac-1143-4b8a-a68a-3a01446b62cb" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/app.js" beforeDir="false" afterPath="$PROJECT_DIR$/assets/app.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/scripts/_modal_delete.js" beforeDir="false" afterPath="$PROJECT_DIR$/assets/scripts/_modal_delete.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/scripts/_modal_switch.js" beforeDir="false" afterPath="$PROJECT_DIR$/assets/scripts/_modal_switch.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/scripts/_modules.js" beforeDir="false" afterPath="$PROJECT_DIR$/assets/scripts/_modules.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/styles/layouts/_modal_delete.scss" beforeDir="false" afterPath="$PROJECT_DIR$/assets/styles/layouts/_modal_delete.scss" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/styles/layouts/_modal_module.scss" beforeDir="false" afterPath="$PROJECT_DIR$/assets/styles/layouts/_modal_module.scss" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/styles/layouts/_modal_switch.scss" beforeDir="false" afterPath="$PROJECT_DIR$/assets/styles/layouts/_modal_switch.scss" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/_partials/_modal_delete.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/_partials/_modal_delete.html.twig" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/_partials/_modal_module.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/_partials/_modal_module.html.twig" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/_partials/_modal_switch.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/_partials/_modal_switch.html.twig" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/base.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/base.html.twig" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/email/register.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/email/register.html.twig" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/modules/index.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/modules/index.html.twig" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/partner/_cards.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/partner/_cards.html.twig" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/partner/details.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/partner/details.html.twig" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/security/login.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/security/login.html.twig" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/structure/details.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/structure/details.html.twig" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -241,7 +224,8 @@
       <workItem from="1662090791103" duration="5523000" />
       <workItem from="1662105794392" duration="28252000" />
       <workItem from="1662360141052" duration="180000" />
-      <workItem from="1662481872692" duration="1641000" />
+      <workItem from="1662481872692" duration="2453000" />
+      <workItem from="1662530832883" duration="269000" />
     </task>
     <servers />
   </component>
