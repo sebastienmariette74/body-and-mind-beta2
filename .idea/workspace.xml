@@ -1,9 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
+<<<<<<< HEAD
     <list default="true" id="8eee44ac-1143-4b8a-a68a-3a01446b62cb" name="Changes" comment="modify readme file">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
     </list>
+=======
+    <list default="true" id="8eee44ac-1143-4b8a-a68a-3a01446b62cb" name="Changes" comment="CRUD modules" />
+>>>>>>> 71323cba3599c134878ff1198e61e67f2966f5ae
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -224,8 +228,17 @@
       <workItem from="1662105794392" duration="28252000" />
       <workItem from="1662360141052" duration="180000" />
       <workItem from="1662481872692" duration="2453000" />
-      <workItem from="1662530832883" duration="269000" />
+      <workItem from="1662530832883" duration="857000" />
+      <workItem from="1662539843826" duration="2447000" />
     </task>
+    <task id="LOCAL-00001" summary="CRUD modules">
+      <created>1662542314467</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1662542314467</updated>
+    </task>
+    <option name="localTasksCounter" value="2" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -241,5 +254,9 @@
         </entry>
       </map>
     </option>
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="CRUD modules" />
+    <option name="LAST_COMMIT_MESSAGE" value="CRUD modules" />
   </component>
 </project>

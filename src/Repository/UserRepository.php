@@ -67,7 +67,20 @@ class UserRepository extends ServiceEntityRepository implements PasswordUpgrader
             ->getResult();
     }
 
-  
+    
+
+    public function findAllUsers(): array
+    {        
+        $query = $this->getEntityManager()->createQuery("
+            SELECT u 
+            FROM App\Entity\User u 
+            WHERE u.roles LIKE '%ROLE_PARTNER%' 
+            OR u.roles LIKE '%ROLE_STRUCTURE%' 
+        ");
+        return $query->getResult();
+    }
+
+
 
 
     // public function findAllActivatedPartners(): array
@@ -78,7 +91,7 @@ class UserRepository extends ServiceEntityRepository implements PasswordUpgrader
     //         ->getResult();
     // }
 
-    
+
 
     // public function findAllPartnersActivated($role): array
     // {
@@ -155,7 +168,7 @@ class UserRepository extends ServiceEntityRepository implements PasswordUpgrader
             ->getQuery()
             ->getOneOrNullResult();
     }
-    
+
     public function findAllStructuresByPartner($id): array
     {
         return $this->createQueryBuilder('u')
@@ -189,20 +202,20 @@ class UserRepository extends ServiceEntityRepository implements PasswordUpgrader
             ->setMaxResults($limit)
             ->orderBy('u.name');
 
-        if ($filter === 'activated'){
+        if ($filter === 'activated') {
             $query->andWhere('u.isActivated = true');
         }
 
-        if ($filter === 'disabled'){
+        if ($filter === 'disabled') {
             $query->andWhere('u.isActivated = false');
         }
 
         if ($querySearch != null) {
             $query->andWhere('u.name LIKE :query')
-            ->setParameter('query' , '%' . $querySearch . '%')
-            ->orderBy('u.name');
+                ->setParameter('query', '%' . $querySearch . '%')
+                ->orderBy('u.name');
         }
-            
+
         return $query->getQuery()->getResult();
     }
 
@@ -212,21 +225,21 @@ class UserRepository extends ServiceEntityRepository implements PasswordUpgrader
             ->select('COUNT(u)')
             ->where('u.roles LIKE :role')
             ->setParameter('role', '%"' . $role . '"%');
-        
-            if ($filter === 'activated'){
-                $query->andWhere('u.isActivated = true');
-            }
-    
-            if ($filter === 'disabled'){
-                $query->andWhere('u.isActivated = false');
-            }
 
-            if ($querySearch != null) {
-                $query->andWhere('u.name LIKE :query')
-                ->setParameter('query' , '%' . $querySearch . '%')
+        if ($filter === 'activated') {
+            $query->andWhere('u.isActivated = true');
+        }
+
+        if ($filter === 'disabled') {
+            $query->andWhere('u.isActivated = false');
+        }
+
+        if ($querySearch != null) {
+            $query->andWhere('u.name LIKE :query')
+                ->setParameter('query', '%' . $querySearch . '%')
                 ->orderBy('u.name');
-            }
-            
+        }
+
         return $query->getQuery()->getSingleScalarResult();
     }
 

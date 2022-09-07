@@ -44,7 +44,7 @@ $("#modules").on("click", ".activate-module", function (e) {
         );
         $(".modal-body-module .question2").text(`${name}`);
         $(".modal-body-module .para1").text(
-          `Cette action ne concerne que ce partenaire. Ce droit devra être activé au cas par cas pour chaque structure dont dépend le partenaire`
+          `Cette action ne concerne que ce partenaire. Ce droit devra être activé au cas par cas pour chaque structure dont dépend le partenaire.`
         );
       }
     } else if (switchChecked) {

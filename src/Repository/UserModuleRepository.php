@@ -63,6 +63,17 @@ class UserModuleRepository extends ServiceEntityRepository
             ->getQuery()
             ->getResult();
     }
+    public function findByModule($module): array
+    {
+        return $this->createQueryBuilder('m')
+            // ->select('u.id, mod.id as id_module, mod.name as module, mod.slug, m.is_activated')
+            // ->select('u.id, u.slug, u.name as user, mod.name as Module, mod.slugModule, m.is_activated')
+            // ->innerJoin('m.user', 'u')
+            ->where('m.module = :module')
+            ->setParameter('module', $module)
+            ->getQuery()
+            ->getResult();
+    }
     public function findAllModules(): array
     {
         return $this->createQueryBuilder('m')
