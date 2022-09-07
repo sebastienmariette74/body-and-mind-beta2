@@ -1,14 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="8eee44ac-1143-4b8a-a68a-3a01446b62cb" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/scripts/_modules.js" beforeDir="false" afterPath="$PROJECT_DIR$/assets/scripts/_modules.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Controller/ModuleController.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Controller/ModuleController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Repository/UserModuleRepository.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Repository/UserModuleRepository.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Repository/UserRepository.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Repository/UserRepository.php" afterDir="false" />
-    </list>
+    <list default="true" id="8eee44ac-1143-4b8a-a68a-3a01446b62cb" name="Changes" comment="CRUD modules" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -230,8 +223,16 @@
       <workItem from="1662360141052" duration="180000" />
       <workItem from="1662481872692" duration="2453000" />
       <workItem from="1662530832883" duration="857000" />
-      <workItem from="1662539843826" duration="2030000" />
+      <workItem from="1662539843826" duration="2447000" />
     </task>
+    <task id="LOCAL-00001" summary="CRUD modules">
+      <created>1662542314467</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1662542314467</updated>
+    </task>
+    <option name="localTasksCounter" value="2" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -247,5 +248,9 @@
         </entry>
       </map>
     </option>
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="CRUD modules" />
+    <option name="LAST_COMMIT_MESSAGE" value="CRUD modules" />
   </component>
 </project>
