@@ -1,0 +1,52 @@
+Index: .idea/workspace.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/.idea/workspace.xml b/.idea/workspace.xml
+--- a/.idea/workspace.xml	
++++ b/.idea/workspace.xml	
+@@ -1,7 +1,7 @@
+ <?xml version="1.0" encoding="UTF-8"?>
+ <project version="4">
+   <component name="ChangeListManager">
+-    <list default="true" id="8eee44ac-1143-4b8a-a68a-3a01446b62cb" name="Changes" comment="CRUD modules" />
++    <list default="true" id="8eee44ac-1143-4b8a-a68a-3a01446b62cb" name="Changes" comment="modify readme file" />
+     <option name="SHOW_DIALOG" value="false" />
+     <option name="HIGHLIGHT_CONFLICTS" value="true" />
+     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+@@ -223,7 +223,7 @@
+       <workItem from="1662360141052" duration="180000" />
+       <workItem from="1662481872692" duration="2453000" />
+       <workItem from="1662530832883" duration="857000" />
+-      <workItem from="1662539843826" duration="2447000" />
++      <workItem from="1662539843826" duration="2781000" />
+     </task>
+     <task id="LOCAL-00001" summary="CRUD modules">
+       <created>1662542314467</created>
+@@ -232,7 +232,14 @@
+       <option name="project" value="LOCAL" />
+       <updated>1662542314467</updated>
+     </task>
+-    <option name="localTasksCounter" value="2" />
++    <task id="LOCAL-00002" summary="modify readme file">
++      <created>1662542592653</created>
++      <option name="number" value="00002" />
++      <option name="presentableId" value="LOCAL-00002" />
++      <option name="project" value="LOCAL" />
++      <updated>1662542592653</updated>
++    </task>
++    <option name="localTasksCounter" value="3" />
+     <servers />
+   </component>
+   <component name="TypeScriptGeneratedFilesManager">
+@@ -251,6 +258,7 @@
+   </component>
+   <component name="VcsManagerConfiguration">
+     <MESSAGE value="CRUD modules" />
+-    <option name="LAST_COMMIT_MESSAGE" value="CRUD modules" />
++    <MESSAGE value="modify readme file" />
++    <option name="LAST_COMMIT_MESSAGE" value="modify readme file" />
+   </component>
+ </project>
+\ No newline at end of file
