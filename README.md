@@ -1,17 +1,13 @@
 # ECF salle de sport
 
-## Description
+### Description
 
 Application à destination de l'équipe technique de la marque en vue de gérer les droits d'accès des applications web de
 ses franchisés et partenaires qui possèdent des salles de sport.
 Lorsqu'une salle de sport ouvre et prend la franchise de la marque, elle a accès à un outil de gestion en ligne
 comportant différentes fonctionnalités qu'elle peut utiliser en fonction de son contrat.
 
-
-Sommaire
-=========
-
-<!--ts-->
+# Sommaire
 
 * [Détails du projet](#details-du-projet)
 * [Guide d'utilisation](#guide-dutilisation)
@@ -19,16 +15,9 @@ Sommaire
 * [Installation en local](#installation-en-local)
 * [Questions et réflexions](#questions-et-reflexions)
 
-<!--te-->
+# Détails du projet
 
-Détails du projet
-=========
-
-
-Détails du projet
-=========
-
-### Objectifs :
+## Objectifs
 
 L’objectif du projet est de mener une étude (Analyse des besoins) et développer l’application web présentée ci-dessous.
 Il convient également d’élaborer un dossier d’architecture web qui documente entre autres les choix des technologies,
@@ -38,7 +27,7 @@ Il est également demandé d’élaborer un document spécifique sur les mesures
 place et la justification de chacune d’entre elles. Les bases de données et tout autre composant nécessaire pour faire
 fonctionner le projet sont également accompagnés d’un manuel de configuration et d’utilisation.
 
-### Exigences :
+## Exigences
 
 Notre client est une grande marque de salle de sport et souhaite la création d’une interface simple à destination de ses
 équipes qui gèrent les droits d'accès à ses applications web de ses franchisés et partenaires qui possèdent des salles
@@ -61,13 +50,11 @@ sont accessibles par ces partenaires.
 Elle doit faciliter l'ajout, la modification ou la suppression des permissions aux modules de chaque
 partenaire/franchisé.
 
-### cible :
-
-##### Client :
+## cible
 
 L’interface sera utilisée par l’équipe technique de développement de la marque.
 
-### Descriptions des fonctionnalités :
+## Descriptions des fonctionnalités
 
 - Afficher la liste des partenaires actifs,
 - Afficher la liste des partenaires désactivés,
@@ -79,73 +66,14 @@ L’interface sera utilisée par l’équipe technique de développement de la m
 - Possibilité de confirmation d’accès aux données de la structure par le partenaire,
 - Afficher le contenu du mail dans un nouvel onglet.
 
-Guide d'utilisation
-=========
+# Guide d'utilisation
 
-Le guide d'utilisation se trouve dans le dossier annexes.
+Le guide d'utilisation se trouve dans le dossier ```annexes```.
 
 Vous pouvez également cliquer sur
 ce [lien](https://github.com/sebastienmariette74/body-and-mind/blob/main/annexes/guide%20d'utilisation.pdf).
 
-Déploiement
-=========
-Afin de déployer le projet sur Heroku. Il est important d'avoir créer un compte sur celui-ci et également avoir créer un
-compte sur aws.
-
-Il faut avoir créer un bucket s3 ainsi qu'avoir récupéré :
-
-* La clé du bucket s3
-* La clé secret du bucket s3
-* Le nom du bucket s3
-
-[Documentation aws bucket s3](https://docs.aws.amazon.com/fr_fr/AmazonS3/latest/dev/UsingBucket.html)
-
-#### Déploiement sur Heroku
-
-* Créer une nouvelle aplication avec la cli
-    * ````heroku create````
-* Configurer les variables d'environnement
-    * ```heroku config:set APP_ENV=prod```
-    * ```heroku config:set AWS_KEY=votreKeyS3```
-    * ```heroku config:set AWS_SECRET=votreKeySecretS3```
-    * ```heroku config:set AWS_BUCKET=votreNomDuBucketS3```
-* Ajouter une instance de Postgresql pour votre projet
-    * ```heroku addons:create heroku-postgresql:hobby-dev```
-* Lancer le déploiement
-    * ```git push heroku master```
-
-Installation en local
-====================
-
-Pour installer le projet en local. Vous devez avoir un environement de développement correctement configuré.
-
-[Mettre en place un environement de développement](https://symfony.com/doc/current/setup.html)
-
-Une fois cela fait :
-
-* Cloner le projet
-    * ````git clone https://github.com/trouvainGregoire/studi-ecf-bank.git````
-* Créer une copie du .env en le nommant .env.local
-    * ````cp .env .env.local````
-* Modifier le fichier .env.local afin de le rendre compatible avec votre environement
-* Installer les dépendances php
-    * ````composer install````
-* Installer les dépendances javascript
-    * ````yarn install````
-* Exécuter les migrations sur la base de données
-    * ```php bin/console doctrine:migrations:migrate```
-* Créer les comptes banquiers
-    * ````php bin/console app:create-banker email password````
-* Compiler le javascript
-    * ````yarn encore dev````
-* Lancer le projet
-    * ````symfony server:start````
-
-Questions et réflexions
-=========
-Le document questions et réflexions ce trouve dans le dossier pdf.
-Vous pouvez également cliquer sur
-ce [lien](https://github.com/trouvainGregoire/studi-ecf-bank/blob/master/pdf/Questions%20et%20R%C3%A9ponses%20-%20ECF%20Banque.pdf)
+# Déploiement
 
 ## Environnement de développement
 
@@ -172,6 +100,97 @@ npm run build
 symfony serve -d
 ```
 
-Avant chaque utilisation de l'application, vous devez lancer le proramme suivant :
+Avant chaque utilisation de l'application, vous devez
 
-[mailHog](https://github.com/mailhog/MailHog/releases/tag/v1.0.1)
+- lancer le proramme suivant :
+  [mailHog](https://github.com/mailhog/MailHog/releases/tag/v1.0.1)
+- ouvrir le ```localhost:1025```
+
+Cela vous permettra d'accéder à une bôite mail factice pour tester l'application.
+
+## Déploiement sur Heroku
+
+Afin de déployer le projet sur Heroku. Il est important d'avoir créer un compte sur celui-ci.
+
+* Créer une nouvelle aplication avec la cli
+    * ````heroku create````
+* Configurer les variables d'environnement
+    * ```heroku config:set APP_ENV=prod```
+* Lancer le déploiement
+    * ```git push heroku main```
+
+## Installation en local
+
+Pour installer le projet en local. Vous devez avoir un environement de développement correctement configuré.
+
+[Mettre en place un environement de développement](https://symfony.com/doc/current/setup.html)
+
+Une fois cela fait :
+
+* Cloner le projet
+    * ````git clone https://github.com/trouvainGregoire/studi-ecf-bank.git````
+* Créer une copie du .env en le nommant .env.local
+    * ````cp .env .env.local````
+* Modifier le fichier .env.local afin de le rendre compatible avec votre environement
+* Installer les dépendances php
+    * ````composer install````
+* Installer les dépendances javascript
+    * ````npm install````
+* Exécuter les migrations sur la base de données
+    * ```php bin/console doctrine:migrations:migrate```
+* Compiler le javascript
+    * ````npm run dev````
+* Lancer le projet
+    * ````symfony server:start````
+
+Questions et réflexions
+=========
+Le document questions et réflexions ce trouve dans le dossier ```annexes```.
+
+Vous pouvez également cliquer sur
+ce [lien](https://github.com/trouvainGregoire/studi-ecf-bank/blob/master/pdf/Questions%20et%20R%C3%A9ponses%20-%20ECF%20Banque.pdf)
+.
+
+# Contents
+
+- [Title](#title)
+- [Big Title](#big-title)
+- [Medium Title](#medium-title)
+- [Small Title](#small-title)
+
+# Title
+
+## Big Title
+
+This tests links in Github markdown.
+
+Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum ac sapien vulputate, iaculis purus quis, commodo
+mauris. Maecenas id neque purus. Nullam a lacus porttitor, auctor diam nec, luctus sapien. Ut viverra sapien nec mauris
+luctus, ac molestie ante viverra. Mauris nisi nisl, commodo et condimentum non, eleifend et velit. Maecenas mollis
+semper massa a gravida. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas.
+Morbi pharetra accumsan luctus. Suspendisse vitae iaculis augue. Etiam ultrices massa sit amet augue laoreet, sit amet
+gravida nisi bibendum. Vivamus nulla eros, ullamcorper eu tellus at, malesuada vehicula tortor. Ut sollicitudin
+tincidunt dolor eget varius. Mauris commodo, ipsum eget tincidunt accumsan, quam massa porta massa, at mollis risus sem
+a lectus. Maecenas sapien dui, eleifend sed risus eu, laoreet mattis nisi. Nunc suscipit condimentum arcu, ut venenatis
+turpis suscipit non.
+
+### Medium Title
+
+Donec hendrerit nisl sed ipsum hendrerit, eget molestie ante porttitor. Ut sed congue magna, eget tristique felis.
+Vestibulum ut congue lacus, non iaculis dui. Sed nec cursus nulla. Pellentesque at risus sed eros tristique semper a eu
+lectus. Aliquam ut cursus eros. Donec non augue et enim ullamcorper rutrum ac nec lacus. Donec eu blandit leo, quis
+faucibus mi.
+
+Morbi ultrices at mi a fringilla. Nulla magna risus, pellentesque in adipiscing at, fermentum ut dolor. Donec
+sollicitudin ut magna non aliquam. Aenean vulputate vitae est quis dapibus. Aenean laoreet diam justo, at consequat nisi
+pellentesque ut. Ut molestie vulputate urna eu viverra. Praesent id commodo nisl. Aliquam quis consectetur nibh. Aenean
+ultricies pellentesque elit lacinia gravida. Cras a auctor magna.
+
+#### Small Title
+
+Donec in elementum ante, eu aliquet orci. Maecenas non venenatis ante. Etiam vel sollicitudin diam, a sodales sem.
+Aenean interdum quam commodo porta sagittis. Curabitur non aliquam odio. Nam pharetra tempor purus, sit amet iaculis
+odio placerat id. Sed hendrerit consequat lorem quis faucibus. Aenean eu eros ante. Nulla nec nunc id eros consequat
+dictum.
+
+Aliquam id dolor quis est dictum hendre
