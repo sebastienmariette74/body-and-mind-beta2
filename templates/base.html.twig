@@ -41,7 +41,7 @@
         {# {% include "_partials/_flash.html.twig" %} #}
         <main>
             {# <div id="flash"></div> #}
-            <div class="container-user">
+            <div class="container-user m-3">
 
                 {% block PageTitle %}
                 {% endblock %}
@@ -53,10 +53,6 @@
                         {% include "_partials/_modal_switch.html.twig" %}
                     </div>
                 </div>
-                {# <div class="card mb-4">
-                        <div class="card-body">When scrolling, the navigation stays at the top of the page. This is the
-                            end of the static navigation demo.</div>
-                    </div> #}
             </div>
         </main>
         {% include "_partials/_footer.html.twig" %}
@@ -65,7 +61,7 @@
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/js/bootstrap.bundle.min.js"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.js"></script>
-<script type="text/javascript" src="{{ asset('build/app.js') }}"></script>
+{# <script type="text/javascript" src="{{ asset('build/app.js') }}"></script> #}
 
 </body>
 

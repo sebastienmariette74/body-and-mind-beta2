@@ -5,6 +5,7 @@
 @import "./pages/login";
 @import "./pages/home";
 @import "./pages/partner";
+@import "./pages/add_module";
 @import "./layouts/modal_switch";
 @import "./layouts/modal_delete";
 @import "./layouts/modal_module";
@@ -30,23 +31,5 @@
   /*border: 1px solid black;*/
 }
 
-body {
-  font-family: 'Lato', sans-serif;
-  margin: 0;
-  padding: 0;
-}
 
-h1 {
-  text-transform: uppercase;
-  text-align: center;
-  font-weight: bold;
-}
 
-.container-fluid {
-  margin: 0;
-  padding: 0;
-}
-
-.js-filter {
-  text-transform: uppercase;
-}
