@@ -1,21 +1,6 @@
 const axios = require('axios').default;
 import {async} from "../functions/async.js"
 
-
-// let async = (url, element = null) => {
-//     axios
-//       .get(url)
-//       .then((response) => {
-//         if (element != null) {
-//         $(`.${element}`).html(response.data);
-//         }
-//       })
-//       .catch((error) => {
-//         $(`.${element}`).parent().html = `Erreur: ${error.message}`;
-//         console.error("Il y a une erreur dans la requête", error);
-//       });
-//   };
-
 // ______________________ FILTRE DES PARTENAIRES/STRUCTURES PAR NOM, OU ACTIVE/DESACTIVE _________________ //
 
 function onClickFilter(event) {

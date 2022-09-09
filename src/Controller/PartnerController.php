@@ -45,8 +45,6 @@ class PartnerController extends AbstractController
         $this->denyAccessUnlessGranted('ROLE_ADMIN');
 
         $filter = $request->get('filter');
-        // var_dump($filter);
-        // var_dump($request->get('ajax'));
         if (!$request->get('ajax')) {
 
             if ($request->get("filter") != "") {
