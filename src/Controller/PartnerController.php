@@ -96,8 +96,6 @@ class PartnerController extends AbstractController
     }
 
 
-
-
     #[Route('/{slug}', name: 'details')]
     public function show(User $partner, UserInterface $user, Request $request): Response
     {
@@ -143,8 +141,10 @@ class PartnerController extends AbstractController
                     $type = "structure";
                     $partner = $user;
                     $mail->send(
-                        'noreply@bodyandmind.fr',
-                        $structure->getEmail(),
+                        'sebastien.mariette.74@gmail.com',
+                        // 'noreply@bodyandmind.fr',
+                        'dev@example.com',
+                        // $structure->getEmail(),
                         'Changement du statut de votre compte sur le site Body & Mind',
                         'info_state_partner',
                         compact('structure', 'partner', 'type')
@@ -169,8 +169,10 @@ class PartnerController extends AbstractController
             $partner = $user;
 
             $mail->send(
-                'noreply@bodyandmind.fr',
-                $user->getEmail(),
+                'sebastien.mariette.74@gmail.com',
+                // 'noreply@bodyandmind.fr',
+                'dev@example.com',
+                // $user->getEmail(),
                 'Changement du statut de votre compte sur le site Body & Mind',
                 'info_state_partner',
                 compact('partner', 'type')
@@ -178,25 +180,6 @@ class PartnerController extends AbstractController
 
             $this->addFlash('success', 'Email(s) envoyé(s) avec succès');
 
-            // return $this->render('partner/_content.html.twig', compact('partners', 'role'));
-
-            // $filter = $request->get('filter');
-            // if (!$request->get('ajax')) {
-
-            //     $paginate = $pagination->pagination($request, $userRepository, 9, "getPaginated", null, "ROLE_PARTNER", null, "getTotal");
-            //     $partners = $paginate['partners'];
-            //     $total = $paginate['total'];
-            //     $limit = $paginate['limit'];
-            //     $page = $paginate['page'];
-
-            //     if ($this->isGranted('ROLE_ADMIN')) {
-            //         $role = "admin";
-            //     } else {
-            //         $role = "";
-            //     }
-
-            //     return $this->render('partner/_content.html.twig', compact('partners', 'role', 'total', 'limit', 'page'));
-            // } else {
             $filter = $request->get('filter');
             $query = $request->get('query');
             $paginate = $pagination->pagination($request, $userRepository, 9, "getPaginated", $filter, "ROLE_PARTNER", $query, "getTotal");
@@ -210,9 +193,7 @@ class PartnerController extends AbstractController
             } else {
                 $role = "";
             }
-            // return new Response('true');
             return $this->render('partner/_content.html.twig', compact('partners', 'role', 'total', 'limit', 'page'));
-            // }
         }
 
         if ($user->getRoles()[0] === 'ROLE_STRUCTURE') {
