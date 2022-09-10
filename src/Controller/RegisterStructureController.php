@@ -83,6 +83,8 @@ class RegisterStructureController extends AbstractController
 
             $token = $jwt->generate($header, $payload, $this->getParameter('app.jwtsecret'));
 
+            dd($partner);
+
             $mail->send(
                 'noreply@bodyandmind.fr',
                 // 'sebastien.mariette.74@gmail.com',
