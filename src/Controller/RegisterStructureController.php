@@ -84,7 +84,8 @@ class RegisterStructureController extends AbstractController
             $token = $jwt->generate($header, $payload, $this->getParameter('app.jwtsecret'));
 
             $mail->send(
-                'noreply@bodyandmind.fr',
+                // 'noreply@bodyandmind.fr',
+                'bodyandmindfrance@gmail.com',
                 $structure->getEmail(),
                 'Activation de votre compte sur le site Body & Mind',
                 'register',
@@ -97,7 +98,8 @@ class RegisterStructureController extends AbstractController
             $url = $this->generateUrl('structures_details', ['slug' => $slug], UrlGeneratorInterface::ABSOLUTE_URL);
 
             $mail->send(
-                'noreply@bodyandmind.fr',
+                // 'noreply@bodyandmind.fr',
+                'bodyandmindfrance@gmail.com',
                 $partner->getEmail(),
                 'Activation du compte de votre salle de sport',
                 'info_partner',
