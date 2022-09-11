@@ -86,7 +86,8 @@ class RegisterStructureController extends AbstractController
 
             $mail->send(
                 // 'noreply@bodyandmind.fr',
-                'sebastien.mariette.74@gmail.com',
+                'bodyandmindfrance@gmail.com',
+                // 'sebastien.mariette.74@gmail.com',
                 'dev@example.com',
                 // $structure->getEmail(),
                 'Activation de votre compte sur le site Body & Mind',
@@ -101,7 +102,8 @@ class RegisterStructureController extends AbstractController
 
             $mail->send(
                 // 'noreply@bodyandmind.fr',
-                'sebastien.mariette.74@gmail.com',                
+                'bodyandmindfrance@gmail.com',
+                // 'sebastien.mariette.74@gmail.com',                
                 'dev@example.com',
                 // $partner->getEmail(),
                 'Activation du compte de votre salle de sport',
