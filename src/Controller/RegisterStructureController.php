@@ -28,7 +28,6 @@ class RegisterStructureController extends AbstractController
         Request $request, 
         UserPasswordHasherInterface $userPasswordHasher, 
         UserAuthenticatorInterface $userAuthenticator , 
-        // UserAuthenticator $authenticator, 
         EntityManagerInterface $entityManager, 
         SluggerInterface $slugger,
         SendMailService $mail, 
