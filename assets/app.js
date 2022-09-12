@@ -28,4 +28,4 @@ import './scripts/_pagination';
 // Scripts
 //
 
-console.log('ok');
+console.log('min');
